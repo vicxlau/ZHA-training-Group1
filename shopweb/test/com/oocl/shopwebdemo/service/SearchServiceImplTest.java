@@ -37,7 +37,7 @@ public class SearchServiceImplTest {
 		System.out.println("Total: " + searchResults.getTotalResultCount());
 		System.out.println("Current Page: " + searchResults.getPageNum());
 		
-		for (Product product : searchResults.getResults()) {
+		for (Product product : searchResults.getPageResults()) {
 			System.out.println(String.format("Id: %s, Name: %s, Price: %s, Pic: %s, Remarks: %s",
 						product.getId(),
 						product.getName(),

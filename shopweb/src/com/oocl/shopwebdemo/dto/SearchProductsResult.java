@@ -6,19 +6,25 @@ import com.oocl.shopwebdemo.model.Product;
 
 public class SearchProductsResult {
 	private int totalResultCount;
+	private int pageCount;
 	private int pageSize;
 	private int pageNum;
-	private List<Product> results;
+	private List<Product> pageResults;
 
 
 	public int getTotalResultCount() { return totalResultCount; }
+	public int getPageCount() { return pageCount; }
 	public int getPageSize() { return pageSize; }
 	public int getPageNum() { return pageNum; }
-	public List<Product> getResults() { return results; }
+	public List<Product> getPageResults() { return pageResults; }
 
 
 	public void setTotalResultCount(int totalResultCount) {
 		this.totalResultCount = totalResultCount;
+	}
+	
+	public void setPageCount(int pageCount) {
+		this.pageCount = pageCount;
 	}
 	
 	public void setPageSize(int pageSize) {
@@ -29,7 +35,7 @@ public class SearchProductsResult {
 		this.pageNum = pageNum;
 	}
 
-	public void setResults(List<Product> results) {
-		this.results = results;
+	public void setPageResults(List<Product> pageResults) {
+		this.pageResults = pageResults;
 	}
 }
