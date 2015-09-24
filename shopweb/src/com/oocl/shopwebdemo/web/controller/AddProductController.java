@@ -35,8 +35,6 @@ public class AddProductController extends HttpServlet {
 			request.setAttribute("showErrorMsg", true);
 			request.setAttribute("addProductSuccess", false);
 			request.setAttribute("errorMsg", e.getMessage());
-			
-			request.setAttribute("pro_name", "dfdfd");
 		}
 
 

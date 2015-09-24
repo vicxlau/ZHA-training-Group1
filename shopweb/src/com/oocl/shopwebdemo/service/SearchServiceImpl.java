@@ -14,9 +14,6 @@ public class SearchServiceImpl implements ISearchService {
 		if (keyword == null)
 			throw new IllegalArgumentException("Null keyword.");
 		
-		if (keyword.equals(""))
-			throw new IllegalArgumentException("Empty keyword.");
-		
 		if (pageSize < 1)
 			throw new IllegalArgumentException("Page Size should be larger than zero.");
 		
@@ -28,7 +25,7 @@ public class SearchServiceImpl implements ISearchService {
 		int totalResultCount = productDao.getProductsSearchResultCountByKeyword(keyword);
 		
 		searchResults.setPageSize(pageSize);
-		searchResults.setPageCount(totalResultCount/3 + 1);
+		searchResults.setPageCount(totalResultCount/pageSize + 1);
 		searchResults.setPageNum(pageNum);
 		searchResults.setTotalResultCount(totalResultCount);
 		searchResults.setPageResults(productDao.searchProductsByKeywordWithPaging(keyword, pageSize, pageNum));

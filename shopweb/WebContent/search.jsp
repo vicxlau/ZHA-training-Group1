@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,78 @@
 	<jsp:include page="header.jsp"></jsp:include>
 
 	<h4 class="centralize">Search / Edit / Delete Products</h4>
+
+	
+	<div style="width: 500px;" class="centralize">
+		<form role="form" action="/shopweb/searchProductServlet" method="get">
+			<div class="form-group">
+				<input class="form-control" id="keyword" name="keyword" placeholder="Enter keyword" value="${param.keyword}">
+			</div>
+
+			<input type="hidden" id="pageSize" name="pageSize" value="10">
+			<input type="hidden" id="pageNum" name="pageNum" value="1">
+
+			<div class="centralize">
+				<button type="submit" class="btn btn-default" style="margin-bottom: 10px;"><img src="/shopweb/pictures/search-icon.png" width=30 height=30 /></button>
+			</div>
+		</form>
+	</div>
+	
+	
+	<c:if test="${requestScope.searchSuccess}">
+		
+		<table class="table table-striped table-hover">
+			<thead>
+				<tr>
+					<th></th>
+					<th>Name</th>
+					<th>Price</th>
+					<th>Pic Path</th>
+					<th>Remark</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			<c:forEach items="${requestScope.pageResults}" var="product" varStatus="num">
+
+				<tr>
+					<td>${num.count + (requestScope.pageNum-1)*requestScope.pageSize}</td>
+					<td>${product.name}</td>
+					<td>${product.price}</td>
+					<td>${product.pic}</td>
+					<td>${product.remark}</td>
+				</tr>
+
+			</c:forEach>
+
+			</tbody>
+		</table>
+
+		<div class="centralize">
+			<ul class="pagination">
+				
+			<c:forEach begin="1" end="${requestScope.pageCount}" varStatus="loop">
+				<c:if test="${loop.index == requestScope.pageNum}">
+					<li><a style="background-color: yellow;" href="/shopweb/searchProductServlet?keyword=${param.keyword}&pageSize=${requestScope.pageSize}&pageNum=${loop.index}">${loop.index}</a></li>
+				</c:if>
+				<c:if test="${loop.index != requestScope.pageNum}">
+					<li><a href="/shopweb/searchProductServlet?keyword=${param.keyword}&pageSize=${requestScope.pageSize}&pageNum=${loop.index}">${loop.index}</a></li>
+				</c:if>
+			</c:forEach>
+
+			</ul>
+		</div>
+
+	</c:if>
+
+
+	<p class="centralize home-btn"><a href="/shopweb/home.jsp">Return to home page</a></p>
+
+	<jsp:include page="footer.jsp"></jsp:include>
+</body>
+</html>
+
+<!--  for ajax search
 
 <div ng-app="searchApp">
 	<div id="searchResult"></div>
@@ -72,9 +145,4 @@
 	});
 </script>
 
-
-	<p class="centralize home-btn"><a href="/shopweb/home.jsp">Return to home page</a></p>
-
-	<jsp:include page="footer.jsp"></jsp:include>
-</body>
-</html>
+ -->
