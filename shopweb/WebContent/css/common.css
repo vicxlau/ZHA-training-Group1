@@ -1,0 +1,26 @@
+body {
+	width: 1024px;
+	margin: auto !important;
+}
+
+.centralize {
+	display: table;
+	margin: auto;
+}
+
+.home-btn {
+	margin-top: 10px !important;
+}
+
+h4 {
+	margin-bottom: 10px !important;
+}
+
+.smart-message {
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 10px;
+	margin-botton: 10px;
+	color: red;
+	background-color: yellow;
+}

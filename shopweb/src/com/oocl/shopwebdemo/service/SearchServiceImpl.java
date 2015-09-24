@@ -6,6 +6,8 @@ import com.oocl.shopwebdemo.dto.SearchProductsResult;
 
 public class SearchServiceImpl implements ISearchService {
 
+	private IProductDao productDao = new ProductDaoImpl();
+	
 	@Override
 	public SearchProductsResult searchProducts(String keyword, int pageSize, int pageNum) {
 		
@@ -22,7 +24,6 @@ public class SearchServiceImpl implements ISearchService {
 			throw new IllegalArgumentException("Page Num should be larger than zero.");
 		
 		SearchProductsResult searchResults = new SearchProductsResult();
-		IProductDao productDao = new ProductDaoImpl();
 		
 		int totalResultCount = productDao.getProductsSearchResultCountByKeyword(keyword);
 		
