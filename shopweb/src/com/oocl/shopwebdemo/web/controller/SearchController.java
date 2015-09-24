@@ -52,7 +52,7 @@ public class SearchController extends HttpServlet {
 		}
 		
 
-		request.getRequestDispatcher("/search.jsp").forward(request, response);
+		request.getRequestDispatcher("/searchResult.jsp").forward(request, response);
 
 
 		/* for ajax search
