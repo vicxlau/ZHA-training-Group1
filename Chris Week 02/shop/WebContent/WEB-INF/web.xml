@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <!-- 
+  		兩選一
+  		1.註解, 開發快, 維護成本高 @WebService("/CategoryServlet")
+  		2. XML, 開發慢, 維護成本低
+   -->
+   <!-- Servlet -->
+  <servlet>
+  	<servlet-name>CategoryServlet</servlet-name> <!-- same -->
+  	<servlet-class>cn.oocl.servlet.CategoryServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>CategoryServlet</servlet-name> <!-- same -->
+  	<url-pattern>/CategoryServlet</url-pattern>
+  </servlet-mapping>
+  <!-- Servlet -->
+  
+   <servlet>
+  	<servlet-name>ProductServlet</servlet-name> <!-- same -->
+  	<servlet-class>cn.oocl.servlet.ProductServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ProductServlet</servlet-name> <!-- same -->
+  	<url-pattern>/ProductServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+  <display-name>test</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
