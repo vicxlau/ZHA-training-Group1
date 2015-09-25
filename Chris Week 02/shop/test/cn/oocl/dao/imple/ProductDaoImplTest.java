@@ -10,12 +10,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import cn.oocl.model.Product;
-import cn.oocl.service.imple.ProductServiceImpl;
+import cn.oocl.service.ProductService;
 
 public class ProductDaoImplTest {
 	
 	private static ProductDaoImpl proDaoImpl;
-	private static ProductServiceImpl srv;
+	private static ProductService srv;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {

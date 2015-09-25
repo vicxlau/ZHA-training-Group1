@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import cn.oocl.model.Product;
+import cn.oocl.service.ProductService;
 import cn.oocl.service.imple.ProductServiceImpl;
 
 //@WebService("/CategoryServlet") used web.xml instead
@@ -18,7 +19,7 @@ public class ProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//UI -> Servlet (Data裝到Model)|| -> Service ||-> Dao -> DB
-	private ProductServiceImpl productService = new ProductServiceImpl();
+	private ProductService productService = new ProductServiceImpl();
 	
 	//store searching keyword, if singleton, dont use private variable, thread security problem
 	//private String keyword = null;
