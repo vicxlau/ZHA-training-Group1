@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>shopweb</display-name>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>SearchController</servlet-name>
+    <servlet-class>com.oocl.shopwebdemo.web.controller.SearchController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>AddProductController</servlet-name>
+    <servlet-class>com.oocl.shopwebdemo.web.controller.AddProductController</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RetrievalController</servlet-name>
+    <servlet-class>com.oocl.shopwebdemo.web.controller.RetrievalController</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>SearchController</servlet-name>
+    <url-pattern>/searchProductServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>AddProductController</servlet-name>
+    <url-pattern>/addProductServlet</url-pattern>
+  </servlet-mapping>
+  
+  <servlet-mapping>
+    <servlet-name>RetrievalController</servlet-name>
+    <url-pattern>/retrievalServlet</url-pattern>
+  </servlet-mapping>
+  
+  
+</web-app>
