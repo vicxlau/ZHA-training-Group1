@@ -19,8 +19,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<li class="active">${requestScope.category.type}</li>
 		</ol>
 		<h2>${requestScope.category.type}</h2>			
-<!-- 		 <div class="col-md-9 product-model-sec"> -->
-		 <div class="col-md-11 product-model-sec">
+		 <div class="col-md-9 product-model-sec">
+<!-- 		 <div class="col-md-11 product-model-sec"> -->
 			<c:forEach items="${requestScope.cateResults}" var="product" varStatus="num">
 					 <div class="product-grid love-grid">
 						<a href="${shop}/retrievalServlet?action=product&id=${product.id}">
@@ -50,7 +50,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>	
 			</c:forEach>
 		</div>
-<!-- 		<div class="rsidebar span_1_of_left"> -->
+		<div class="rsidebar span_1_of_left">
 <!-- 			 <section  class="sky-form"> -->
 <!-- 				 <div class="product_right"> -->
 <!-- 					 <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories</h4> -->
@@ -70,7 +70,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- 				      </div>	 -->
 <!-- 			      </div>		  -->
 <!-- 			 </section> -->
-<!-- 		 </div>				  -->
+				<section  class="sky-form">
+					 <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>DISCOUNTS</h4>
+					 <div class="row row1 scroll-pane">
+						 <div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
+						 </div>
+						 <div class="col col-4">
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
+								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
+						 </div>
+					 </div>
+				 </section> 	
+		 </div>				 
 
 		<!-- Pagination -->
 		<div class="row text-center">
