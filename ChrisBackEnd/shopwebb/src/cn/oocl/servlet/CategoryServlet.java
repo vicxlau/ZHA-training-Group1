@@ -60,7 +60,7 @@ public class CategoryServlet extends HttpServlet {
 			
 			// 3: get the result from Service then send back to UI
 	        System.out.println("----Send back to UI----");
-	        response.sendRedirect("/shopwebb/AccountServlet");
+	        response.sendRedirect("/shopwebb/AccountServlet?url=index.jsp");
 			
 		}
 		else if (status.equals("query")){

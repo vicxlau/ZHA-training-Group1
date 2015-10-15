@@ -44,18 +44,22 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> {
 		product.setPrice(rs.getDouble("pro_price"));
 		product.setPic(rs.getString("pro_pic"));
 		product.setRemark(rs.getString("pro_remark"));
-		product.setCategory(categoryServiceImpl.getById(rs.getInt("cat_id")));
+		product.setAdv(Double.parseDouble(rs.getString("pro_adv")));
+		product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
+		//product.setCategory(categoryServiceImpl.getById(rs.getInt("cat_id")));
 		return product;
 	}
 
 	public int delete(int id){
-		String sql="delete from product where pro_id=?";
-		Object[] param=new Object[]{id};
-		return super.executeUpdate(sql, param);
+//		String sql="delete from product where pro_id=?";
+//		Object[] param=new Object[]{id};
+//		return super.executeUpdate(sql, param);
+		return super.executeUpdate2("delete product where pro_id=?",id);
 	}
 	
 	public Product getById(int id) {
-		String sql = "select * from product where pro_id = ?";
+		//String sql = "select * from product where pro_id = ?";
+		String sql = "select p.* , cp.cat_id from product p LEFT JOIN category_product cp ON p.pro_id = cp.pro_id WHERE p.pro_id = ?";
 		//return (Product) super.get(sql, id);
 		return (Product) super.get(sql, id, new RowMapper<Product>(){
 			
@@ -68,6 +72,8 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> {
 				product.setPrice(rs.getDouble("pro_price"));
 				product.setPic(rs.getString("pro_pic"));
 				product.setRemark(rs.getString("pro_remark"));
+				product.setAdv(Double.parseDouble(rs.getString("pro_adv")));
+				product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 				product.setCategory(categoryServiceImpl.getById(rs.getInt("cat_id")));
 				return product;
 			}	
@@ -75,17 +81,23 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> {
 	}
 
 	public int save(Product product) {
-		String sql = "insert into product (pro_name,pro_price,pro_pic,pro_remark,cat_id) values (?,?,?,?,?)";
-		Object[] param = new Object[] { product.getName(), product.getPrice(),
-				product.getPic(), product.getRemark(), product.getCategory().getId() };
-		return super.executeUpdate(sql, param);
+//		String sql = "insert into product (pro_name,pro_price,pro_pic,pro_remark,cat_id) values (?,?,?,?,?)";
+//		Object[] param = new Object[] { product.getName(), product.getPrice(),
+//				product.getPic(), product.getRemark(), product.getCategory().getId() };
+		return super.executeUpdate2("call UI_PRODUCT_SAVE(?,?,?,?,?,?,?)",
+				product.getName(), product.getPrice(), product.getPic(),
+				product.getRemark(), product.getAdv(), product.getCategory().getId(), product.getDiscount());
 	}
 
 	public int update(Product product) {
-		String sql = "update product set pro_name=?,pro_price=?,pro_pic=?,pro_remark=?,cat_id=? where pro_id=?";
-		Object[] param = new Object[] { product.getName(), product.getPrice(),
-				product.getPic(), product.getRemark(), product.getCategory().getId(), product.getId()};
-		return super.executeUpdate(sql, param);
+//		String sql = "update product set pro_name=?,pro_price=?,pro_pic=?,pro_remark=?,cat_id=? where pro_id=?";
+//		Object[] param = new Object[] { product.getName(), product.getPrice(),
+//				product.getPic(), product.getRemark(), product.getCategory().getId(), product.getId()};
+//		return super.executeUpdate(sql, param);
+		return super.executeUpdate2("call UI_PRODUCT_UPDATE(?,?,?,?,?,?,?,?)",
+				product.getId(), product.getName(), product.getPrice(),
+				product.getPic(), product.getRemark(), product.getAdv(),
+				product.getCategory().getId(), product.getDiscount());
 	}
 	
 	public List<Product> queryByCid(int cid){
@@ -102,6 +114,8 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> {
 				product.setName(rs.getString("pro_name"));
 				product.setPic(rs.getString("pro_pic"));
 				product.setRemark(rs.getString("pro_remark"));
+				product.setAdv(Double.parseDouble(rs.getString("pro_adv")));
+				product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 				Category category = new Category();
 				category.setType(rs.getString("cat_type"));
 				product.setCategory(category);

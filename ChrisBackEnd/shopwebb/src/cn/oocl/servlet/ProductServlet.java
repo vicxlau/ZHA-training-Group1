@@ -57,6 +57,8 @@ public class ProductServlet extends HttpServlet {
 			product.setPrice(Double.parseDouble(request.getParameter("price")));
 			product.setRemark(request.getParameter("remark"));
 			product.setPic(request.getParameter("pic"));
+			product.setAdv(Double.parseDouble(request.getParameter("adv")));
+			product.setDiscount(Integer.parseInt(request.getParameter("discount")));
 			product.setCategory(categoryService.getById(Integer.parseInt(request.getParameter("category"))));
 			// 2: pass to Service
 			int result = productService.save(product);
@@ -73,6 +75,8 @@ public class ProductServlet extends HttpServlet {
 			product.setRemark(request.getParameter("remark"));
 			product.setPic(request.getParameter("pic"));
 			product.setId(Integer.parseInt(request.getParameter("id")));
+			product.setAdv(Double.parseDouble(request.getParameter("adv")));
+			product.setDiscount(Integer.parseInt(request.getParameter("dis")));
 			product.setCategory(categoryService.getById(Integer.parseInt(request.getParameter("category"))));
 			
 			// 2: pass to Service
