@@ -1,5 +1,8 @@
 package com.oocl.shopwebdemo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.oocl.shopwebdemo.dao.IProductDao;
 import com.oocl.shopwebdemo.dao.ProductDaoImpl;
 import com.oocl.shopwebdemo.model.Product;
@@ -57,5 +60,18 @@ public class ProductServiceImpl implements IProductService {
 	@Override
 	public Product getProductByIndex(int pid) {
 		return productDao.getProductByIndex(pid).get(0);
+	}
+
+	@Override
+	public List<String> getDistinctProductNames() {
+		
+		List<Product> productList = productDao.getDistinctOrderedProductNames();
+		List<String> productNames = new ArrayList<String>();
+		
+		for (Product product : productList) {
+			productNames.add(product.getName());
+		}
+		
+		return productNames;
 	}
 }

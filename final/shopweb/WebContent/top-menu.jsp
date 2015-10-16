@@ -204,12 +204,34 @@
 			   </ul> 
 			   <div class="search">
 				 <form action="${shop}/searchProductServlet" method="get">
-					<input type="text" name="keyword" value="" placeholder="Search...">
+					<input type="text" name="keyword" id="keyword" list="search-suggest-list" placeholder="Search...">
+					<datalist id="search-suggest-list"></datalist>
+					
 					<input type="hidden" name="pageNum" value="1"> 
 <!-- 					<input type="hidden" name="pageSize" value="6"> -->
 					<input type="submit" value="">
 					</form>
-			 </div>
+			 	</div>
+			 	
+			 	<script>
+					$(function() {
+				 		$('#keyword').keyup(function() {
+
+				 			var keyword = $(this).val();
+				 			
+				 			$.post("${shop}/searchProductServlet", { "keyword":keyword }, function(data) {
+				 				var suggestions = JSON.parse(data);
+
+				 				$('#search-suggest-list').empty();
+				 				for (var item of suggestions) {
+				 					$('#search-suggest-list').append(new Option(item));
+				 				}
+				 				
+				 			});
+				 		});
+					});
+			 	</script>
+			 	
 			 <div class="clearfix"></div>
 		 </div>
 	  </div>

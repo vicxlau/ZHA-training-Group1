@@ -17,4 +17,5 @@ public interface IProductDao {
 	List<Product> getProductByIndex(int id);
 	List<Product> getHotProduct();
 	List<Product> getAdvProduct();
+	List<Product> getDistinctOrderedProductNames();
 }

@@ -1,9 +1,16 @@
 package com.oocl.shopwebdemo.listener;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
+
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
+
+import com.oocl.shopwebdemo.service.ProductServiceImpl;
 import com.oocl.shopwebdemo.util.*;
 
 public class Initdatalistener implements ServletContextListener {
@@ -26,7 +33,30 @@ public class Initdatalistener implements ServletContextListener {
 		});
 		
 		// 把银行的图标存放application内置对象中
-		event.getServletContext().setAttribute("banks", list);		
+		event.getServletContext().setAttribute("banks", list);
+		
+		
+		// cache distinct product names for search box suggestion
+		List<String> productNames = new ProductServiceImpl().getDistinctProductNames();
+		Map<String, List<String>> productNamesSuggestionMap = new HashMap<String, List<String>>();
+		for (String name : productNames) {
+			String prefix = name.toLowerCase();
+			
+			if (prefix.length() > 1) {
+				prefix = prefix.substring(0,2);
+			}
+
+			List<String> suggestions;
+			if (productNamesSuggestionMap.containsKey(prefix)) {
+				suggestions = productNamesSuggestionMap.get(prefix);
+			} else {
+				suggestions = new ArrayList<String>();
+				productNamesSuggestionMap.put(prefix, suggestions);
+			}
+			
+			suggestions.add(name);
+		}
+		event.getServletContext().setAttribute("productNamesSuggestionMap", productNamesSuggestionMap);
 	}
 
 	@Override

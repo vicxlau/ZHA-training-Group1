@@ -241,4 +241,26 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 		return super.executeUpdate(sql, product.getId(), 1);
 
 	}
+
+	@Override
+	public List<Product> getDistinctOrderedProductNames() {
+		
+		return super.executeQuery("call UI_PRODUCT_GET_DISTINCT_NAME(?)", new RowMapper<Product>() {
+
+			@Override
+			public List<Product> getRowMapper(ResultSet rs) throws Exception {
+				
+				List<Product> results = new ArrayList<Product>();
+
+				while (rs.next()) {
+					Product product = new Product();
+					product.setName(rs.getString("pro_name"));
+
+					results.add(product);
+				}
+				return results;
+			}
+			
+		});
+	}
 }
