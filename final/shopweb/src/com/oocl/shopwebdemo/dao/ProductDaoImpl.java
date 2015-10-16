@@ -83,6 +83,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setCategoryID(rs.getInt("cat_id"));
 					results.add(product);
 				}
 				return results;
@@ -138,7 +139,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
-
+//					product.setCategoryID(cid);
 					results.add(product);
 				}
 				return results;

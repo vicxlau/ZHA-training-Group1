@@ -20,6 +20,7 @@ public class RetrievalController extends HttpServlet {
 	private ICategoryService categoryService = new CategoryServiceImpl();
 	private IProductService productService = new ProductServiceImpl();
 	private ISearchService searchService = new SearchServiceImpl();
+	private ApplicationServiceImpl appService = new ApplicationServiceImpl(); 
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -69,7 +70,11 @@ public class RetrievalController extends HttpServlet {
 //				request.setAttribute("proRemark",p.getRemark());
 //				request.setAttribute("proPic",p.getPic());
 				request.setAttribute("categoryList",categoryService.getAllCategory());
-				productService.addProductVisitTime(id);
+//				productService.addProductVisitTime(id);
+				appService.updateStat((CateProductStat)request.getServletContext().getAttribute(Locale.getSystemValue("application_stat")), 
+						p, 
+						(Customer)request.getSession().getAttribute(Locale.getSystemValue("session_customer_attr")));
+				
 				request.getRequestDispatcher(URL_PRODUCT_PAGE).forward(request,response);
 				
 			} catch (Exception e) {

@@ -97,6 +97,8 @@
 				<h3>Price $</h3><input type="number" name="price" /> <br/>
 				<h3>Picture</h3><input type="file" name="pic" size="50" /><br/>
 				<h3>Remark</h3><input type="text" name="remark"/><br/>
+				<h3>Advertisement $</h3><input type="text" name="adv"/><br/>
+				<h3>Discount %</h3><input type="text" name="discount"/><br/>
 				<h3>Category</h3><input type="text" name="category"/><br/>
 				<input type="hidden" name="status" value="save">
 				<input type="submit" value="Submit" />

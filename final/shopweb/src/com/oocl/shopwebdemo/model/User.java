@@ -6,16 +6,16 @@ public class User implements Serializable{
 
 	private static final long serialVersionUID = -5476405291900933919L;
 	private Integer id;
-	private String login_id;
+//	private String login_id;
 //	private String pw;
 	private String name;
 	private Integer role_id;
 	
 	public User() {}
 
-	public User(String login_id) {
-		setLoginId(login_id);
-	}
+//	public User(String login_id) {
+//		setLoginId(login_id);
+//	}
 	
 //	public User(String login_id, String pw) {
 //		setLoginId(login_id);
@@ -46,13 +46,13 @@ public class User implements Serializable{
 		this.role_id = role_id;
 	}
 
-	public String getLoginId() {
-		return login_id;
-	}
-
-	public void setLoginId(String login_id) {
-		this.login_id = login_id;
-	}
+//	public String getLoginId() {
+//		return login_id;
+//	}
+//
+//	public void setLoginId(String login_id) {
+//		this.login_id = login_id;
+//	}
 
 //	public String getPw() {
 //		return pw;

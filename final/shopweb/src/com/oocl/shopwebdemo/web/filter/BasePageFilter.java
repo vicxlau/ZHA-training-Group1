@@ -1,6 +1,7 @@
 package com.oocl.shopwebdemo.web.filter;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +13,7 @@ import javax.servlet.ServletResponse;
 import org.apache.catalina.connector.Request;
 
 import com.oocl.shopwebdemo.model.DataStorage;
+import com.oocl.shopwebdemo.util.Logger;
 
 public class BasePageFilter implements Filter {
 
@@ -35,6 +37,23 @@ public class BasePageFilter implements Filter {
 	public void init(FilterConfig arg0) throws ServletException {
 		// TODO Auto-generated method stub
 
+	}
+
+	public void handleRequest(ServletRequest req, ServletResponse res) throws IOException {
+
+		Enumeration<String> parameterNames = req.getParameterNames();
+
+		while (parameterNames.hasMoreElements()) {
+			String paramName = parameterNames.nextElement();
+			String msg = paramName + ": ";
+
+			String[] paramValues = req.getParameterValues(paramName);
+			for (int i = 0; i < paramValues.length; i++) {
+				String paramValue = paramValues[i];
+				msg += paramValue + ",";
+			}
+			Logger.log(Logger.INFO, msg);
+		}
 	}
 
 }

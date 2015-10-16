@@ -14,15 +14,35 @@ public class Product {
 	private Double price;
 
 	private String pic;
-	
+
 	private String remark;
 	
-	private Category category;
+	private Double adv;
 	
-	public Product(){
+	private Integer discount;
+
+	private Category category;
+
+	public Product() {
 		super();
 	}
-	
+
+	public Double getAdv() {
+		return adv;
+	}
+
+	public void setAdv(Double adv) {
+		this.adv = adv;
+	}
+
+	public Integer getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
+	}
+
 	public Product(String name, Double price, String pic, String remark) {
 		super();
 		this.name = name;
@@ -30,7 +50,7 @@ public class Product {
 		this.pic = pic;
 		this.remark = remark;
 	}
-	
+
 	public Product(Integer id, String name, Double price, String pic,
 			String remark) {
 		super();
@@ -40,9 +60,6 @@ public class Product {
 		this.pic = pic;
 		this.remark = remark;
 	}
-
-
-
 
 	@Override
 	public String toString() {
@@ -98,5 +115,5 @@ public class Product {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-	
+
 }

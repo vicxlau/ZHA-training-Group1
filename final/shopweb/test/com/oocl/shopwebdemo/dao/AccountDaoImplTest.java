@@ -2,12 +2,20 @@ package com.oocl.shopwebdemo.dao;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.AccountServiceImpl;
+import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.Logger;
 
 public class AccountDaoImplTest {
 
@@ -44,5 +52,29 @@ public class AccountDaoImplTest {
 		new AccountServiceImpl().login(acc);
 
 		System.out.println("result");
+	}
+	
+	@Test
+	public void testFileWriter() {
+		Logger.log(Logger.INFO,"testing 測");
+		
+//		try {
+//			PrintWriter out = new PrintWriter(Locale.getSystemValue("log-file-location"),"UTF-8");
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try{
+//			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(Locale.getSystemValue("log-file-location"), true)));
+//		    out.println("the text");
+//		    //more code
+//		    out.println("more text");
+//		    //more code
+//		    out.close();
+//		    System.out.println("done \n ");
+//		}catch (IOException e) {
+//		    //exception handling left as an exercise for the reader
+//			System.out.println("fail \n ");
+//		}
 	}
 }

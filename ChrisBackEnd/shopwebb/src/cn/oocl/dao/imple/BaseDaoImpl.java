@@ -3,9 +3,13 @@ package cn.oocl.dao.imple;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import oracle.jdbc.OracleCallableStatement;
+import oracle.jdbc.OracleResultSet;
+import oracle.jdbc.OracleTypes;
 import cn.oocl.model.Category;
 import cn.oocl.util.JDBCUtil;
 
@@ -193,5 +197,69 @@ public abstract class BaseDaoImpl<T> { //T as a class
 			util.closeConn(null, statement, connection);
 		}
 
+	}
+
+
+	protected int executeUpdate2(String sql, Object... params) {
+
+		Connection conn = null;
+		OracleCallableStatement st = null;
+
+		try {
+			conn = JDBCUtil.getConnUtil().getConnection();
+//			conn.setAutoCommit(false);
+			st = (OracleCallableStatement) conn.prepareCall(sql);
+
+			if (params != null)
+				for (int i = 0; i < params.length; i++) {
+					st.setObject(i + 1, params[i]);
+				}
+
+			return st.executeUpdate();
+
+		} catch (Exception e) {
+//			throw new RuntimeException(e);
+			try {
+				conn.rollback();
+				throw new RuntimeException(e);
+			} catch (SQLException e1) {
+				throw new RuntimeException(e1);
+			}
+		} finally {
+			JDBCUtil.getConnUtil().closeConn(null, st, conn);
+		}
+	}
+	
+	protected List<T> executeQuery(String sql, RowMapper rm, Object... params) {
+
+		Connection conn = null;
+		OracleCallableStatement st = null;
+		OracleResultSet rs = null;
+
+		try {
+			conn = JDBCUtil.getConnUtil().getConnection();
+			st = (OracleCallableStatement) conn.prepareCall(sql);
+
+			int i = 0;
+			if (params != null)
+				for (; i < params.length; i++) {
+					st.setObject(i + 1, params[i]);
+				}
+			++i;
+			st.registerOutParameter(i, OracleTypes.CURSOR);
+
+			st.execute();
+
+			rs = (OracleResultSet) st.getCursor(i);
+
+//			return mapRowsToObjects(rs);
+			return (List<T>) rm.mapRow(rs);
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			JDBCUtil.getConnUtil().closeConn(rs, st, conn);
+		}
 	}
 }

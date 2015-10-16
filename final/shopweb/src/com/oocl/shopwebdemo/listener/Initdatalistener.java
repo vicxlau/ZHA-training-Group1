@@ -11,6 +11,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.oocl.shopwebdemo.service.ProductServiceImpl;
+import com.oocl.shopwebdemo.model.CateProductStat;
 import com.oocl.shopwebdemo.util.*;
 
 public class Initdatalistener implements ServletContextListener {
@@ -34,6 +35,15 @@ public class Initdatalistener implements ServletContextListener {
 		
 		// 把银行的图标存放application内置对象中
 		event.getServletContext().setAttribute("banks", list);
+		
+		
+		
+		event.getServletContext().setAttribute(Locale.getSystemValue("application_stat"), new CateProductStat());
+		
+		System.out.println(Locale.getSystemValue("application_stat"));
+		System.out.println("app stat: " + ((CateProductStat)event.getServletContext().getAttribute("stat")).prod_list.size());
+//				event.getServletContext().getAttribute(Locale.getSystemValue("application_stat")));
+
 		
 		
 		// cache distinct product names for search box suggestion

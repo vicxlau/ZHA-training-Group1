@@ -90,12 +90,12 @@
 				 <c:forEach items="${requestScope.productList}" var="product" varStatus="num">
                     <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <img src="${shop}/image/${product.pic}" alt="" width="400">
+                            <img src="${shop}/image/${product.pic}" alt="" width="380">
                             <div class="caption">
-                                <h4 class="pull-right">${product.price }</h4>
-                                <h4><a href="#">${product.name }</a></h4>
+                                <h5 class="pull-right">$${product.price}  [Discount % ${product.discount}]</h5>
+                                <h4><a href="/shopwebb/ProductServlet?status=getById&id=${product.id}">${product.name }</a></h4>
                                 <p>${product.remark }</p>
-                                <a href="/shopwebb/ProductServlet?status=getById&id=${product.id}">Update</a><br/>
+                                <p>Advertisement $ ${product.adv}</p>
 								<a href="/shopwebb/ProductServlet?status=delete&id=${product.id}">Delete</a>
                             </div>
                             

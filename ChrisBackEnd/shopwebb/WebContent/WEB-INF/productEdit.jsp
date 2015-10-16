@@ -96,6 +96,8 @@
 				<p>Picture</p><input type="file" name="pic" size="50" value="${requestScope.productUpdate.pic }"/><br/>
 				<p>Remark</p><input type="text" name="remark" value="${requestScope.productUpdate.remark}"/><br/>
 				<p>Category</p><input type="text" name="category" value="${requestScope.productUpdate.category.id}"/><br/>
+				<p>Advertisement $</p><input type="text" name="adv" value="${requestScope.productUpdate.adv}"/><br/>
+				<p>Discount %</p><input type="text" name="dis" value="${requestScope.productUpdate.discount}"/><br/>
 				<input type="hidden" name="status" value="update">
 				<input type="hidden" name="id" value="${requestScope.productUpdate.id}">
 				<input type="submit" value="Save" />

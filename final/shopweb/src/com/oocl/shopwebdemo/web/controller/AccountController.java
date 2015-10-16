@@ -61,8 +61,8 @@ public class AccountController extends HttpServlet {
 			// 登录成功,跳转到后台首页(登录的个人数据要存储到session中)
 			request.getSession().setAttribute(Locale.getSystemValue("session_customer_attr"),c);
 			
-			for(Address a : c.getAddrList())
-		        System.out.format("%d : %s +++  %s +++ \n", a.getAddr_id(), a.getRecipient_name() , a.getRecipient_address());
+//			for(Address a : c.getAddrList())
+//		        System.out.format("%d : %s +++  %s +++ \n", a.getAddr_id(), a.getRecipient_name() , a.getRecipient_address());
 			// request.getSession().setAttribute("name", name);
 //			 RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/index-in.jsp");
 			 RequestDispatcher dispatcher ;
@@ -70,8 +70,13 @@ public class AccountController extends HttpServlet {
 				 dispatcher = request.getRequestDispatcher((String) request.getSession().getAttribute("url"));
 				 dispatcher.forward(request, response);
 			 }catch(Exception e){
-				 dispatcher = request.getRequestDispatcher(URL_BACKEND);
-				 dispatcher.forward(request, response);
+				 if(c.getUser().getUser().getRoleId() == Integer.parseInt(Locale.getSystemValue("admin_role_id"))){
+					 dispatcher = request.getRequestDispatcher(URL_BACKEND);
+				 	 dispatcher.forward(request, response);
+				 }else{ 
+					 dispatcher = request.getRequestDispatcher(URL_HOME);
+					 dispatcher.forward(request, response);
+				 }
 			 }
 
 			// 访问WEB-INF文件夹的页面只能用forward方式

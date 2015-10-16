@@ -28,6 +28,31 @@ public class Cart implements Serializable{
 		}
 		setTotal(total);
 	}
+	public void deleteItem(int item_id){
+		for(Item t :itemList){
+			if(t.getProduct().getId() == item_id){
+				itemList.remove(t);
+				break;
+			}
+		}
+		updateTotal();
+//		Item t = getItemIndexByID(item_id);
+//		if(t!=null)itemList.remove(t);
+//		updateTotal();
+	}
+	public void updateItem(int item_id, int num){
+		for(Item t :itemList){
+			if(t.getProduct().getId() == item_id)
+				t.setNumber(num);
+		}
+		updateTotal();
+	}
+//	private Item getItemIndexByID(int item_id){
+//		for(Item t : itemList){
+//			if(t.getId()==item_id)return t;
+//		}
+//		return null;
+//	}
 	public void setId(Integer id) {
 		this.id = id;
 	}

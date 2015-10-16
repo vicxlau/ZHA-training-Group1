@@ -57,4 +57,12 @@ public class Account {
 		this.isLogin = isLogin;
 	}
 
+	@Override
+	public String toString(){
+		return String.format("user_id: %d \n "
+				+ "user_name: %s \n "
+				+ "login_id: %s \n"
+				+ "login_pw: %s \n"
+				+ "role_id: %d \n", user.getId(),user.getName(),login_id,pw,user.getRoleId());
+	}
 }
