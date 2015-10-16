@@ -12,7 +12,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Chris - Shop</title>
+    <title>Shop</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -37,6 +37,29 @@
 	    xhr.open('POST', 'ProductServlet', true);
 	    xhr.send(null);
 	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$.post("${shop}/CategoryServlet",{status:'getAll'}, function(data){
+			console.log(data);
+			var temp = data.split("|");
+			var numbers = temp[0];
+			var names = temp[1];
+			numbers = JSON.parse(numbers);
+			names = names.split(",");
+			var defaultVal = document.getElementById("categoryHidden").value;
+			for (var i=0;i<numbers.length;i++){
+				if(numbers[i] == defaultVal){
+					$('<option/>').val(numbers[i]).html(names[i]).appendTo('#cat_id');
+					$("select#cat_id").val(numbers[i]);
+				}else{
+					$('<option/>').val(numbers[i]).html(names[i]).appendTo('#cat_id');
+				};
+			};
+		});
+	});
+// 	$('select option[value="${requestScope.productUpdate.category.id}""]').attr("selected",true);
+	</script>
 
 </head>
 
@@ -53,7 +76,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${shop}/AccountServlet?url=index.jsp">Chris - Shop</a>
+                <a class="navbar-brand" href="${shop}/AccountServlet?url=index.jsp">Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -95,7 +118,8 @@
 				<p>Price $</p><input type="number" name="price" value="${requestScope.productUpdate.price}"/> <br/>
 				<p>Picture</p><input type="file" name="pic" size="50" value="${requestScope.productUpdate.pic }"/><br/>
 				<p>Remark</p><input type="text" name="remark" value="${requestScope.productUpdate.remark}"/><br/>
-				<p>Category</p><input type="text" name="category" value="${requestScope.productUpdate.category.id}"/><br/>
+<%--<p>Category</p>--%> <input type="hidden" name="categoryHidden" id="categoryHidden" value="${requestScope.productUpdate.category.id}"/><br/> 
+				<h3>Category</h3><select id="cat_id" name="category"></select> 
 				<p>Advertisement $</p><input type="text" name="adv" value="${requestScope.productUpdate.adv}"/><br/>
 				<p>Discount %</p><input type="text" name="dis" value="${requestScope.productUpdate.discount}"/><br/>
 				<input type="hidden" name="status" value="update">
