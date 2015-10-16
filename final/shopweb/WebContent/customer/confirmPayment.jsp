@@ -27,6 +27,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<div class="cart-items">
 				<div class="cart-header">
 					<div class="cart-sec">
+						<div class="cart-item-info">
+							<h2>收货人信息</h2>
+							<span>
+								<div>
+									<span>订单号： ${sessionScope.previousCart.id} </span>
+								</div>
+								<div>
+									<span>姓名： ${sessionScope.previousCart.name}</span>
+								</div>
+								<div>
+									<span>通讯地址：${sessionScope.previousCart.address}</span>
+								</div>
+								<div>
+									<span>通讯电话：${sessionScope.previousCart.phone}</span>
+								</div>
+								<div>
+									<span>支付金额：￥${sessionScope.previousCart.total}</span>
+								</div>
+								<div>
+									<span>支付方式：
+										<img src="${shop}/images/yibao.png"width="110" height="35" alt="" />
+										<img src="${shop}/images/bank/${requestScope.pd_FrpId}.gif"width="110" height="35" alt="" />
+									</span>
+								</div>
+							</span>
+						</div>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="cart-items">
+				<div class="cart-header">
+					<div class="cart-sec">
 						<div class="bank-item-info">							
 							<form name="yeepay" action='https://www.yeepay.com/app-merchant-proxy/node' method='POST' target="_blank">
 								<input type='hidden' name='p0_Cmd'   value='${requestScope.p0_Cmd}'>

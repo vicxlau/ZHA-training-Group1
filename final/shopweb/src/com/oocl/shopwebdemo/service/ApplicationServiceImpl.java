@@ -11,4 +11,15 @@ public class ApplicationServiceImpl implements IApplicationService {
 		searchService.getHotProduct(),
 		searchService.getAdvProduct());
 	}
+	
+	@Override
+	public CateProductStat updateStat(CateProductStat stat, Product p, Customer u){
+		if(stat!=null)System.out.println(stat.prod_list.size());
+		stat.update((u==null)?0:u.getUser().getUser().getId(), p.getId(), p.getCategoryID());
+		return stat;
+	}
+	
+	public void saveStatToDB(){
+		
+	}
 }

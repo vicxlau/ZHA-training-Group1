@@ -24,14 +24,39 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<h2>My Shopping Cart </h2>
 			<c:forEach items="${sessionScope.cart.itemList}" var="item" varStatus="num"> 
 				<script>$(document).ready(function(c) {
-					$('#close${num.count}').on('click', function(c){
-						$('#cart-header${num.count}').fadeOut('slow', function(c){
-							$('#cart-header').remove();
+							$('#close${num.count}').on('click', function(c){
+								var id = parseInt($('#cart-header${num.count}').attr('lang'));
+								var num = parseInt($('#quantity${num.count}').val());
+								$.post("${shop}/ItemServlet",{id:id,num:num,action:"deleteItem"},function(total){
+									$('#total').html(total);
+									$('#cart-summary-total').html(total);
+									},'text').done(function(){
+										$('#cart-header${num.count}').fadeOut('slow', function(c){
+											$('#cart-header').remove();
+										});	
+									});
+							});	
+							$('#quantity${num.count}').change(function(){
+								//validation
+								var num = this.value
+								if(/^[1-9]\d*$/.test(num)){
+									$(this).attr('lang',num);
+									var id = $(this).closest(".cart-header").attr('lang');
+									$.post("${shop}/ItemServlet",{id:id,num:num,action:"updateItem"},function(total){
+										$('#total').html(total);
+										$('#cart-summary-total').html(total);
+									},'text').done(function(){
+										var price = parseFloat($('#price${num.count}').html());
+										var num = parseInt($('#quantity${num.count}').val());
+										$('#total${num.count}').html(price*num);
+	// 									$('#total${num.count}').innerHTML();
+// 										$('#total${num.count}').html(parseFloat($('#price${num.count}').html())*parseInt($('#quantity${num.count}').val()));
+									});
+								}
+							});
 						});
-						});	  
-					});
 				</script>
-				<div class="cart-header" id="cart-header${num.count}">
+				<div class="cart-header" id="cart-header${num.count}" lang="${item.id}">
 					<div class="close1" id="close${num.count}"> </div>
 					<div class="cart-sec">
 						<div class="cart-item cyc">
@@ -41,9 +66,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<h3><a href="${shop}/retrievalServlet?action=product&id=${item.id}">
 							${item.name}</a>
 							<span>Model No: 3578</span></h3>
-							<h4><span>￥</span>${item.price}</h4>
+							<h4><span>￥</span><span id="price${num.count}">${item.price}</span></h4>
 							<p class="qty">Qty ::</p>
-							<input min="1" type="number" id="quantity" name="quantity" value="${item.number}" class="form-control input-small">
+							<input min="1" type="number" id="quantity${num.count}" name="quantity" value="${item.number}" class="form-control input-small">
+							<p> Item Total:  <span>￥</span><span id="total${num.count}">${item.number * item.price}</span></p>
 						</div>
 						<div class="clearfix"></div>
 <!-- 						<div class="delivery"> -->
@@ -55,19 +81,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 </div>
 		 
 		 <div class="cart-total">
-			 <a class="continue" href="#">Continue to basket</a>
+<!-- 			 <a class="continue" href="#">Continue to basket</a> -->
 			 <div class="price-details">
-				 <h3>Price Details</h3>
-				 <span>Total</span>
-				 <span class="total">￥${sessionScope.cart.total}</span>
-				 <span>Discount</span>
-				 <span class="total">---</span>
-				 <span>Delivery Charges</span>
-				 <span class="total">￥0.00</span>
-				 <div class="clearfix"></div>				 
+<!-- 				 <h3>Price Details</h3> -->
+<!-- 				 <span>Total</span> -->
+<!-- 
+<%-- 				 <span class="total">￥ <span class="total" id="total">${sessionScope.cart.total}</span></span> --%>
+-->
+<!-- 				 <span>Discount</span> -->
+<!-- 				 <span class="total">---</span> -->
+<!-- 				 <span>Delivery Charges</span> -->
+<!-- 				 <span class="total">￥0.00</span> -->
+<!-- 				 <div class="clearfix"></div>				  -->
 			 </div>	
 			 <h4 class="last-price">TOTAL</h4>
-			 <span class="total final">￥${sessionScope.cart.total}</span>
+			 <span class="total final">￥<span id="total">${sessionScope.cart.total}</span></span>
 			 <div class="clearfix"></div>
 			 <a class="order" href="${shop}/customer/order.jsp">Place Order</a>
 			 <div class="total-item">

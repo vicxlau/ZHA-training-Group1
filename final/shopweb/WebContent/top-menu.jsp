@@ -41,7 +41,7 @@
 			 </div>
 			 <div class="cart box_1">
 				<a href="${shop}/cart.jsp">
-					<h3> <span>￥ 
+					<h3> ￥<span id="cart-summary-total"> 
 							<c:choose>
 							    <c:when test="${empty sessionScope.cart.total}">
 							        0.00
@@ -51,7 +51,7 @@
 							    </c:otherwise>
 							</c:choose>
 
-					</span> (<span id="" class="">${fn:length(sessionScope.cart.itemList)}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
+					</span> (<span id="cart-summary-num" class="">${fn:length(sessionScope.cart.itemList)}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
 <%-- 					<h3> <span class="simpleCart_total">${sessionScope.cart.total}</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)<img src="${shop}/images/bag.png" alt=""></h3> --%>
 				</a>	
 <!-- 				<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p> -->

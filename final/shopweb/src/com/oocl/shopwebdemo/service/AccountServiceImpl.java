@@ -23,6 +23,7 @@ public class AccountServiceImpl implements IAccountService {
 		// acc.validateUser(aDao.getValidUser(acc.getLoginId(),acc.getPw()));
 
 		acc.validateUser(aDao.getValidUser(acc.getLoginId(), acc.getPw()));
+		System.out.println(acc.toString());
 		Customer c = new Customer(acc);
 		c.setAddrList(addrDao.getAddressByUserID(acc.getUser().getId()));
 		return c;

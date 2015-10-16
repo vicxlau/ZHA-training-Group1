@@ -25,6 +25,7 @@ public class CartServiceImpl {
 	public Cart save(Cart cart, int user_id,int addr_id, String remark){
 		Address a;
 		try{
+			if(addr_id == 0)throw new Exception() ;
 			a = aDao.getAddressByAddrID(addr_id);
 		}catch(Exception e){
 			a = aDao.getDefaultAddressByUserID(user_id);				

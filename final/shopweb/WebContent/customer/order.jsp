@@ -32,30 +32,30 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<li class="active">Cart</li>
 			</ol>
 
-			<div class="cart-items">
-				<div class="cart-header">
-					<div class="cart-sec">
-						<div class="cart-item-info">
-							<h2>收货人信息</h2>
-							<span>
-								<div>
-									<span>姓名： 小小</span>
-								</div>
-								<div>
-									<span>通讯地址：广州天河区中山大道123号棠下街1号</span>
-								</div>
-								<div>
-									<span>通讯电话：010-1000000</span>
-								</div>
-								<div>
-									<span>电子邮件：czbk@qq.com</span>
-								</div>
-							</span>
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</div>
+<!-- 			<div class="cart-items"> -->
+<!-- 				<div class="cart-header"> -->
+<!-- 					<div class="cart-sec"> -->
+<!-- 						<div class="cart-item-info"> -->
+<!-- 							<h2>收货人信息</h2> -->
+<!-- 							<span> -->
+<!-- 								<div> -->
+<!-- 									<span>姓名： 小小</span> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<span>通讯地址：广州天河区中山大道123号棠下街1号</span> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<span>通讯电话：010-1000000</span> -->
+<!-- 								</div> -->
+<!-- 								<div> -->
+<!-- 									<span>电子邮件：czbk@qq.com</span> -->
+<!-- 								</div> -->
+<!-- 							</span> -->
+<!-- 						</div> -->
+<!-- 						<div class="clearfix"></div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 
 			<div class="cart-items">
 				<div class="cart-header">

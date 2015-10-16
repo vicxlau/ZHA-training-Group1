@@ -13,7 +13,7 @@ public class AccountDaoImpl extends BaseDaoImpl<User> implements IAccountDao {
 			User u= new User();
 			u.setId(rs.getInt("user_id"));
 			u.setName(rs.getString("user_name"));
-//			u.setRoleId(rs.getInt("role_id"));			
+			u.setRoleId(rs.getInt("role_id"));			
 			results.add(u);
 		}
 		return results;
