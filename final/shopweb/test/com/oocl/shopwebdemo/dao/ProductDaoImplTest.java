@@ -86,4 +86,15 @@ public class ProductDaoImplTest {
 					));
 		}
 	}
+	
+	
+	@Test
+	public void testGetDistinctOrderedProductNames() {
+		
+		List<Product> results = new ProductDaoImpl().getDistinctOrderedProductNames();
+		
+		for (Product product : results) {
+			System.out.println(product.getName());
+		}
+	}
 }
