@@ -120,5 +120,23 @@ public class CategoryServlet extends HttpServlet {
 			// 3: get the result from Service then send back to UI
 			request.getRequestDispatcher("/WEB-INF/categoryUpdate.jsp").forward(request, response); 
 		}
+		else if (status.equals("getAll")){
+			List<Category> categoryList = categoryService.queryAll();
+			String output = "";
+			String output2 = "";
+//			request.setAttribute("categoryList", categoryList);
+//			RequestDispatcher requestDispactcher = request.getRequestDispatcher("/WEB-INF/productAdd.jsp"); //no need include project name, because 
+//			requestDispactcher.forward(request, response);
+			for(Category c: categoryList){
+				output = output + c.getId() + ",";	
+				output2 = output2 + c.getType() + ",";	
+			}
+			
+			output=output.substring(0, output.length()-1);
+			output2=output2.substring(0, output2.length()-1);
+			
+			response.setCharacterEncoding("UTF-8");
+			response.getWriter().write("[" + output + "]" + "|" + output2 + "");
+		}
 	}
 }

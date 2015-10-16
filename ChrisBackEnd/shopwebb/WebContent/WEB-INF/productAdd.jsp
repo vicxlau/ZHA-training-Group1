@@ -5,7 +5,7 @@
 <html lang="en">
 
 <head>
-
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,6 +36,24 @@
 	    }
 	    xhr.open('POST', 'ProductServlet', true);
 	    xhr.send(null);
+	</script>
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$.post("${shop}/CategoryServlet",{status:'getAll'}, function(data){
+			console.log(data);
+			var temp = data.split("|");
+			var numbers = temp[0];
+			var names = temp[1];
+			numbers = JSON.parse(numbers);
+			names = names.split(",");
+			
+			for (var i=0;i<numbers.length;i++){
+			   $('<option/>').val(numbers[i]).html(names[i]).appendTo('#cat_id');
+			}
+		});
+	});
 	</script>
 
 </head>
@@ -99,7 +117,8 @@
 				<h3>Remark</h3><input type="text" name="remark"/><br/>
 				<h3>Advertisement $</h3><input type="text" name="adv"/><br/>
 				<h3>Discount %</h3><input type="text" name="discount"/><br/>
-				<h3>Category</h3><input type="text" name="category"/><br/>
+<!-- 				<h3>Category</h3><input type="text" name="category" value=""/><br/> -->
+				<h3>Category</h3><select id="cat_id"></select>
 				<input type="hidden" name="status" value="save">
 				<input type="submit" value="Submit" />
 			</form>                                                                     
