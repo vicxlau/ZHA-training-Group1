@@ -68,7 +68,7 @@ public class SearchController extends HttpServlet {
 		String keyword = request.getParameter("keyword");
 		
 		if (keyword == null || keyword.length() < 2) {
-			response.getOutputStream().print("[]");
+			response.getWriter().write("[]");
 			return;
 		}
 
@@ -97,10 +97,10 @@ public class SearchController extends HttpServlet {
 				jsonOutput = mapper.writeValueAsString(suggestions);
 			}
 
-			response.getOutputStream().print(jsonOutput);
+			response.getWriter().write(jsonOutput);
 
 		} catch(Exception e) {
-			response.getOutputStream().print(e.getMessage());	
+			response.getWriter().write(e.getMessage());	
 		}
 	}
 }
