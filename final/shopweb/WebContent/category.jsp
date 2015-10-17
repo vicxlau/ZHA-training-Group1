@@ -18,7 +18,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<li><a href="${shop}/home">Home</a></li>
 			<li class="active">${requestScope.category.type}</li>
 		</ol>
-		<h2>${requestScope.category.type}</h2>			
+<!--<%-- 		<h2>${requestScope.category.type}</h2>			 --%>-->
 		 <div class="col-md-9 product-model-sec">
 <!-- 		 <div class="col-md-11 product-model-sec"> -->
 			<c:forEach items="${requestScope.cateResults}" var="product" varStatus="num">

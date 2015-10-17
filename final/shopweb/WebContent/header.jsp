@@ -9,6 +9,8 @@
 <link href="${shop}/css/bootstrap.css" rel='stylesheet' type='text/css' />
 <script type='text/javascript' src="${shop}/js/jquery-1.11.1.min.js"></script>				<!-- jQuery (necessary JavaScript plugins) -->			
 <link href="${shop}/css/style.css" rel='stylesheet' type='text/css' />						<!-- Custom Theme files -->
+<link href="${shop}/css/animated-notifications.css" rel='stylesheet' type='text/css' />		<!-- animated-notifications.css -->
+<link href="${shop}/css/animate.css" rel='stylesheet' type='text/css' />					<!-- animate.css -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Furnyish Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -23,6 +25,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${shop}/js/menu_jquery.js"></script>
 <script src="${shop}/js/simpleCart.min.js"> </script>
 <script src="${shop}/js/responsiveslides.min.js"></script>
+<script src="${shop}/js/jquery.sticky.js"></script>
+<script src="${shop}/js/animated-notifications.js"></script>
 <script>
     // You can also use "$(window).load(function() {"
     $(function () {

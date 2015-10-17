@@ -24,8 +24,16 @@ body a{
 	margin:0;
 }
 .breadcrumb{
-	margin:2em 0;
+/* 	margin:2em 0; */
+	margin:1em 0 0 0;
 }	
+
+.breadcrumb > li > a {
+	color:#999;
+}
+.breadcrumb > .active {
+  color: #026466;
+}
 /*-- header_top --*/
 .top_bg{
   background:#026466;
@@ -38,6 +46,9 @@ body a{
 }
 .header_top{
 	padding:2em 0;
+}
+.pagination{
+	text-align: center;
 }
 .login a{
 	font-size:13px;
@@ -795,6 +806,7 @@ ul.tabs-menu li.active a{
 	-o-transition: 0.5s all;
 	min-height: 200px;
 	border:1px solid #fff;
+	z-index:50;
 }
 .product-grid:hover {
 	z-index: 1;
@@ -1498,6 +1510,48 @@ line-height: 1.7em;
     position: absolute;
     top: -10px;
 }
+
+#undo-btn {
+	z-index: 99;
+    cursor: pointer;
+	
+}
+/* #undo-btn { */
+/*     position: fixed; */
+/*     top: 0; */
+/*     cursor: pointer; */
+    
+/* /* 	height: 20px; */ */
+/* /*     width: 619px; */ */
+    
+/*     background-color: rgba(233, 30, 99, 0.8); */
+/*     color: rgba(255, 255, 255, 1); */
+/*     font-size: 18px; */
+/*     font-weight: 600; */
+/*     height: 44px; */
+/*     line-height: 44px; */
+/*     margin-left: auto; */
+/*     margin-right: auto; */
+/*     text-align: center; */
+/*     transition: all 0.5s ease 0s; */
+/*     width: 304px; */
+    
+    
+/* /*     display: block; */ */
+/* /*     padding-top: 5px; */ */
+/* /*     color: black; */ */
+/* /*     font-family: "league-gothic-1","league-gothic-2",sans-serif; */ */
+/* /*     font-size: 36px; */ */
+/* /*     color: black; */ */
+/* /*     font-family: "league-gothic-1","league-gothic-2",sans-serif; */ */
+/* /*     font-size: 36px; */ */
+/* /*     height: 203px; */ */
+/* /*     margin: 0 auto -100px; */ */
+/* /*     text-align: center; */ */
+/* /*     text-shadow: none; */ */
+/* /*     text-transform: uppercase; */ */
+/* /*     width: 976px; */ */
+/* } */
 .cart-items h2 {
   font-size: 1.5em;
   margin-bottom: 1em;
@@ -2301,6 +2355,10 @@ float: none;
 }
 .breadcrumb > li {
   font-size: 0.8em;
+  color:#999;
+}
+.breadcrumb > .active {
+  color: #026466;
 }
 .single_left {
   width: 100%;
@@ -2450,8 +2508,14 @@ a.order{
   padding: 0em 0 2em 0;
 }
 .breadcrumb {
+	color: 999;
   margin: 1em 0;
 }
+
+.breadcrumb > .active {
+  color: #026466;
+}
+
 .login_sec {
   padding: 0em 0 2em 0;
 }

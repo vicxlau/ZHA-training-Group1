@@ -15,13 +15,66 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 <%@ include file="top-menu.jsp" %>
 <div class="cart_main">
+<script>
+
+
+$(document).ready(function(c) {
+
+// 	$("#undo_btn").sticky({topSpacing:0});
+	$('#undo-btn').on('click', function(c){
+		$(".notifications-top-center").removeClass('animated bounce');
+// 		$(".notifications-top-center").addClass('animated ' + $('#effects').val());
+// 		$('.close').click(function(){$(this).parent().fadeOut(200);});
+		// send undo request to server 
+		$.post("${shop}/ItemServlet",{action:"undo"},function(total){
+			$('#total').html(total);
+			$('#cart-summary-total').html(total);
+		},'text').done(function(){
+			var undoPrio = $('.cart-item-info:hidden').length;
+				$('.cart-header:hidden[undoPrio="'+undoPrio +'"]').fadeIn('slow', function(c){
+					$(this).attr('undoPrio',0);
+
+					//update undo text
+					var undoItemNum = $('.cart-item-info:hidden').length;
+					$('#undo-item-num').html(undoItemNum);
+					if(undoItemNum ==0)	
+						$('#undo-btn').fadeOut('slow',function(cc){});
+
+					//update summary item number
+					var currentSummaryNum = parseInt($('#cart-summary-num').html());
+					var undoNum = parseInt($(this).find('[name="quantity"]').val());
+					$('#cart-summary-num').html(currentSummaryNum + undoNum);
+// 					$('#cart-summary-num').html(currentSummaryNum+parseInt($(this).children('[name="quantity"]').val()));
+					
+// 					var div_count = $('.cart-item-info:visible').length;
+// 					var item_num = 0;
+// 					for(var i=div_count;i>=1;i--){
+// 						item_num += parseInt($('#quantity'+i).val());
+// 					}
+// 					$('#cart-summary-num').html(item_num);
+
+		// 			$('.cart-header:hidden').show();
+				});
+		});
+	});
+});
+
+</script>
+<!-- <div id="undo_btn" class=".notifications-top-center" style="display:none;" > Undo </div> -->
+<!-- undo button -->
+<div id="undo-btn" class="notifications-top-center" style="display:none;">
+	<span class="iconb" data-icon="&#xe20e;"></span> 
+		undo item deletion (<span id="undo-item-num">0</span>left ) 
+	<div id="undo-btn_close" class="notifications-top-center-close" ><span class="iconb" data-icon="&#xe20e;"></span></div>
+</div>
+
 	 <div class="container">
 			 <ol class="breadcrumb">
 		  <li><a href="${shop}/home">Home</a></li>
 		  <li class="active">Cart</li>
 		 </ol>			
 		 <div class="cart-items">
-			<h2>My Shopping Cart </h2>
+<!-- 			<h2>My Shopping Cart </h2> -->
 			<c:forEach items="${sessionScope.cart.itemList}" var="item" varStatus="num"> 
 				<script>								
 				$(document).ready(function(c) {
@@ -29,7 +82,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				function updatetCartSumItem() {
 // 					var div_count = $('.cart-item-info').length;
 // 						var item_num = 0;
-// 						for(var i=1;i<=div_count;i++){
+// 						for(var i=div_count;i>=1;i--){
 // 								item_num += $('#quantity'+i).val();
 // 						}
 // 						$('#cart-summary-num').html(item_num);
@@ -43,14 +96,48 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									$('#cart-summary-total').html(total);
 									},'text').done(function(){
 										$('#cart-header${num.count}').fadeOut('slow', function(c){
+											$('#cart-header${num.count}').attr('undoPrio',$('.cart-item-info:hidden').length);
+// 											$('#cart-header').remove();
 // 											$('#cart-header${num.count}').remove();
-											$('#cart-header${num.count}').html('');
-					 						var div_count = $('.cart-item-info').length;
-					 						var item_num = 0;
-					 						for(var i=1;i<=div_count;i++){
-													item_num += parseInt($('#quantity'+i).val());
-					 						}
-					 						$('#cart-summary-num').html(item_num);
+// 											$('#cart-header${num.count}').html('');
+
+											// update cart summary item number
+					 						$('#cart-summary-num').html(parseInt($('#cart-summary-num').html()) - parseInt($(this).find('[name="quantity"]').val()));
+// 					 						var div_count = $('.cart-item-info:visible').length;
+// 					 						var item_num = 0;
+// 					 						for(var i=div_count;i>=1;i--){
+// 													item_num += parseInt($('#quantity'+i).val());
+// 					 						}
+// 					 						$('#cart-summary-num').html(item_num);
+// 					 						$('#undo_btn').show();
+											
+											// update text in undo button
+											var undoItemNum = $('.cart-item-info:hidden').length;
+											$('#undo-item-num').html(undoItemNum);
+					
+
+// 											var top = '<div id="undo-btn" class="notifications-top-center"><span class="iconb" data-icon="&#xe20e;"></span> Oups something went wrong !<div id="undo-btn_close" class="notifications-top-center-close" ><span class="iconb" data-icon="&#xe20e;"></span></div></div>';
+// 					 					    $("#undo-btn").remove();
+// 					 						$(".container").append(top);
+												
+											// show undo button
+					 						$(".notifications-top-center").addClass('animated bounce');
+					 					    $("#undo-btn").show();
+					 						$('.notifications-top-center-close').click(function(){$(this).parent().fadeOut(200);});
+// 					 						refresh_close();
+
+
+
+
+// // 	$("#undo_btn").sticky({topSpacing:0});
+// 	$('#undo_btn').on('click', function(c){
+// 		$(".notifications-top-center").addClass('animated ' + $('#effects').val());
+// 		$('#undo_btn').fadeOut('slow',function(cc){});
+// 		$('.cart-header:hidden').fadeIn('slow', function(c){
+// // 			$('.cart-header:hidden').show();
+// 		});
+// 	});
+					 						
 										});	
 // 										updateCartSumItem();
 // 										$("#cart-summary-num").updatetCartSumItem();
@@ -77,7 +164,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 					 					var div_count = $('.cart-item-info').length;
 					 						var item_num = 0;
-					 						for(var i=1;i<=div_count;i++){
+					 						for(var i=div_count;i>=1;i--){
 													item_num += parseInt($('#quantity'+i).val());
 					 						}
 					 						$('#cart-summary-num').html(item_num);
@@ -93,7 +180,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							});
 						});
 				</script>
-				<div class="cart-header" id="cart-header${num.count}" lang="${item.id}">
+				<div class="cart-header" id="cart-header${num.count}" lang="${item.id}" undoPrio="">
 					<div class="close1" id="close${num.count}"> </div>
 					<div class="cart-sec">
 						<div class="cart-item cyc">

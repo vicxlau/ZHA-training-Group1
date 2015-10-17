@@ -19,7 +19,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			<li><a href="${shop}/home">Home</a></li>
 			<li class="active">搜尋 "${requestScope.keyword}" 結果</li>
 		</ol>
-		<h2>搜尋 "${requestScope.keyword}" 結果</h2>			
+<!--<%-- 		<h2>搜尋 "${requestScope.keyword}" 結果</h2>			 --%>-->
 <!-- 		 <div class="col-md-9 product-model-sec"> -->
 		 <div class="col-md-11 product-model-sec">
 			 <c:if test="${not empty requestScope.pageResults}">
