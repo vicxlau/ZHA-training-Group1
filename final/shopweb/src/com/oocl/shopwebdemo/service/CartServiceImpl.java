@@ -5,7 +5,7 @@ import java.util.List;
 import com.oocl.shopwebdemo.dao.AddressDaoImpl;
 import com.oocl.shopwebdemo.dao.CartDaoImpl;
 import com.oocl.shopwebdemo.model.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class CartServiceImpl {
 

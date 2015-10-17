@@ -11,12 +11,12 @@ import javax.servlet.http.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oocl.shopwebdemo.dto.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class SearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_SEARCH_RESULT = Locale.getSystemValue("URL_SEARCH_RESULT");
-	private static final String URL_ERROR = Locale.getSystemValue("URL_ERROR");
+	private static final String URL_SEARCH_RESULT = ConfigReader.getSystemValue("URL_SEARCH_RESULT");
+	private static final String URL_ERROR = ConfigReader.getSystemValue("URL_ERROR");
 	private ISearchService searchService = new SearchServiceImpl();
 	private ICategoryService cService = new CategoryServiceImpl();
 
@@ -36,7 +36,7 @@ public class SearchController extends HttpServlet {
 			SearchProductsResult searchResults;
 			searchResults = searchService.searchProducts(
 										keyword,
-										Integer.parseInt(Locale.getSystemValue("pageSize")),
+										Integer.parseInt(ConfigReader.getSystemValue("pageSize")),
 										Integer.parseInt(request.getParameter("pageNum"))
 									);
 

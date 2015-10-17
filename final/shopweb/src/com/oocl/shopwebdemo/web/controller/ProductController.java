@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class ProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_HOME = Locale.getSystemValue("URL_HOME");
-	private static final String URL_ERROR= Locale.getSystemValue("URL_ERROR");
-	private static final String URL_ADD_PRODUCT = Locale.getSystemValue("URL_BACKEND_ADD_PRODUCT");
-	private static final String URL_UPDATE_PRODUCT = Locale.getSystemValue("URL_BACKEND_PRODUCT");
+	private static final String URL_HOME = ConfigReader.getSystemValue("URL_HOME");
+	private static final String URL_ERROR= ConfigReader.getSystemValue("URL_ERROR");
+	private static final String URL_ADD_PRODUCT = ConfigReader.getSystemValue("URL_BACKEND_ADD_PRODUCT");
+	private static final String URL_UPDATE_PRODUCT = ConfigReader.getSystemValue("URL_BACKEND_PRODUCT");
 	private IProductService productEditService = new ProductServiceImpl();
 
 	@Override
@@ -24,7 +24,7 @@ public class ProductController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		//vicx- add role checking
-		if (request.getSession().getAttribute(Locale.getSystemValue("session_customer_attr")) != null) {
+		if (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null) {
 			String action = request.getParameter("action");
 			try {
 				switch (action) {

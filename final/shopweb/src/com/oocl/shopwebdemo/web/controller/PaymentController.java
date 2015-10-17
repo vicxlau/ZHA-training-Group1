@@ -18,7 +18,7 @@ import com.oocl.shopwebdemo.util.*;
 
 public class PaymentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_CUSTOMER_CONFIRM_PAYMENT = Locale.getSystemValue("URL_CUSTOMER_CONFIRM_PAYMENT");
+	private static final String URL_CUSTOMER_CONFIRM_PAYMENT = ConfigReader.getSystemValue("URL_CUSTOMER_CONFIRM_PAYMENT");
 	private static final String CONTENT_TYPE = "text/html";
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -56,7 +56,7 @@ public class PaymentController extends HttpServlet {
 	private void updateSuccessStatus(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
-		String keyValue = Locale.getSystemValue("payment-key");
+		String keyValue = ConfigReader.getSystemValue("payment-key");
 		// 获取所有的明文
 		String r0_Cmd = formatString(request.getParameter("r0_Cmd")); 
 		String p1_MerId = request.getParameter("p1_MerId");
@@ -106,7 +106,7 @@ public class PaymentController extends HttpServlet {
 			HttpServletResponse response) throws IOException {
 		// 加密的密钥,由支付中介提供
 		Cart pCart = (Cart) request.getSession().getAttribute("previousCart");
-		String keyValue = Locale.getSystemValue("payment-key");
+		String keyValue = ConfigReader.getSystemValue("payment-key");
 		// 1: 给参数赋值
 		String p0_Cmd = formatString("Buy");
 		String p1_MerId = formatString("10000940764");
@@ -181,7 +181,7 @@ public class PaymentController extends HttpServlet {
 				"&hmac=" + URLEncoder.encode( hmac); 
 						
 		
-		URL url = new URL(Locale.getSystemValue("yeepay-URL"));
+		URL url = new URL(ConfigReader.getSystemValue("yeepay-URL"));
         URLConnection conn = url.openConnection();
         conn.setDoOutput(true);
         OutputStreamWriter writer = new OutputStreamWriter(conn.getOutputStream());
@@ -291,7 +291,7 @@ public class PaymentController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// 加密的密钥,由支付中介提供
 		Cart pCart = (Cart) request.getSession().getAttribute("previousCart");
-		String keyValue = Locale.getSystemValue("payment-key");
+		String keyValue = ConfigReader.getSystemValue("payment-key");
 		// 1: 给参数赋值
 		String p0_Cmd = formatString("Buy");
 		String p1_MerId = formatString("10000940764");

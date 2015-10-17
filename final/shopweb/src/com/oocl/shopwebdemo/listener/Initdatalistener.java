@@ -11,6 +11,7 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.oocl.shopwebdemo.service.ProductServiceImpl;
+import com.oocl.shopwebdemo.model.ApplicationStat;
 import com.oocl.shopwebdemo.model.CateProductStat;
 import com.oocl.shopwebdemo.util.*;
 
@@ -20,7 +21,7 @@ public class Initdatalistener implements ServletContextListener {
 	public void contextInitialized(ServletContextEvent event) {
 		TimerTaskUtil task=new TimerTaskUtil();
 		task.setApplication(event.getServletContext());
-		new Timer(true).schedule(task, 0, Integer.parseInt(Locale.getSystemValue("listener-homePageDataRefreshTime")));
+		new Timer(true).schedule(task, 0, Integer.parseInt(ConfigReader.getSystemValue("listener-homePageDataRefreshTime")));
 		
 		String basePath = event.getServletContext().getRealPath("");
 		System.out.println("获取项目的绝对地址:" + basePath);
@@ -35,13 +36,10 @@ public class Initdatalistener implements ServletContextListener {
 		
 		// 把银行的图标存放application内置对象中
 		event.getServletContext().setAttribute("banks", list);
-		
-		
-		
-		event.getServletContext().setAttribute(Locale.getSystemValue("application_stat"), new CateProductStat());
-		
-		System.out.println(Locale.getSystemValue("application_stat"));
-		System.out.println("app stat: " + ((CateProductStat)event.getServletContext().getAttribute("stat")).prod_list.size());
+		event.getServletContext().setAttribute(ConfigReader.getSystemValue("application_stat"), new ApplicationStat());
+
+		System.out.println(ConfigReader.getSystemValue("application_stat"));
+		System.out.println("app stat: " + ((ApplicationStat)event.getServletContext().getAttribute("stat")).prod_list.size());
 //				event.getServletContext().getAttribute(Locale.getSystemValue("application_stat")));
 
 		

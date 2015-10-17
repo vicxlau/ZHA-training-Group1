@@ -9,13 +9,13 @@ import javax.servlet.http.*;
 import com.oocl.shopwebdemo.dto.SearchProductsResult;
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class RetrievalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_ERROR = Locale.getSystemValue("URL_ERROR");
-	private static final String URL_PRODUCT_PAGE = Locale.getSystemValue("URL_PRODUCT_PAGE");
-	private static final String URL_CATEGORY_PAGE = Locale.getSystemValue("URL_CATEGORY_PAGE");
+	private static final String URL_ERROR = ConfigReader.getSystemValue("URL_ERROR");
+	private static final String URL_PRODUCT_PAGE = ConfigReader.getSystemValue("URL_PRODUCT_PAGE");
+	private static final String URL_CATEGORY_PAGE = ConfigReader.getSystemValue("URL_CATEGORY_PAGE");
 	
 	private ICategoryService categoryService = new CategoryServiceImpl();
 	private IProductService productService = new ProductServiceImpl();
@@ -71,9 +71,16 @@ public class RetrievalController extends HttpServlet {
 //				request.setAttribute("proPic",p.getPic());
 				request.setAttribute("categoryList",categoryService.getAllCategory());
 //				productService.addProductVisitTime(id);
-				appService.updateStat((CateProductStat)request.getServletContext().getAttribute(Locale.getSystemValue("application_stat")), 
+				
+				// CateProdStat
+//				appService.updateStat((CateProductStat)request.getServletContext().getAttribute(ConfigReader.getSystemValue("application_stat")), 
+//						p, 
+//						(Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")));
+
+				appService.updateStat((ApplicationStat)request.getServletContext().getAttribute(ConfigReader.getSystemValue("application_stat")), 
 						p, 
-						(Customer)request.getSession().getAttribute(Locale.getSystemValue("session_customer_attr")));
+						(Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")));
+				
 				
 				request.getRequestDispatcher(URL_PRODUCT_PAGE).forward(request,response);
 				

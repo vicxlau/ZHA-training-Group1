@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.CartServiceImpl;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 /**
  * Servlet implementation class ItemServlet
@@ -17,8 +17,8 @@ import com.oocl.shopwebdemo.util.Locale;
 public class CartController extends HttpServlet {
 	
 	private static final long serialVersionUID = 844483551957629268L;
-	private final String URL_CUSTOMER_BANK = Locale.getSystemValue("URL_CUSTOMER_BANK");
-	private final String URL_CART = Locale.getSystemValue("URL_CART");
+	private final String URL_CUSTOMER_BANK = ConfigReader.getSystemValue("URL_CUSTOMER_BANK");
+	private final String URL_CART = ConfigReader.getSystemValue("URL_CART");
 	private CartServiceImpl cService = new CartServiceImpl();
 	
     public CartController() {
@@ -64,7 +64,7 @@ public class CartController extends HttpServlet {
 //			cart.setAddress(request.getParameter("address"));
 //			cart.setRemark(request.getParameter("remark"));
 		
-		Customer c = (Customer) request.getSession().getAttribute(Locale.getSystemValue("session_customer_attr"));
+		Customer c = (Customer) request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"));
 		String str_addr_id = request.getParameter("addr_id");
 		
 		request.getSession().setAttribute("previousCart", 

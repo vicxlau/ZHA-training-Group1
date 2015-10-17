@@ -23,7 +23,18 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 		 <div class="cart-items">
 			<h2>My Shopping Cart </h2>
 			<c:forEach items="${sessionScope.cart.itemList}" var="item" varStatus="num"> 
-				<script>$(document).ready(function(c) {
+				<script>								
+				$(document).ready(function(c) {
+					
+				function updatetCartSumItem() {
+// 					var div_count = $('.cart-item-info').length;
+// 						var item_num = 0;
+// 						for(var i=1;i<=div_count;i++){
+// 								item_num += $('#quantity'+i).val();
+// 						}
+// 						$('#cart-summary-num').html(item_num);
+						$('#cart-summary-num').html(999);
+				}
 							$('#close${num.count}').on('click', function(c){
 								var id = parseInt($('#cart-header${num.count}').attr('lang'));
 								var num = parseInt($('#quantity${num.count}').val());
@@ -32,8 +43,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									$('#cart-summary-total').html(total);
 									},'text').done(function(){
 										$('#cart-header${num.count}').fadeOut('slow', function(c){
-											$('#cart-header').remove();
+// 											$('#cart-header${num.count}').remove();
+											$('#cart-header${num.count}').html('');
+					 						var div_count = $('.cart-item-info').length;
+					 						var item_num = 0;
+					 						for(var i=1;i<=div_count;i++){
+													item_num += parseInt($('#quantity'+i).val());
+					 						}
+					 						$('#cart-summary-num').html(item_num);
 										});	
+// 										updateCartSumItem();
+// 										$("#cart-summary-num").updatetCartSumItem();
+// 					 					$('#cart-summary-num').html(parseInt($('.cart-item-info').length));
+
+
 									});
 							});	
 							$('#quantity${num.count}').change(function(){
@@ -49,9 +72,23 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 										var price = parseFloat($('#price${num.count}').html());
 										var num = parseInt($('#quantity${num.count}').val());
 										$('#total${num.count}').html(price*num);
+
+// 					 					$('#cart-summary-num').html(parseInt($('.cart-item-info').length));
+
+					 					var div_count = $('.cart-item-info').length;
+					 						var item_num = 0;
+					 						for(var i=1;i<=div_count;i++){
+													item_num += parseInt($('#quantity'+i).val());
+					 						}
+					 						$('#cart-summary-num').html(item_num);
+
+// 										updateCartSumItem();
+// 										$("#cart-summary-num").updatetCartSumItem();
 	// 									$('#total${num.count}').innerHTML();
 // 										$('#total${num.count}').html(parseFloat($('#price${num.count}').html())*parseInt($('#quantity${num.count}').val()));
 									});
+								}else{
+									$(this).val($(this).attr('lang'));
 								}
 							});
 						});
@@ -68,7 +105,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<span>Model No: 3578</span></h3>
 							<h4><span>￥</span><span id="price${num.count}">${item.price}</span></h4>
 							<p class="qty">Qty ::</p>
-							<input min="1" type="number" id="quantity${num.count}" name="quantity" value="${item.number}" class="form-control input-small">
+							<input min="1" type="number" id="quantity${num.count}" name="quantity" value="${item.number}" class="form-control input-small" lang="${item.number}">
 							<p> Item Total:  <span>￥</span><span id="total${num.count}">${item.number * item.price}</span></p>
 						</div>
 						<div class="clearfix"></div>

@@ -6,13 +6,13 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 import com.oocl.shopwebdemo.model.*;
 
 public class HomeController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_HOME_PAGE = Locale.getSystemValue("URL_HOME_PAGE");
-	private static final String URL_ERROR = Locale.getSystemValue("URL_ERROR");
+	private static final String URL_HOME_PAGE = ConfigReader.getSystemValue("URL_HOME_PAGE");
+	private static final String URL_ERROR = ConfigReader.getSystemValue("URL_ERROR");
 	private ICategoryService categoryService = new CategoryServiceImpl();
 	private ISearchService searchService = new SearchServiceImpl();
 

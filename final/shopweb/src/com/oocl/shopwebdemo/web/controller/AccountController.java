@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 // @WebServlet("/AccountServlet") xml配置
 public class AccountController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_HOME = Locale.getSystemValue("URL_HOME");
-	private static final String URL_LOGIN = Locale.getSystemValue("URL_LOGIN");
-	private static final String URL_BACKEND = Locale.getSystemValue("URL_BACKEND_HOME");
+	private static final String URL_HOME = ConfigReader.getSystemValue("URL_HOME");
+	private static final String URL_LOGIN = ConfigReader.getSystemValue("URL_LOGIN");
+	private static final String URL_BACKEND = ConfigReader.getSystemValue("URL_BACKEND_HOME");
 	private IAccountService accountService = new AccountServiceImpl();
 
 	/**
@@ -59,7 +59,7 @@ public class AccountController extends HttpServlet {
 
 		if (c.getUser().isLogin()) {
 			// 登录成功,跳转到后台首页(登录的个人数据要存储到session中)
-			request.getSession().setAttribute(Locale.getSystemValue("session_customer_attr"),c);
+			request.getSession().setAttribute(ConfigReader.getSystemValue("session_customer_attr"),c);
 			
 //			for(Address a : c.getAddrList())
 //		        System.out.format("%d : %s +++  %s +++ \n", a.getAddr_id(), a.getRecipient_name() , a.getRecipient_address());
@@ -70,7 +70,7 @@ public class AccountController extends HttpServlet {
 				 dispatcher = request.getRequestDispatcher((String) request.getSession().getAttribute("url"));
 				 dispatcher.forward(request, response);
 			 }catch(Exception e){
-				 if(c.getUser().getUser().getRoleId() == Integer.parseInt(Locale.getSystemValue("admin_role_id"))){
+				 if(c.getUser().getUser().getRoleId() == Integer.parseInt(ConfigReader.getSystemValue("admin_role_id"))){
 					 dispatcher = request.getRequestDispatcher(URL_BACKEND);
 				 	 dispatcher.forward(request, response);
 				 }else{ 

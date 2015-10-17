@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 /**
  * Servlet implementation class ErrorHandler
@@ -16,7 +16,7 @@ import com.oocl.shopwebdemo.util.Locale;
 @WebServlet("/ErrorHandler")
 public class ErrorHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_ERROR_PAGE = Locale.getSystemValue("URL_ERROR_PAGE");
+	private static final String URL_ERROR_PAGE = ConfigReader.getSystemValue("URL_ERROR_PAGE");
        
     /**
      * @see HttpServlet#HttpServlet()

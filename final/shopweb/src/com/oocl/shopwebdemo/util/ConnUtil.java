@@ -24,9 +24,9 @@ public class ConnUtil {
 			// load jdbc driver
 			Class.forName("oracle.jdbc.OracleDriver");
 	
-			connUrl = Locale.getSystemValue("oracle-connection-url");
-			username = Locale.getSystemValue("oracle-connection-username");
-			password = Locale.getSystemValue("oracle-connection-password");
+			connUrl = ConfigReader.getSystemValue("oracle-connection-url");
+			username = ConfigReader.getSystemValue("oracle-connection-username");
+			password = ConfigReader.getSystemValue("oracle-connection-password");
 			
 			// load conn params from config file
 //			Properties props = new Properties();

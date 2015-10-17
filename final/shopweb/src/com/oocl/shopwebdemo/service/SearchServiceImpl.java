@@ -8,7 +8,7 @@ import com.oocl.shopwebdemo.dao.IProductDao;
 import com.oocl.shopwebdemo.dao.ProductDaoImpl;
 import com.oocl.shopwebdemo.dto.SearchProductsResult;
 import com.oocl.shopwebdemo.model.Product;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class SearchServiceImpl implements ISearchService {
 
@@ -57,7 +57,7 @@ public class SearchServiceImpl implements ISearchService {
 		//ori
 //		return productDao.getProductInCategory(cid, 3, pageNum);
 		
-		int pageSize = Integer.parseInt(Locale.getSystemValue("pageSize"));
+		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
 		int totalResultCount = productDao.getProductResultCountInCategory(cid);
 		
 		SearchProductsResult s = new SearchProductsResult();

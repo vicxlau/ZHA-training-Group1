@@ -10,17 +10,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class CategoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_HOME = Locale.getSystemValue("URL_HOME");
-	private static final String URL_ERROR = Locale.getSystemValue("URL_ERROR");
-	private static final String URL_BACKEND = Locale.getSystemValue("URL_BACKEND_HOME");
-	private static final String URL_ADD_CATEGORY = Locale.getSystemValue("URL_BACKEND_ADD_CATEGORY");
-	private static final String URL_QUERY_CATEGORY = Locale.getSystemValue("URL_BACKEND_QUERY_CATEGORY");
-	private static final String URL_UPDATE_CATEGORY = Locale.getSystemValue("URL_BACKEND_UPDATE_CATEGORY");
-	private static final String URL_DELETE_CATEGORY = Locale.getSystemValue("URL_BACKEND_DELETE_CATEGORY");
+	private static final String URL_HOME = ConfigReader.getSystemValue("URL_HOME");
+	private static final String URL_ERROR = ConfigReader.getSystemValue("URL_ERROR");
+	private static final String URL_BACKEND = ConfigReader.getSystemValue("URL_BACKEND_HOME");
+	private static final String URL_ADD_CATEGORY = ConfigReader.getSystemValue("URL_BACKEND_ADD_CATEGORY");
+	private static final String URL_QUERY_CATEGORY = ConfigReader.getSystemValue("URL_BACKEND_QUERY_CATEGORY");
+	private static final String URL_UPDATE_CATEGORY = ConfigReader.getSystemValue("URL_BACKEND_UPDATE_CATEGORY");
+	private static final String URL_DELETE_CATEGORY = ConfigReader.getSystemValue("URL_BACKEND_DELETE_CATEGORY");
 	private ICategoryService cService = new CategoryServiceImpl();
 
 	@Override
@@ -138,7 +138,7 @@ public class CategoryController extends HttpServlet {
 	}
 
 	private boolean isLogin(HttpServletRequest request) {
-		return (request.getSession().getAttribute(Locale.getSystemValue("session_customer_attr")) != null);
+		return (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null);
 	}
 
 }

@@ -30,6 +30,11 @@
 </div>
 <!-- color header end -->
 
+  <c:set var="total" value="0" />
+  <c:forEach items="${sessionScope.cart.itemList}" var="item">
+        <c:set var="total" value="${total + item.number}" />
+  </c:forEach>
+  
 <div class="header_top">
 	 <div class="container">
 		 <div class="logo">
@@ -41,7 +46,7 @@
 			 </div>
 			 <div class="cart box_1">
 				<a href="${shop}/cart.jsp">
-					<h3> <span>￥ 
+					<h3> ￥<span id="cart-summary-total"> 
 							<c:choose>
 							    <c:when test="${empty sessionScope.cart.total}">
 							        0.00
@@ -51,7 +56,7 @@
 							    </c:otherwise>
 							</c:choose>
 
-					</span> (<span id="" class="">${fn:length(sessionScope.cart.itemList)}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
+					</span> (<span id="cart-summary-num" class="">${total}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
 <%-- 					<h3> <span class="simpleCart_total">${sessionScope.cart.total}</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)<img src="${shop}/images/bag.png" alt=""></h3> --%>
 				</a>	
 <!-- 				<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p> -->
@@ -204,12 +209,34 @@
 			   </ul> 
 			   <div class="search">
 				 <form action="${shop}/searchProductServlet" method="get">
-					<input type="text" value="" placeholder="Search...">
+					<input type="text" name="keyword" id="keyword" list="search-suggest-list" placeholder="Search...">
+					<datalist id="search-suggest-list"></datalist>
+					
 					<input type="hidden" name="pageNum" value="1"> 
 <!-- 					<input type="hidden" name="pageSize" value="6"> -->
 					<input type="submit" value="">
 					</form>
-			 </div>
+			 	</div>
+			 	
+			 	<script>
+					$(function() {
+				 		$('#keyword').keyup(function() {
+
+				 			var keyword = $(this).val();
+				 			
+				 			$.post("${shop}/searchProductServlet", { "keyword":keyword }, function(data) {
+				 				var suggestions = JSON.parse(data);
+
+				 				$('#search-suggest-list').empty();
+				 				for (var item of suggestions) {
+				 					$('#search-suggest-list').append(new Option(item));
+				 				}
+				 				
+				 			});
+				 		});
+					});
+			 	</script>
+			 	
 			 <div class="clearfix"></div>
 		 </div>
 	  </div>

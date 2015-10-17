@@ -9,11 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class LoginFilter implements Filter {
 
-	private static final String URL_LOGIN = Locale.getSystemValue("URL_LOGIN");
+	private static final String URL_LOGIN = ConfigReader.getSystemValue("URL_LOGIN");
 	@Override
 	public void destroy() {
 		// TODO Auto-generated method stub
@@ -25,7 +25,7 @@ public class LoginFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		// 在此处完成用户登录的判断
 		HttpServletRequest rs = (HttpServletRequest) request;
-		if (rs.getSession().getAttribute(Locale.getSystemValue("session_customer_attr")) == null) {
+		if (rs.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) == null) {
 //			rs.setAttribute("url", rs.getContextPath()+"/"+rs.getServletPath()+"?"+rs.getQueryString());
 			String url = rs.getServletPath()+ ((rs.getQueryString()==null)?"":("?"+rs.getQueryString()));
 			rs.getSession().setAttribute("url", url);

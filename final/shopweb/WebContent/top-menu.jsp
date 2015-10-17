@@ -30,6 +30,11 @@
 </div>
 <!-- color header end -->
 
+  <c:set var="total" value="0" />
+  <c:forEach items="${sessionScope.cart.itemList}" var="item">
+        <c:set var="total" value="${total + item.number}" />
+  </c:forEach>
+  
 <div class="header_top">
 	 <div class="container">
 		 <div class="logo">
@@ -51,7 +56,7 @@
 							    </c:otherwise>
 							</c:choose>
 
-					</span> (<span id="cart-summary-num" class="">${fn:length(sessionScope.cart.itemList)}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
+					</span> (<span id="cart-summary-num" class="">${total}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
 <%-- 					<h3> <span class="simpleCart_total">${sessionScope.cart.total}</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)<img src="${shop}/images/bag.png" alt=""></h3> --%>
 				</a>	
 <!-- 				<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p> -->

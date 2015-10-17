@@ -16,7 +16,7 @@ public class Logger {
 		try {
 			out = new PrintWriter(
 					new BufferedWriter(
-							new FileWriter(Locale.getSystemValue("log-file-location"), true)));
+							new FileWriter(ConfigReader.getSystemValue("log-file-location"), true)));
 		} catch (Exception e) {
 			System.out.println("fail to initial logger");
 		}

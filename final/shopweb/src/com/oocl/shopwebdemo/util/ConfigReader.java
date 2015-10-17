@@ -3,7 +3,7 @@ package com.oocl.shopwebdemo.util;
 import java.io.*;
 import java.util.Properties;
 
-public class Locale {
+public class ConfigReader {
 	private static Properties prop;
 
 	static {
@@ -24,7 +24,7 @@ public class Locale {
 //			f.createNewFile();
 			
 			//temp
-			prop.load(Locale.class.getResourceAsStream("/app.config"));
+			prop.load(ConfigReader.class.getResourceAsStream("/app.config"));
 //			prop.load(Locale.class.getResourceAsStream("/app.properties"));
 //			InputStream inputStream = new FileInputStream("app.config");
 //			InputStream inputStream = new FileInputStream(new File("./configg"));

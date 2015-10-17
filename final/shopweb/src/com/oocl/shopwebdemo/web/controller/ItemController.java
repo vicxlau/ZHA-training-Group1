@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 
 /**
  * Servlet implementation class ItemServlet
@@ -19,7 +19,7 @@ import com.oocl.shopwebdemo.util.Locale;
 public class ItemController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	private static final String URL_CART = Locale.getSystemValue("URL_CART");
+	private static final String URL_CART = ConfigReader.getSystemValue("URL_CART");
 	private CartServiceImpl cService = new CartServiceImpl();
 	private ItemServiceImpl iService = new ItemServiceImpl();
 

@@ -14,7 +14,7 @@ import org.junit.Test;
 
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.AccountServiceImpl;
-import com.oocl.shopwebdemo.util.Locale;
+import com.oocl.shopwebdemo.util.ConfigReader;
 import com.oocl.shopwebdemo.util.Logger;
 
 public class AccountDaoImplTest {
