@@ -75,5 +75,20 @@ public class SearchServiceImpl implements ISearchService {
 	public Product getProductByIndex(int pid) {
 		return productDao.getProductByIndex(pid).get(0);
 	}
+
+	@Override
+	public SearchProductsResult getProductByCatIdAndPrice(int cid, int lowerbound,
+			int upperbound, int pageNum) {
+		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
+		//int totalResultCount = productDao.getProductResultCountByCatIdAndPrice(cid, lowerbound, upperbound);
+		SearchProductsResult s = new SearchProductsResult();
+		//s.setPageResults(productDao.getProductByCatIdAndPrice(cid, lowerbound, upperbound, pageSize, pageNum));
+		s.setPageResults(productDao.getProductByCatIdAndPrice(cid, lowerbound, upperbound, pageSize, pageNum));
+		s.setPageNum(pageNum);
+		s.setPageSize(pageSize);
+//		s.setPageCount(totalResultCount/pageSize + 1);
+//		s.setTotalResultCount(totalResultCount);
+		return s;
+	}
 	
 }

@@ -264,4 +264,46 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 			
 		});
 	}
+
+	@Override
+	public List<Product> getProductByCatIdAndPrice(int cid, int lowerbound,
+			int upperbound, int pageSize, int pageNum) {
+//		String sql = "select rs.* from (select t.*, rownum r from ( select k.* from "
+//				+ "(select p.* from category_product c_p left join product p on c_p.pro_id = p.pro_id where c_p.cat_id = ?)"
+//				+ " k where k.pro_dis <= ? and k.pro_dis > ? )t where rownum <= ? ) rs where rs.r > ?";
+		//UI_PRODUCT_GET_BY_CAT_PRICE (cat_index IN NUMBER,upperbound IN NUMBER,lowerbound IN NUMBER, last_pro_num IN NUMBER, first_pro_num IN NUMBER, pro OUT sys_refcursor)
+		String sql = "call UI_PRODUCT_GET_BY_CAT_PRICE (?,?,?,?,?,?)";
+		return super.executeQuery(sql, new RowMapper<Product>() {
+
+			@Override
+			public List<Product> getRowMapper(ResultSet rs) throws Exception {
+				List<Product> results = new ArrayList<Product>();
+
+				while (rs.next()) {
+					Product product = new Product();
+					product.setId(rs.getInt("pro_id"));
+					product.setName(rs.getString("pro_name"));
+					product.setPrice(rs.getDouble("pro_price"));
+					product.setPic(rs.getString("pro_pic"));
+					product.setRemark(rs.getString("pro_remark"));
+
+					results.add(product);
+
+					results.add(product);
+				}
+				return results;
+			}
+
+			
+		}, cid,upperbound,lowerbound,pageSize * pageNum, (pageNum - 1) * pageSize);
+	}
+
+	@Override
+	public int getProductResultCountByCatIdAndPrice(int cid,
+			int lowerbound, int upperbound) {
+		String sql = "select k.* from"+
+				  "(select p.* from category_product c_p left join product p on c_p.pro_id = p.pro_id where c_p.cat_id = ?"+
+				  ") k where k.PRO_DIS <= ? and k.PRO_DIS > ?";
+		return super.executeCountQuery(sql, cid,upperbound,lowerbound);
+	}
 }

@@ -12,10 +12,13 @@ public interface IProductDao {
 	
 	int getProductsSearchResultCountByKeyword(String keyword);
 	int getProductResultCountInCategory(int cid);
+	int getProductResultCountByCatIdAndPrice(int cid, int lowerbound, int upperbound);
 	List<Product> searchProductsByKeywordWithPaging(String keyword, int pageSize, int pageNum);
 	List<Product> getProductInCategory(int cid,int pageSize, int pageNum);
 	List<Product> getProductByIndex(int id);
 	List<Product> getHotProduct();
 	List<Product> getAdvProduct();
 	List<Product> getDistinctOrderedProductNames();
+	List<Product> getProductByCatIdAndPrice(int cid, int lowerbound, int upperbound, int pageSize, int pageNum);
+	
 }
