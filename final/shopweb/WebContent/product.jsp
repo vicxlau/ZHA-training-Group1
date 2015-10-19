@@ -16,6 +16,27 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <body>
 
 	<%@ include file="top-menu.jsp"%>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId : '1629513223989520',
+                xfbml : true,
+                version : 'v2.5'
+            });
+        };
+
+        (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {
+                return;
+            }
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 
 	<div class="single-sec">
 		<div class="container">
@@ -83,6 +104,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- 								<a href="">BUY NOW</a> -->
 								</ul>
 							</form>
+                            <div class="fb-share-button" 
+                                data-href="http://working.java.jspee.cn/shopweb/retrievalServlet?action=product&id=${requestScope.product.id}" 
+                                data-layout="button_count">
+                            </div>
 						</div>
 <!-- 						<div class="check"> -->
 <!-- 							<p> -->
