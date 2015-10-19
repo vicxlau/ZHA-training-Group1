@@ -37,6 +37,9 @@ public class AccountServlet extends HttpServlet {
 		// 1: 获取UI页面的数据
 		String name = request.getParameter("name");
 		String pass = request.getParameter("pass");
+		
+		System.out.println("shopwebb " + request.getSession().getAttribute("customer"));
+		
 //		Account account=new Account();
 //		account.setName(name);
 //		account.setPass(pass);
