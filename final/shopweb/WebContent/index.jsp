@@ -58,7 +58,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<h4>
 										<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
 									</h4>
-									<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+									<span>$ ${prod.price}</span> <span style="color:red">${prod.discount} % off</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
 								</div>
 							</div>
 						</c:if>
@@ -93,7 +93,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<h4>
 										<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
 									</h4>
-									<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+									<span>$ ${prod.price}</span> <span style="color:red">${prod.discount} % off</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
 								</div>
 							</div>
 						</c:if>
@@ -108,7 +108,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<h4>
 										<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
 									</h4>
-									<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+									<span>$ ${prod.price}</span> <span style="color:red">${prod.discount} % off</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
 								</div>
 							</div>
 						</c:if>

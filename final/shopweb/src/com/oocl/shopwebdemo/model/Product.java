@@ -13,6 +13,7 @@ public class Product implements Serializable{
 	private Double adv;
 	private Integer visitTime;
 	private Integer categoryID;
+	private Integer discount;
 
 
 	public Product() {}
@@ -21,7 +22,7 @@ public class Product implements Serializable{
 		setId(id);
 	}
 	
-	public Product(String name, Double price, String pic, String remark,Double adv,Integer cid) {
+	public Product(String name, Double price, String pic, String remark,Double adv,Integer discount, Integer cid) {
 		setName(name);
 		setPrice(price);
 		setPic(pic);
@@ -29,6 +30,7 @@ public class Product implements Serializable{
 		setAdv(adv);
 		setVisitTime(0);
 		setCategoryID(cid);
+		setDiscount(discount);
 	}
 	
 	public Product(Integer id, String name, Double price, String pic, String remark,Integer cid) {
@@ -48,6 +50,14 @@ public class Product implements Serializable{
 	public String getPic() { return pic; }
 	public String getRemark() {	return remark; }
 
+
+	public Integer getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
+	}
 
 	public void setId(Integer id) {
 		this.id = id;

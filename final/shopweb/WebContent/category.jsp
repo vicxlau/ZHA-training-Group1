@@ -139,7 +139,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 							<div class="product-info-cust prt_name">
 								<h4>${product.name}</h4>
 <!-- 								<p>ID: SR4598</p> -->
-								<span class="item_price">$ ${product.price}</span>
+								<span class="item_price">$ ${product.price}</span><br/>
+								<span class="item_discount" style="color:red">  ${product.discount} % off</span>
 								<form action="${shop}/ItemServlet" method="post">								
 									<input type="text" class="item_quantity" name="number" value="1" />
 									<input type="submit" class="item_add items" value="ADD">

@@ -96,6 +96,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<!-- 								<li>MRP: <del>Rs 55000</del></li> -->
 									<li>Sellling Price:</li>
 									<li class="active">$ ${requestScope.product.price}</li>
+									<li>Discount:</li>
+									<li class="active">$ ${requestScope.product.discount} % off</li>
 									<input type="hidden" name="id" value="${requestScope.product.id}"/>
 									<li>
 										<input type="text" name="number" value="1" width="2"/>
