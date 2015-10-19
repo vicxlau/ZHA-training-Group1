@@ -8,6 +8,8 @@ import com.oocl.shopwebdemo.model.Product;
 public interface ISearchService {
 
 	SearchProductsResult searchProducts(String keyword, int pageSize, int pageNum);
+	SearchProductsResult getProductByCatIdAndPrice(int cid, int lowerbound, int upperbound, int pageNum);
+
 
 	List<Product> getHotProduct();
 
@@ -17,4 +19,5 @@ public interface ISearchService {
 	SearchProductsResult getProductInCategory(int cid, int pageNum);
 
 	Product getProductByIndex(int pid);
-}
+	
+	}
