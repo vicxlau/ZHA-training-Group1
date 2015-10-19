@@ -20,7 +20,9 @@ public class RetrievalController extends HttpServlet {
 	private ICategoryService categoryService = new CategoryServiceImpl();
 	private IProductService productService = new ProductServiceImpl();
 	private ISearchService searchService = new SearchServiceImpl();
-	private ApplicationServiceImpl appService = new ApplicationServiceImpl(); 
+	private ApplicationServiceImpl appService = new ApplicationServiceImpl();
+	private IProductRecommendationService recommendService = new ProductRecommendationServiceImpl();
+
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -72,6 +74,19 @@ public class RetrievalController extends HttpServlet {
 				request.setAttribute("categoryList",categoryService.getAllCategory());
 //				productService.addProductVisitTime(id);
 				
+				
+				// product recommendation
+				HttpSession session = request.getSession();
+				Product lastVisitedProduct = (Product) session.getAttribute("lastVisitedProduct");
+				
+				if (lastVisitedProduct != null) {
+					recommendService.addProductBrowsePairs(lastVisitedProduct, p);
+				}
+				
+				session.setAttribute("lastVisitedProduct", p);
+				request.setAttribute("prodRecommendList", recommendService.recommendProducts(p.getId()));
+
+
 				// CateProdStat
 //				appService.updateStat((CateProductStat)request.getServletContext().getAttribute(ConfigReader.getSystemValue("application_stat")), 
 //						p, 

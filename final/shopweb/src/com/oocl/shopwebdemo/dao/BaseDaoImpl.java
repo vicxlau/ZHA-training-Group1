@@ -76,6 +76,34 @@ public abstract class BaseDaoImpl<T> {
 		}
 	}
 
+	
+	protected List<T> executeQuery_preparedStatement(String preparedStatement, RowMapper rm, Object... params) {
+
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnUtil.jdbcUtil.getConnection();
+			st = conn.prepareStatement(preparedStatement);
+			
+			for (int i=0; i<params.length; i++) {
+				st.setObject(i+1, params[i]);
+			}
+
+			rs = st.executeQuery();
+			
+			return rm.getRowMapper(rs);
+			
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+
+		} finally {
+			ConnUtil.jdbcUtil.closeJdbcObjects(rs, st, conn);
+		}
+	}
+	
+	
 	protected int executeUpdate(String sql, Object... params) {
 
 		Connection conn = null;

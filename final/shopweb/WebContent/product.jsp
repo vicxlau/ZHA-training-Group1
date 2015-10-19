@@ -118,28 +118,67 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 				<div class="clearfix"></div>
-				<div class="sofaset-info">
-					<h4>Product Summary SPENCER 3+1+1 SOFA SET WITH 5 BIG CUSHIONS
-						& WOODEN HANDLE</h4>
-					<ul>
-						<li>Dimensions: 3 Seater: Length 208 x Width 81 x Height 91.5
-							cm and 1 Seater: Length 99 x Width 81 x Height 91.5 cm</li>
-						<li>Assembly Type: Pre Assembled</li>
-						<li>Material: Wooden Structure, Chemical Treated And Seasoned
-							Wood, 19 mm and 12 mm Commercial Ply and Mdf Used On Visible
-							Parts</li>
-						<li>Looks amazing in a contemporary setting</li>
-						<li>Colour: Brown Jute, Sheron Brown</li>
-						<li>Type: Spencer 3 plus 1 plus 1 Sofa Set With 5 Big
-							Cushions and 6 Small Cushions, Wooden Handle</li>
-						<li>Long lasting, durable and easy to use product</li>
-						<li>Contents: 3 Pc</li>
-						<li>Delivery Time: 7 to 10 days from the Day of Dispatch</li>
-						<li>Very classy and contemporary design</li>
-						<li>SUPC: SHG21458689652</li>
-						<li>Material: High Density Foam and Fabric</li>
-					</ul>
-				</div>
+	
+				<c:if test="${not empty requestScope.prodRecommendList }">
+					<div class="new">
+						<div class="container">
+							<h3>Other customers also look at:</h3>
+								<div class="new-products">
+								
+									<div class="new-items">
+										<c:forEach items="${requestScope.prodRecommendList}" var="prod" varStatus="num">
+											<c:if test="${num.count%3 == 1}">
+												<div class="item${num.count}">
+													<a href="${shop}/retrievalServlet?action=product&id=${prod.id}"><img src="${shop}/product_pic/${prod.pic}" alt="${prod.name}" /></a>
+													<div class="item-info${num.count}">
+														<h4>
+															<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
+														</h4>
+														<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+					
+									</div>
+									<div class="new-items new_middle">
+										<c:forEach items="${requestScope.prodRecommendList}" var="prod" varStatus="num">
+											<c:if test="${num.count%3 == 2}">
+												<div class="item${num.count}">
+													<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">
+														<img src="${shop}/product_pic/${prod.pic}" alt="${prod.name}" />
+													</a>
+													<div class="item-info${num.count}">
+														<h4>
+															<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
+														</h4>
+														<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+									</div>
+									<div class="new-items new_last">
+										<c:forEach items="${requestScope.prodRecommendList}" var="prod" varStatus="num">
+											<c:if test="${num.count%3 == 0}">
+												<div class="item${num.count}">
+													<a href="${shop}/retrievalServlet?action=product&id=${prod.id}"><img src="${shop}/product_pic/${prod.pic}" alt="${prod.name}" /></a>
+													<div class="item-info${num.count}">
+														<h4>
+															<a href="${shop}/retrievalServlet?action=product&id=${prod.id}">${prod.name}</a>
+														</h4>
+														<span>$ ${prod.price}</span> <a href="${shop}/retrievalServlet?action=product&id=${prod.id}">Buy Now</a>
+													</div>
+												</div>
+											</c:if>
+										</c:forEach>
+									</div>
+								
+									<div class="clearfix"></div>
+								</div>
+						</div>
+					</div>
+				</c:if>
 			</div>
 <!-- 			<div class="rsidebar span_1_of_left"> -->
 <!-- 				<section class="sky-form"> -->

@@ -18,4 +18,5 @@ public interface IProductDao {
 	List<Product> getHotProduct();
 	List<Product> getAdvProduct();
 	List<Product> getDistinctOrderedProductNames();
+	List<Product> getProductsByIds(List<Integer> productIdList);
 }

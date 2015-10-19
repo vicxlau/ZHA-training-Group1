@@ -2,6 +2,7 @@ package com.oocl.shopwebdemo.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.AfterClass;
@@ -92,6 +93,20 @@ public class ProductDaoImplTest {
 	public void testGetDistinctOrderedProductNames() {
 		
 		List<Product> results = new ProductDaoImpl().getDistinctOrderedProductNames();
+		
+		for (Product product : results) {
+			System.out.println(product.getName());
+		}
+	}
+
+
+	@Test
+	public void testGetProductsByIds() {
+		
+		List<Integer> id_list = new ArrayList<Integer>();
+		id_list.add(19);
+		
+		List<Product> results = new ProductDaoImpl().getProductsByIds(id_list);
 		
 		for (Product product : results) {
 			System.out.println(product.getName());

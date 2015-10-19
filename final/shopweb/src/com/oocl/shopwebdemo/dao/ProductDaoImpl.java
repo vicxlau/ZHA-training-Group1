@@ -264,4 +264,37 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 			
 		});
 	}
+
+
+
+	@Override
+	public List<Product> getProductsByIds(List<Integer> productIdList) {
+
+		StringBuilder builder = new StringBuilder();
+		for (Integer pro_id : productIdList) {
+			builder.append(pro_id + ",");
+		}
+		
+		return super.executeQuery_preparedStatement("select * from product where pro_id in (" + builder.substring(0, builder.length()-1) +")", new RowMapper<Product>() {
+
+			@Override
+			public List<Product> getRowMapper(ResultSet rs) throws Exception {
+				
+				List<Product> results = new ArrayList<Product>();
+
+				while (rs.next()) {
+					Product product = new Product();
+					product.setId(rs.getInt("pro_id"));
+					product.setName(rs.getString("pro_name"));
+					product.setPrice(rs.getDouble("pro_price"));
+					product.setPic(rs.getString("pro_pic"));
+					product.setRemark(rs.getString("pro_remark"));
+
+					results.add(product);
+				}
+				return results;
+			}
+			
+		});
+	}
 }
