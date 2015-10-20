@@ -38,8 +38,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 	var output="json:";
                 	var target = $('div.product-model-sec#priceRangeResult');
                 	$('div.product-model-sec').html("");
+                	$('ul.pagination').html("");
+                	//var resultList =  json[0];
                 	for(var i = 0; i < json.length; i++) {
-                	    var obj = json[i];
+                	    var obj =json[i];
                 	    
                 	    var tmp2 = "<div class='product-grid love-grid'></div>";
                 	    var tmp = "<a href='/shopweb/retrievalServlet?action=product&id="+obj.id+"''></a>";
@@ -60,17 +62,24 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 			   "<div class='product-info simpleCart_shelfItem'>"+
       							"<div class='product-info-cust prt_name'>"+
    						"<h4>${product.name}</h4>"+
-   						"<span class='item_price'>$ "+obj.price+"</span>"+
-   						"<form action='${shop}/ItemServlet' method='post'>"+								
-   							"<input type='text' class='item_quantity' name='number' value='1' />"+
-   							"<input type='submit' class='item_add items' value='ADD'>"+
-   							"<input type='hidden' name='id' value='obj.id' />"+
-   						"</form>"+
-   					"</div>"+													
-   					"<div class='clearfix'> </div>"+
-   				"</div>"+
-   			"</div>"+
-   			"</div>");
+		   						"<span class='item_price'>$ "+obj.price+"</span>"+
+		   						"<form action='${shop}/ItemServlet' method='post'>"+								
+		   							"<input type='text' class='item_quantity' name='number' value='1' />"+
+		   							"<input type='submit' class='item_add items' value='ADD'>"+
+		   							"<input type='hidden' name='id' value='obj.id' />"+
+		   						"</form>"+
+		   					"</div>"+													
+		   					"<div class='clearfix'> </div>"+
+		   				"</div>"+
+		   			"</div>"+
+		   			"</div>");
+                	 
+                	  
+                	   
+                	   
+
+                	   
+             	   
 //                 	   $('div.product-model-sec').append("<div class='product-info simpleCart_shelfItem'>"+
 //    							"<div class='product-info-cust prt_name'>"+
 // 						"<h4>${product.name}</h4>"+
@@ -88,9 +97,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 //                 			   );
                 	   
                 	   console.log(obj.id);
+                	   
                 	}
-                	//$('div.col-md-9 product-model-sec#priceRangeResult').html(output);
-
+	                	
                 	},
 
                 	error: function (e) {
