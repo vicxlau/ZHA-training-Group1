@@ -42,7 +42,7 @@ public class ProductDaoImplTest {
 	
 	@Test
 	public void testAddProduct() {
-		System.out.println(new ProductDaoImpl().addProduct(new Product("hhest3",99.9,"D:\\testing.png","testing",3333.00,1)));
+		System.out.println(new ProductDaoImpl().addProduct(new Product("hhest3",99.9,"D:\\testing.png","testing",3333.00,0,1)));
 		
 
 //		List<Category> allCata = new CategoryServiceImpl().getAllCategory();

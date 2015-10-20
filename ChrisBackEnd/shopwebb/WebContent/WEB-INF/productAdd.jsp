@@ -19,6 +19,16 @@
 
     <!-- Custom CSS -->
     <link href="css/shop-homepage.css" rel="stylesheet">
+    
+    <style type="text/css">
+    	form label{
+    		color: red;
+    		background-image: url("image/error.png");
+    		padding-left: 20px;
+    		background-repeat: no-repeat;
+    	}
+    	
+    </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -37,8 +47,14 @@
 	    xhr.open('POST', 'ProductServlet', true);
 	    xhr.send(null);
 	</script>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/jquery-1.7.2.js"></script>
+  	<script type="text/javascript" src="js/jquery.validate.js"></script>
+<!-- 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
 	<script type="text/javascript">
 	$(document).ready(function() {
 		$.post("${shop}/CategoryServlet",{status:'getAll'}, function(data){
@@ -53,6 +69,64 @@
 			   $('<option/>').val(numbers[i]).html(names[i]).appendTo('#cat_id');
 			}
 		});
+	});
+	
+	$(function(){
+	     $.validator.addMethod('photo',function(value, element){   
+	          return /^\S*\.(?:jpg|png|jpeg)$/.test(value);
+	     },'只接受 .jpg, .png, .jpeg');
+	     
+	   	 $.validator.addMethod('percent',function(value, element){   
+        	return /^(?:[0-9]|[1-9][0-9])$/.test(value);
+   	 	 },'只接受  0 - 99');
+	     
+	      $("#addProduct").validate({
+	  		   debug:false,   // 无论是否验证成功都不会真正提交到目标地址 
+	  		   /* 用来配置存储错误消息的标签 */
+	  		   errorElement:'label',
+	  		   rules: {
+	  			  name:{
+	  		   	  	required:true
+	  		   	  },
+	  		      price:{
+	  		    	required:true
+	  		   	  },
+	  		      pic:{
+	  		   	  	photo:[1,2]
+	  		   	  },
+	  		      remark:{
+	  		    	required:true
+	  		   	  },
+	  		      adv:{
+		    		required:true
+	 		   	  },
+	 		      discount:{
+		  		    percent:[1,2]
+		  		  }
+	  		   },
+	  		   messages:{
+	  				name:{
+	  		   	  		required:'產品名不能为空'
+//	  		   	  		rangelength:$.validator.format('用户名必须是{0}~{1}之间')
+	  		   	  	},
+	  		   		price:{
+	  		   			required:'價錢不能为空'
+	  		   	  	},
+// 	  		   		pic:{
+// 	  		   	  		required:'圖片必選'
+// 	  		   	  	},
+	  		   		remark:{
+	  		   			required:'備註不能为空'
+	  		   	  	},
+	 	  		   	adv:{
+		  		    	required:'廣告費不能为空'
+		  		   	}
+// 	  		   	  	,
+// 		  		    discount:{
+// 		 	  		    required:'折扣不能为空'
+// 		 	  		}
+	  			}
+	 	  });
 	});
 	</script>
 
@@ -110,14 +184,14 @@
 
             <div class="col-md-9">				 
                <p class="lead">Add</p>   
-            <form action="/shopwebb/ProductServlet" method='post'>
+            <form id="addProduct" action="/shopwebb/ProductServlet" method='post'>
 				<h3>Product Name</h3><input type="text" name="name"/><br/>
 				<h3>Price $</h3><input type="number" name="price" /> <br/>
 				<h3>Picture</h3><input type="file" name="pic" size="50" /><br/>
 				<h3>Remark</h3><input type="text" name="remark"/><br/>
-				<h3>Advertisement $</h3><input type="text" name="adv"/><br/>
-				<h3>Discount %</h3><input type="text" name="discount"/><br/>
-<!-- 				<h3>Category</h3><input type="text" name="category" value=""/><br/> -->
+				<h3>Advertisement $</h3><input type="number" name="adv"/><br/>
+				<h3>Discount %</h3><input type="number" name="discount"/><br/>
+<!--<h3>Category</h3><input type="text" name="category" value=""/><br/> -->
 				<h3>Category</h3><select id="cat_id" name="category"></select>
 				<input type="hidden" name="status" value="save">
 				<input type="submit" value="Submit" />
@@ -145,11 +219,11 @@
     </div>
     <!-- /.container -->
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+<!--     jQuery -->
+<!--     <script src="js/jquery.js"></script> -->
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+<!--     Bootstrap Core JavaScript -->
+<!--     <script src="js/bootstrap.min.js"></script> -->
 
 </body>
 

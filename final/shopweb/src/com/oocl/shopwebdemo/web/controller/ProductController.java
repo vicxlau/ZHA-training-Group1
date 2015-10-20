@@ -59,6 +59,7 @@ public class ProductController extends HttpServlet {
 					request.getParameter("pro_pic"),
 					request.getParameter("pro_remark"),
 					Double.parseDouble(request.getParameter("pro_adv")),
+					Integer.parseInt(request.getParameter("pro_dis")),
 					Integer.parseInt(request.getParameter("cat_id"))
 				)
 		);
@@ -80,6 +81,7 @@ public class ProductController extends HttpServlet {
 					request.getParameter("pro_pic"),
 					request.getParameter("pro_remark"),
 					Double.parseDouble(request.getParameter("pro_adv")),
+					Integer.parseInt(request.getParameter("pro_dis")),
 					Integer.parseInt(request.getParameter("cat_id"))
 				)
 		);

@@ -20,6 +20,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 			product.setPrice(rs.getDouble("pro_price"));
 			product.setPic(rs.getString("pro_pic"));
 			product.setRemark(rs.getString("pro_remark"));
+			product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 
 			results.add(product);
 		}
@@ -29,18 +30,25 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 	@Override
 	public int addProduct(Product product) {
 		// vicx-- fail???
-		return super.executeUpdate("call UI_PRODUCT_SAVE(?,?,?,?,?,?)",
+//		return super.executeUpdate("call UI_PRODUCT_SAVE(?,?,?,?,?,?)",
+//				product.getName(), product.getPrice(), product.getPic(),
+//				product.getRemark(), product.getAdv(), product.getCategoryID());
+		return super.executeUpdate("call UI_PRODUCT_SAVE(?,?,?,?,?,?,?)",
 				product.getName(), product.getPrice(), product.getPic(),
-				product.getRemark(), product.getAdv(), product.getCategoryID());
+				product.getRemark(), product.getAdv(), product.getCategoryID(), product.getDiscount());
 	}
 
 	@Override
 	public int updateProduct(Product product) {
 		// /verver
-		return super.executeUpdate("call UI_PRODUCT_UPDATE(?,?,?,?,?,?,?)",
+//		return super.executeUpdate("call UI_PRODUCT_UPDATE(?,?,?,?,?,?,?)",
+//				product.getId(), product.getName(), product.getPrice(),
+//				product.getPic(), product.getRemark(), product.getAdv(),
+//				product.getCategoryID());
+		return super.executeUpdate("call UI_PRODUCT_UPDATE(?,?,?,?,?,?,?,?)",
 				product.getId(), product.getName(), product.getPrice(),
 				product.getPic(), product.getRemark(), product.getAdv(),
-				product.getCategoryID());
+				product.getCategoryID(), product.getDiscount());
 	}
 
 	@Override
@@ -83,6 +91,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 					product.setCategoryID(rs.getInt("cat_id"));
 					results.add(product);
 				}
@@ -139,6 +148,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 //					product.setCategoryID(cid);
 					results.add(product);
 				}
@@ -199,6 +209,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 
 					results.add(product);
 				}
@@ -228,6 +239,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 
 					results.add(product);
 				}
@@ -286,6 +298,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 					product.setPrice(rs.getDouble("pro_price"));
 					product.setPic(rs.getString("pro_pic"));
 					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 
 					results.add(product);
 
@@ -329,6 +342,7 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
                     product.setPrice(rs.getDouble("pro_price"));
                     product.setPic(rs.getString("pro_pic"));
                     product.setRemark(rs.getString("pro_remark"));
+                    product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
 
                     results.add(product);
                 }
