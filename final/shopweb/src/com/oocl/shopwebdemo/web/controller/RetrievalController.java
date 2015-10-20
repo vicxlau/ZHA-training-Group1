@@ -224,6 +224,8 @@ public class RetrievalController extends HttpServlet {
 				 response.setContentType("text/plain");  
 				  response.setCharacterEncoding("UTF-8"); 
 				  
+				  SearchProductsResult resultReturn = new SearchProductsResult();
+				  resultReturn.setPageResults(null);
 				  List<SearchProductsResult> searchResultsList = new ArrayList<>();
 				  List<Product> productList = new ArrayList<>();
 				  if(checkedDiscount!=null){
@@ -259,12 +261,28 @@ public class RetrievalController extends HttpServlet {
 						  //SearchProductsResult searchResult = searchService.getProductByCatIdAndPrice(cat_id, discountLowerBound, discountUpperBound, pageNum);
 						  SearchProductsResult searchResult = searchService.getProductByCatIdAndPrice(cat_id, discountLowerBound, discountUpperBound, pageNum);
 						  searchResultsList.add( searchResult );
+						  if(resultReturn.getPageResults()==null){
+							  resultReturn.setPageResults(searchResult.getPageResults());
+						  }else{
+							  for(Product product:searchResult.getPageResults()){
+								  if(!resultReturn.getPageResults().contains(product)){
+									  resultReturn.getPageResults().add(product);
+								  }
+								  
+							  }
+							  //resultReturn.getPageResults().addAll(searchResult.getPageResults());
+						  }
 						  for(Product product:searchResult.getPageResults()){
 							  if(!productList.contains(product)){
 								  productList.add(product);
 							  }
 							  
 						  }
+						  resultReturn.setTotalResultCount(resultReturn.getTotalResultCount()+searchResult.getPageResults().size());
+						  if(searchResult.getPageCount()>resultReturn.getPageCount()){
+							  resultReturn.setPageCount(searchResult.getPageCount());
+						  }
+						 
  
 				  }
 				  					  
@@ -292,7 +310,8 @@ public class RetrievalController extends HttpServlet {
 				  
 				  try {
 					  ObjectMapper mapper = new ObjectMapper();
-					response.getWriter().write(mapper.writeValueAsString(productList));
+					//response.getWriter().write(mapper.writeValueAsString(productList));
+					response.getWriter().write(mapper.writeValueAsString(resultReturn));
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

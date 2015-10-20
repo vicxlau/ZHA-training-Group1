@@ -33,7 +33,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
                 	console.log("success");
                 	console.log(responseText);
-                	var json = responseText;
+                	var json = responseText.pageResults;
                 	
                 	var output="json:";
                 	var target = $('div.product-model-sec#priceRangeResult');
@@ -62,7 +62,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 			   "<div class='product-info simpleCart_shelfItem'>"+
       							"<div class='product-info-cust prt_name'>"+
    						"<h4>${product.name}</h4>"+
-		   						"<span class='item_price'>$ "+obj.price+"</span>"+
+		   						"<div><span class='item_price'>$ "+obj.price+"</span></div>"+
+		   						"<span class='item_discount' style='color:red'> "+obj.discount+" % off</span>"+
 		   						"<form action='${shop}/ItemServlet' method='post'>"+								
 		   							"<input type='text' class='item_quantity' name='number' value='1' />"+
 		   							"<input type='submit' class='item_add items' value='ADD'>"+

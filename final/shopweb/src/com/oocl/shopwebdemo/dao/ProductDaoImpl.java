@@ -302,7 +302,6 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 
 					results.add(product);
 
-					results.add(product);
 				}
 				return results;
 			}
