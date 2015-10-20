@@ -182,10 +182,10 @@
 
 
 
-            <div class="col-md-9">				 
+            <div class="col-md-4">
                <p class="lead">Add</p>   
             <form id="addProduct" action="/shopwebb/ProductServlet" method='post'>
-				<h3>Product Name</h3><input type="text" name="name"/><br/>
+				<h3>Product Name</h3><input id="addProductForm_productName" type="text" name="name"/><br/>
 				<h3>Price $</h3><input type="number" name="price" /> <br/>
 				<h3>Picture</h3><input type="file" name="pic" size="50" /><br/>
 				<h3>Remark</h3><input type="text" name="remark"/><br/>
@@ -197,6 +197,59 @@
 				<input type="submit" value="Submit" />
 			</form>                                                                     
             </div>
+
+			<div class="col-md-4" style="display:none;" id="priceRecom_loading">
+				<h4>Price Reference from Tao Bao</h4>
+				<img src="/shopwebb/image/loading.gif" width="200px" height="200px"/>
+			</div>
+
+			<div class="col-md-4" style="display:none;" id="priceRecom">
+				<h4>Price Reference from Tao Bao</h4>
+				
+				<p>Max: ¥<span id="priceRecom_max"></span></p>
+				<p>Min: ¥<span id="priceRecom_min"></span></p>
+				<p>Average: ¥<span id="priceRecom_avg"></span></p>
+				<p>Median: ¥<span id="priceRecom_median"></span></p>
+				<hr/>
+				<div style="overflow:scroll;  max-height: 600px;" id="priceRecom_items">
+				</div>
+			</div>
+			
+			<script>
+			$(function() {
+				$('#addProductForm_productName').change(function() {
+					
+					var url = "/shopwebb/recommendPrice?keyword=" + encodeURIComponent($(this).val());
+					$('#priceRecom').hide();
+					$('#priceRecom_loading').show();
+					
+					$.get(url, function(data) {
+						if (data != "") {
+							var priceRecom = JSON.parse(data);
+
+							$("#priceRecom_max").text(priceRecom.maxPrice);
+							$("#priceRecom_min").text(priceRecom.minPrice);
+							$("#priceRecom_avg").text(priceRecom.averagePrice);
+							$("#priceRecom_median").text(priceRecom.medianPrice);
+
+							var itemList = priceRecom.productRefList;
+							for (item of itemList) {
+								var html= '<div>'
+										+ '<img src="' + item.image + '" width="150px" height="150px" style="margin-left: 80px;"/>'
+										+ '<p>' + item.name + '</p>'
+										+ '<p>¥' + item.price + '</p>'
+										+ '<p>' + item.location + ' | ' + item.shop + '</p><hr/>';
+								
+								$('#priceRecom_items').append(html);
+							}
+							
+							$('#priceRecom_loading').hide();
+							$('#priceRecom').show();
+						}
+					});
+				});
+			});
+			</script>
 
         </div>
 

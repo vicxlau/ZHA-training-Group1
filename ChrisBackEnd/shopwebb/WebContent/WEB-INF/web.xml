@@ -35,6 +35,14 @@
     <servlet-name>account</servlet-name>
     <url-pattern>/AccountServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>PriceRecommendServlet</servlet-name>
+    <servlet-class>cn.oocl.servlet.PriceRecommendServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PriceRecommendServlet</servlet-name>
+    <url-pattern>/recommendPrice</url-pattern>
+  </servlet-mapping>
   <listener>
     <listener-class>cn.oocl.listener.Initdatalistener</listener-class>
   </listener>

@@ -31,10 +31,10 @@ public class Initdatalistener implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
 		System.out.println("-------contextInitialized--------");
-		MyTimerTask myTimerTask = new MyTimerTask();
-		myTimerTask.setApplication(event.getServletContext());
-		Timer timer = new Timer();
-		timer.schedule(myTimerTask, 0, 1000*60*60*24);
+		//MyTimerTask myTimerTask = new MyTimerTask();
+		//myTimerTask.setApplication(event.getServletContext());
+		//Timer timer = new Timer();
+		//timer.schedule(myTimerTask, 0, 1000*60*60*24);
 	}
 
 }
