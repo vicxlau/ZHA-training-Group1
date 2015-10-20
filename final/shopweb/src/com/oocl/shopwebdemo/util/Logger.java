@@ -24,7 +24,10 @@ public class Logger {
 
 	public static void log(String type, String msg){
 	    out.println(String.format("%s [%s] %s",getDateTime(), type, msg));
-	    out.close();
+	       out.flush();
+	}
+		public static void close() {
+		out.close();
 	}
 	
 	private static String getDateTime(){

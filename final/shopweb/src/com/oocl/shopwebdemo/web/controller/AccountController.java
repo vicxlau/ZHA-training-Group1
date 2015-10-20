@@ -33,9 +33,17 @@ public class AccountController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String url = request.getParameter("url");
-		request.getRequestDispatcher("/WEB-INF/" + url).forward(request,
-				response);
+//		String url = request.getParameter("url");
+//		request.getRequestDispatcher("/WEB-INF/" + url).forward(request,response);
+		String locale = request.getParameter("locale");
+		if(locale!=null){
+//			((Customer)rs.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getUser()==null
+			Customer c = (Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"));
+			if(c!=null)c.setLocale(locale);
+			else request.getSession().setAttribute(ConfigReader.getSystemValue("session_customer_attr"),new Customer());
+//			request.getSession().setAttribute("javax.servlet.jsp.jstl.fmt.locale.session", "ko-KR");
+		}
+		request.getRequestDispatcher(URL_LOGIN).forward(request,response);
 	}
 
 	/**
@@ -57,7 +65,7 @@ public class AccountController extends HttpServlet {
 		// 2: 根据需求调用service
 		// 3: 跳转到目标页面
 
-		if (c.getUser().isLogin()) {
+		if (c.getAccount().isLogin()) {
 			// 登录成功,跳转到后台首页(登录的个人数据要存储到session中)
 			request.getSession().setAttribute(ConfigReader.getSystemValue("session_customer_attr"),c);
 			
@@ -70,7 +78,7 @@ public class AccountController extends HttpServlet {
 				 dispatcher = request.getRequestDispatcher((String) request.getSession().getAttribute("url"));
 				 dispatcher.forward(request, response);
 			 }catch(Exception e){
-				 if(c.getUser().getUser().getRoleId() == Integer.parseInt(ConfigReader.getSystemValue("admin_role_id"))){
+				 if(c.getAccount().getUser().getRoleId() == Integer.parseInt(ConfigReader.getSystemValue("admin_role_id"))){
 					 dispatcher = request.getRequestDispatcher(URL_BACKEND);
 				 	 dispatcher.forward(request, response);
 				 }else{ 

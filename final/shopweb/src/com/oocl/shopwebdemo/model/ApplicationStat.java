@@ -74,6 +74,10 @@ public class ApplicationStat implements Serializable {
 		list.add(new StatObj(prod_id));
 		user_list.put(user_id, list);
 	}
+	
+	public int getProductCount(int prod_id){
+		return prod_list.get(prod_id).size();
+	}
 
 	public int getUserProductCount(int user_id, int prod_id) {
 		List<StatObj> list = user_list.get(user_id);

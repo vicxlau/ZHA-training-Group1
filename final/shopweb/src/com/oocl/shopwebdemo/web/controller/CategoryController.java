@@ -138,7 +138,8 @@ public class CategoryController extends HttpServlet {
 	}
 
 	private boolean isLogin(HttpServletRequest request) {
-		return (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null);
+		return (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null 
+			&& ((Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getAccount()!=null);
 	}
 
 }

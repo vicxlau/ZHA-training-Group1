@@ -142,6 +142,21 @@ public class Cart implements Serializable {
 
 	public void setItemList(List<Item> itemList) {
 		this.itemList = itemList;
+		updateTotal();
+	}
+
+	public Item getItemByProd_ID(int prod_id) {
+		for(Item item : itemList){
+			if(item.getProduct().getId()==prod_id)
+				return item;
+		}
+		return null;
+	}
+
+	public void removeItem(int prod_id) {
+		Item item = getItemByProd_ID(prod_id);
+		itemList.remove(item);						
+		updateTotal();
 	}
 
 }

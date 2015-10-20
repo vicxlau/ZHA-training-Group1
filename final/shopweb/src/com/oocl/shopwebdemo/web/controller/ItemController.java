@@ -2,6 +2,8 @@ package com.oocl.shopwebdemo.web.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 import javax.servlet.RequestDispatcher;
@@ -22,6 +24,8 @@ public class ItemController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private static final String URL_CART = ConfigReader.getSystemValue("URL_CART");
+	private static final String URL_CUSTOMER_SELECTIVE_ORDER = ConfigReader.getSystemValue("URL_CUSTOMER_SELECTIVE_ORDER");
+	private static final String URL_LOGIN = ConfigReader.getSystemValue("URL_LOGIN");
 	private ItemServiceImpl iService = new ItemServiceImpl();
 	
 	protected void doGet(HttpServletRequest request,
@@ -45,6 +49,37 @@ public class ItemController extends HttpServlet {
 		}
 		else if(action.equals("undo")){
 			undo(request, response);
+		}
+		else if(action.equals("selectiveSubmit")){
+			submitCart(request, response);
+		}
+	}
+
+	private void submitCart(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		if(request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))!=null
+				&& ((Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getAccount()!=null){
+			String[] param = request.getParameterValues("cart-checkbox[]");
+			List<Integer> prod_list = new ArrayList<Integer>();
+			for(String str : param){
+				prod_list.add(Integer.parseInt(str));
+			}
+			Cart cart = (Cart) request.getSession().getAttribute("cart");
+			Cart purchaseCart = new Cart(cart);
+			List<Item> selectedItem = new ArrayList<Item>();
+			for(int prod_id : prod_list){
+				selectedItem.add(cart.getItemByProd_ID(prod_id));
+				cart.removeItem(prod_id);
+			}
+			purchaseCart.setItemList(selectedItem);
+			request.getSession().setAttribute("purchaseCart", purchaseCart);
+	//		redirect to order_selected-item	// show item by new cart
+	
+			request.getRequestDispatcher(URL_CUSTOMER_SELECTIVE_ORDER).forward(request,response);
+		}else{
+//			request.getSession().setAttribute("url", request.getServletPath()+ ((request.getQueryString()==null)?"":("?"+request.getQueryString())));
+			request.getSession().setAttribute("url", URL_CART);
+			request.getRequestDispatcher(URL_LOGIN).forward(request,response);
 		}
 	}
 

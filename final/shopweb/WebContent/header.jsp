@@ -11,6 +11,7 @@
 <link href="${shop}/css/style.css" rel='stylesheet' type='text/css' />						<!-- Custom Theme files -->
 <link href="${shop}/css/animated-notifications.css" rel='stylesheet' type='text/css' />		<!-- animated-notifications.css -->
 <link href="${shop}/css/animate.css" rel='stylesheet' type='text/css' />					<!-- animate.css -->
+<link href="${shop}/css/toastr8.min.css" rel='stylesheet' type='text/css' />					<!-- toastr8.min.css -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="Furnyish Store Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -27,6 +28,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="${shop}/js/responsiveslides.min.js"></script>
 <script src="${shop}/js/jquery.sticky.js"></script>
 <script src="${shop}/js/animated-notifications.js"></script>
+<script src="${shop}/js/toastr8.min.js"></script>
+<script src="${shop}/js/notificationSocket.js"></script>
 <script>
     // You can also use "$(window).load(function() {"
     $(function () {

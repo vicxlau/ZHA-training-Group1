@@ -11,16 +11,32 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <%@ include file="header.jsp"%>
 </head>
 <body>
+	<%@ page pageEncoding="UTF-8" %>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- 	<c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" /> --%>
+	<c:set var="language" value="${not empty sessionScope.customer.locale?sessionScope.customer.locale:en}" />
+<%-- 	<c:set var="language" value="en" scope="session" /> --%>
+
+	<fmt:requestEncoding value="UTF-8" />
+	<fmt:setLocale value="${language}" />
+	<fmt:setBundle basename="com.oocl.shopwebdemo.i18n.locale" />
+<%-- 	<fmt:setBundle basename="myapp" var="lang"/>  --%>
+  
 	<%@ include file="top-menu.jsp"%>
 	<div class="login_sec">
 		<div class="container">
 			<ol class="breadcrumb">
 				<li><a href="${shop}/home">Home</a></li>
-				<li class="active">Login</li>
+				<li class="active">
+					<fmt:message key="top-menu-login-btn" />
+				</li>
 			</ol>
 			<h2>Login</h2>
 			<div class="col-md-6 log">
-				<p>Welcome, please enter the folling to continue.</p>
+				<p>
+					Welcome, please enter the folling to continue.
+				</p>
 				<p>
 					If you have previously Login with us, <span>click here</span>
 				</p>

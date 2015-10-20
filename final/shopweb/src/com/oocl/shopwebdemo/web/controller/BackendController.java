@@ -4,9 +4,10 @@ import java.io.IOException;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
-
 import com.oocl.shopwebdemo.service.*;
+import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.util.ConfigReader;
+import com.oocl.shopwebdemo.web.socket.NotificationSocket;
 
 public class BackendController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -43,17 +44,26 @@ public class BackendController extends HttpServlet {
 					case "refreshData":
 						homePageDataRefresh(request, response);
 						break;
+					case "notification":
+						notificationBroadcast(request, response);
+						break;
 				}
 			}
 		}
 	}
 
+	private void notificationBroadcast(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		NotificationSocket socket = new NotificationSocket();
+		socket.onMessage(request.getParameter("message"));
+	}
+	
 	private boolean isValidParam(HttpServletRequest request, String param) {
 		return (request.getParameter(param) != null);
 	}
 
 	private boolean isLogin(HttpServletRequest request) {
-		return (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null);
+		return (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null
+			&& ((Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getAccount()!=null);
 	}
 
 	private void homePageDataRefresh(HttpServletRequest request,HttpServletResponse response) throws ServletException, IOException {

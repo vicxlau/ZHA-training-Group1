@@ -24,7 +24,8 @@ public class ProductController extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		//vicx- add role checking
-		if (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null) {
+		if (request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) != null
+			&& ((Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getAccount()!=null) {
 			String action = request.getParameter("action");
 			try {
 				switch (action) {

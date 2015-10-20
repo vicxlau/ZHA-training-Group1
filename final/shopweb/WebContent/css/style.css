@@ -1516,6 +1516,17 @@ line-height: 1.7em;
     cursor: pointer;
 	
 }
+#select-all-checkbox{
+	position: absolute;
+    right: 0;	
+}
+.cart-checkbox-div{
+	position: absolute;
+    right: 0;	
+    top: 100px;
+/*     transition: color 0.2s ease-in-out 0s; */
+    width: 28px;
+}
 /* #undo-btn { */
 /*     position: fixed; */
 /*     top: 0; */

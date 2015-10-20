@@ -18,6 +18,7 @@ public class CartController extends HttpServlet {
 	
 	private static final long serialVersionUID = 844483551957629268L;
 	private final String URL_CUSTOMER_BANK = ConfigReader.getSystemValue("URL_CUSTOMER_BANK");
+	private final String URL_SELECTIVE_CART_CUSTOMER_BANK = ConfigReader.getSystemValue("URL_SELECTIVE_CART_CUSTOMER_BANK");
 	private final String URL_CART = ConfigReader.getSystemValue("URL_CART");
 	private CartServiceImpl cService = new CartServiceImpl();
 	
@@ -47,11 +48,27 @@ public class CartController extends HttpServlet {
 		// request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		if(action.equals("save")){
-			save(request,response);
+//			save(request,response);
+			saveSelectiveCart(request,response);
 		}
 //		else if(action.equals("deleteItem")){
 //			deleteCartItemInSession(request,response);
 //		}
+	}
+	
+	private void saveSelectiveCart(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Cart cart=(Cart)request.getSession().getAttribute("purchaseCart");
+		
+		Customer c = (Customer) request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"));
+		String str_addr_id = request.getParameter("addr_id");
+		
+		cService.save(cart,c.getAccount().getUser().getId(),
+				(str_addr_id!=null)?Integer.parseInt(str_addr_id):0,
+						request.getParameter("remark"));
+		
+		// 4: 跳转到银行支付页面
+		response.sendRedirect(request.getContextPath() + URL_SELECTIVE_CART_CUSTOMER_BANK);
+		
 	}
 	
 	private void save(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -68,7 +85,7 @@ public class CartController extends HttpServlet {
 		String str_addr_id = request.getParameter("addr_id");
 		
 		request.getSession().setAttribute("previousCart", 
-				cService.save(cart,c.getUser().getUser().getId(),
+				cService.save(cart,c.getAccount().getUser().getId(),
 						(str_addr_id!=null)?Integer.parseInt(str_addr_id):0,
 						request.getParameter("remark")));
 //			request.getSession().setAttribute("cart", null);

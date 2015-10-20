@@ -13,6 +13,7 @@ import com.oocl.shopwebdemo.dto.SearchProductsResult;
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.service.*;
 import com.oocl.shopwebdemo.util.ConfigReader;
+import com.oocl.shopwebdemo.web.socket.NotificationSocket;
 
 public class RetrievalController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,6 +27,35 @@ public class RetrievalController extends HttpServlet {
 	private ApplicationServiceImpl appService = new ApplicationServiceImpl();
 	private IProductRecommendationService recommendService = new ProductRecommendationServiceImpl();
 
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String action = request.getParameter("action");
+		switch(action){
+			case "getVisitorCount":
+				getVisitorCount(request,response);
+				break;
+			case "categoryByPrice":
+				categoryByPrice(request,response);
+				break;
+		}
+	}
+	
+	private void getVisitorCount(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		int prod_id = Integer.parseInt(request.getParameter("id"));
+		
+		// get application stat (by day)
+		Integer count = appService.getProductVisitCount((ApplicationStat)request.getServletContext().getAttribute(ConfigReader.getSystemValue("application_stat")), prod_id);
+		
+		//get current visiting count
+//		Integer count = appService.getCurrentVisitorCount((ProductCurrentVisiter)request.getServletContext().getAttribute("appication-current-visitor"), prod_id);
+
+		PrintWriter writer = response.getWriter();
+//		writer.write(appService.getCurrentVisitorCount((ProductCurrentVisiter)request.getServletContext().getAttribute("appication-current-visitor"), prod_id));
+		writer.write(count.toString());
+		writer.close();
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest request,
@@ -99,6 +129,22 @@ public class RetrievalController extends HttpServlet {
 						p, 
 						(Customer)request.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")));
 				
+				// update current visitor
+				ProductCurrentVisiter visitor = (ProductCurrentVisiter)request.getServletContext().getAttribute(ConfigReader.getSystemValue("appication-current-visitor"));
+				// delete last visit record
+				if(request.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"))!=null){
+					int previous_view = (int) request.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"));
+					appService.removeCurrentVisitor(visitor, previous_view);
+				}
+				int visitor_count = appService.addCurrentVisitor(visitor, p);
+				//update session visiting product
+				request.getSession().setAttribute(ConfigReader.getSystemValue("session-visiting-product"), p.getId());
+				
+				// set current 
+				
+				// Broadcast notification
+//				NotificationSocket socket = new NotificationSocket();
+//				socket.onMessage(visitor_count+" people are viewing this product");
 				
 				request.getRequestDispatcher(URL_PRODUCT_PAGE).forward(request,response);
 				
@@ -187,14 +233,7 @@ public class RetrievalController extends HttpServlet {
 		request.setAttribute("advList", searchService.getAdvProduct());
 		request.getRequestDispatcher("/main.jsp").forward(request, response);
 	}
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String action = request.getParameter("action");
-		switch(action){
-			case"categoryByPrice":
-				categoryByPrice(request,response);
-		}
-	}
+	
 	public void categoryByPrice (HttpServletRequest request, HttpServletResponse response){
 		//String[] checkedId = (String[]) request.getAttribute("checkedId");
 				String[] checkedDiscount =(String[]) request.getParameterValues("checkedId[]");
@@ -224,6 +263,8 @@ public class RetrievalController extends HttpServlet {
 				 response.setContentType("text/plain");  
 				  response.setCharacterEncoding("UTF-8"); 
 				  
+				  SearchProductsResult resultReturn = new SearchProductsResult();
+				  resultReturn.setPageResults(null);
 				  List<SearchProductsResult> searchResultsList = new ArrayList<>();
 				  List<Product> productList = new ArrayList<>();
 				  if(checkedDiscount!=null){
@@ -259,12 +300,28 @@ public class RetrievalController extends HttpServlet {
 						  //SearchProductsResult searchResult = searchService.getProductByCatIdAndPrice(cat_id, discountLowerBound, discountUpperBound, pageNum);
 						  SearchProductsResult searchResult = searchService.getProductByCatIdAndPrice(cat_id, discountLowerBound, discountUpperBound, pageNum);
 						  searchResultsList.add( searchResult );
+						  if(resultReturn.getPageResults()==null){
+							  resultReturn.setPageResults(searchResult.getPageResults());
+						  }else{
+							  for(Product product:searchResult.getPageResults()){
+								  if(!resultReturn.getPageResults().contains(product)){
+									  resultReturn.getPageResults().add(product);
+								  }
+								  
+							  }
+							  //resultReturn.getPageResults().addAll(searchResult.getPageResults());
+						  }
 						  for(Product product:searchResult.getPageResults()){
 							  if(!productList.contains(product)){
 								  productList.add(product);
 							  }
 							  
 						  }
+						  resultReturn.setTotalResultCount(resultReturn.getTotalResultCount()+searchResult.getPageResults().size());
+						  if(searchResult.getPageCount()>resultReturn.getPageCount()){
+							  resultReturn.setPageCount(searchResult.getPageCount());
+						  }
+						 
  
 				  }
 				  					  
@@ -292,7 +349,8 @@ public class RetrievalController extends HttpServlet {
 				  
 				  try {
 					  ObjectMapper mapper = new ObjectMapper();
-					response.getWriter().write(mapper.writeValueAsString(productList));
+					//response.getWriter().write(mapper.writeValueAsString(productList));
+					response.getWriter().write(mapper.writeValueAsString(resultReturn));
 					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
