@@ -57,7 +57,28 @@ $(document).ready(function(c) {
 				});
 		});
 	});
+
+	var cartCheckStatus = true;
+	$('#select-all-checkbox').on('click',function(c){
+		$('.cart-checkbox').prop('checked',cartCheckStatus);
+		cartCheckStatus = !cartCheckStatus ; 
+	});
 });
+
+
+function isValidCartSubmission()
+{
+	var checked_item = $('.cart-checkbox:checked').length;
+	if (checked_item<=0){
+		$(".notifications-top-center").addClass('animated bounce');
+	    $("#warning-msg").html('No item is selected');
+	    $("#warning").show();
+	    $('#warning').fadeOut(2000);
+  		return false;
+	}else{ 
+		return true;
+	}
+}
 
 </script>
 <!-- <div id="undo_btn" class=".notifications-top-center" style="display:none;" > Undo </div> -->
@@ -68,10 +89,18 @@ $(document).ready(function(c) {
 	<div id="undo-btn_close" class="notifications-top-center-close" ><span class="iconb" data-icon="&#xe20e;"></span></div>
 </div>
 
+<div id="warning" class="notifications-top-center" style="display:none;">
+	<span class="iconb" data-icon="&#xe20e;"></span> 
+		<span id="warning-msg"></span>
+	<div id="undo-btn_close" class="notifications-top-center-close" ><span class="iconb" data-icon="&#xe20e;"></span></div>
+</div>
+
+	<form action="${shop}/ItemServlet" method="post" onsubmit="return isValidCartSubmission();">
 	 <div class="container">
 			 <ol class="breadcrumb">
 		  <li><a href="${shop}/home">Home</a></li>
 		  <li class="active">Cart</li>
+		  <li><a id="select-all-checkbox">select all</a></li>
 		 </ol>			
 		 <div class="cart-items">
 <!-- 			<h2>My Shopping Cart </h2> -->
@@ -182,18 +211,27 @@ $(document).ready(function(c) {
 				</script>
 				<div class="cart-header" id="cart-header${num.count}" lang="${item.id}" undoPrio="">
 					<div class="close1" id="close${num.count}"> </div>
+					<div class="cart-checkbox-div" lang="${item.id}">
+						<input type="checkbox" class="cart-checkbox" name="cart-checkbox[]" value="${item.id}" />
+					</div>
 					<div class="cart-sec">
 						<div class="cart-item cyc">
 							 <img src="${shop}/product_pic/${item.pic}"/>
 						</div>
 						<div class="cart-item-info">
-							<h3><a href="${shop}/retrievalServlet?action=product&id=${item.id}">
-							${item.name}</a>
-							<span>Model No: 3578</span></h3>
-							<h4><span>￥</span><span id="price${num.count}">${item.price}</span></h4>
-							<p class="qty">Qty ::</p>
-							<input min="1" type="number" id="quantity${num.count}" name="quantity" value="${item.number}" class="form-control input-small" lang="${item.number}">
-							<p> Item Total:  <span>￥</span><span id="total${num.count}">${item.number * item.price}</span></p>
+								<h3><a href="${shop}/retrievalServlet?action=product&id=${item.id}">
+								${item.name}</a>
+								<span>Model No: 3578</span></h3>
+								<h4><span>￥</span><span id="price${num.count}">${item.price}</span></h4>
+								<div>
+									<div style="position:relative;float:left;">
+										<p class="qty">Qty ::</p>
+										<input min="1" type="number" id="quantity${num.count}" name="quantity" value="${item.number}" class="form-control input-small" lang="${item.number}">
+									</div>
+									<div style="position:relative;float:right;">
+										<p> Item Total:  <span>￥</span><span id="total${num.count}">${item.number * item.price}</span></p>
+									</div>
+								</div>
 						</div>
 						<div class="clearfix"></div>
 <!-- 						<div class="delivery"> -->
@@ -221,7 +259,10 @@ $(document).ready(function(c) {
 			 <h4 class="last-price">TOTAL</h4>
 			 <span class="total final">￥<span id="total">${sessionScope.cart.total}</span></span>
 			 <div class="clearfix"></div>
-			 <a class="order" href="${shop}/customer/order.jsp">Place Order</a>
+<!-- 			 Original work -->
+<!--<%-- 			 <a class="order" href="${shop}/customer/order.jsp">Place Order</a> --%>-->
+			 <input type="hidden" name="action" value="selectiveSubmit" />
+			 <input type="submit" class="order" value="Place Order" />
 			 <div class="total-item">
 				 <h3>OPTIONS</h3>
 				 <h4>COUPONS</h4>
@@ -230,6 +271,7 @@ $(document).ready(function(c) {
 			 </div>
 			</div>
 	 </div>
+	</form>
 </div>
 <%@ include file="footer.jsp" %>
 </body>

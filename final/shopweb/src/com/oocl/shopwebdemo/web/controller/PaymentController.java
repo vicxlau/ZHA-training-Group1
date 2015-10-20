@@ -18,7 +18,8 @@ import com.oocl.shopwebdemo.util.*;
 
 public class PaymentController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String URL_CUSTOMER_CONFIRM_PAYMENT = ConfigReader.getSystemValue("URL_CUSTOMER_CONFIRM_PAYMENT");
+//	private static final String URL_CUSTOMER_CONFIRM_PAYMENT = ConfigReader.getSystemValue("URL_CUSTOMER_CONFIRM_PAYMENT");
+	private static final String URL_CUSTOMER_CONFIRM_PAYMENT = ConfigReader.getSystemValue("URL_SELECTIVE_CART_CUSTOMER_CONFIRM_PAYMENT");
 	private static final String CONTENT_TYPE = "text/html";
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -290,7 +291,8 @@ public class PaymentController extends HttpServlet {
 	private void payment(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// 加密的密钥,由支付中介提供
-		Cart pCart = (Cart) request.getSession().getAttribute("previousCart");
+		Cart pCart = (Cart) request.getSession().getAttribute("purchaseCart");
+//		Cart pCart = (Cart) request.getSession().getAttribute("previousCart");
 		String keyValue = ConfigReader.getSystemValue("payment-key");
 		// 1: 给参数赋值
 		String p0_Cmd = formatString("Buy");

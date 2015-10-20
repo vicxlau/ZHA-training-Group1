@@ -22,7 +22,7 @@ import com.oocl.shopwebdemo.service.ApplicationServiceImpl;
 import com.oocl.shopwebdemo.util.ConfigReader;
 import com.oocl.shopwebdemo.util.Logger;
 
-public class BasePageFilter implements Filter {
+public class ServletFilter implements Filter {
 
 	@Override
 	public void destroy() {
@@ -33,42 +33,44 @@ public class BasePageFilter implements Filter {
 	@Override  //  /*
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("UTF-8");
-		DataStorage ds = (DataStorage)request.getServletContext().getAttribute("home_data");
-		request.setAttribute("categoryList", ds.getCategoryList());
-
+		
 		HttpServletRequest rs = (HttpServletRequest)request;
 		String url = rs.getServletPath()+ ((rs.getQueryString()==null)?"":("?"+rs.getQueryString()));
-		System.out.println("=========base filer=========== \n " + url);
-		// update current visitor V2
-//		HttpServletRequest rs = (HttpServletRequest)request;
-//		Integer last_visiting_product = (Integer) rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"));
-//		if(last_visiting_product!=null){
-//			
-//		}
-		
-		
-//		// update current visitor
-//		// deduce vistor count with last viewing product
-//		HttpServletRequest rs = (HttpServletRequest)request;
-//		String url = rs.getServletPath()+ ((rs.getQueryString()==null)?"":("?"+rs.getQueryString()));
-////		if(url.contains("retrievalServlet?action=product")){
-//		if(!url.contains("type=webservice")){
-//			ProductCurrentVisiter visitor = (ProductCurrentVisiter)rs.getServletContext().getAttribute(ConfigReader.getSystemValue("appication-current-visitor"));
-//			if(rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"))!=null){
-//				try{
-//					Integer previous_view = (int) rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"));
-//					new ApplicationServiceImpl().removeCurrentVisitor(null, previous_view);
-//					previous_view = null;
-//					rs.getSession().setAttribute(ConfigReader.getSystemValue("session-visiting-product"),previous_view);
-//				}catch(Exception e){
-//					
-//				}finally{
-//				}
-//			}
-//		}
-		
+		if(rs.getParameter("type")==null || !((String)rs.getParameter("type")).equals("webservice"))
+			System.out.println("=========++++++++++++ servlet filer ("+url+")++++++++++===========");
+//		request.setCharacterEncoding("UTF-8");
+//		response.setCharacterEncoding("UTF-8");
+//		DataStorage ds = (DataStorage)request.getServletContext().getAttribute("home_data");
+//		request.setAttribute("categoryList", ds.getCategoryList());
+//		
+//		// update current visitor V2
+////		HttpServletRequest rs = (HttpServletRequest)request;
+////		Integer last_visiting_product = (Integer) rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"));
+////		if(last_visiting_product!=null){
+////			
+////		}
+//		
+//		
+////		// update current visitor
+////		// deduce vistor count with last viewing product
+////		HttpServletRequest rs = (HttpServletRequest)request;
+////		String url = rs.getServletPath()+ ((rs.getQueryString()==null)?"":("?"+rs.getQueryString()));
+//////		if(url.contains("retrievalServlet?action=product")){
+////		if(!url.contains("type=webservice")){
+////			ProductCurrentVisiter visitor = (ProductCurrentVisiter)rs.getServletContext().getAttribute(ConfigReader.getSystemValue("appication-current-visitor"));
+////			if(rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"))!=null){
+////				try{
+////					Integer previous_view = (int) rs.getSession().getAttribute(ConfigReader.getSystemValue("session-visiting-product"));
+////					new ApplicationServiceImpl().removeCurrentVisitor(null, previous_view);
+////					previous_view = null;
+////					rs.getSession().setAttribute(ConfigReader.getSystemValue("session-visiting-product"),previous_view);
+////				}catch(Exception e){
+////					
+////				}finally{
+////				}
+////			}
+////		}
+//		
 		chain.doFilter(request, response);
 	}
 

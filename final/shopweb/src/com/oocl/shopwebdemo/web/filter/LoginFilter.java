@@ -9,6 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.*;
+
+import com.oocl.shopwebdemo.model.Customer;
 import com.oocl.shopwebdemo.util.ConfigReader;
 
 public class LoginFilter implements Filter {
@@ -25,7 +27,8 @@ public class LoginFilter implements Filter {
 			FilterChain chain) throws IOException, ServletException {
 		// 在此处完成用户登录的判断
 		HttpServletRequest rs = (HttpServletRequest) request;
-		if (rs.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) == null) {
+		if (rs.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr")) == null
+				||((Customer)rs.getSession().getAttribute(ConfigReader.getSystemValue("session_customer_attr"))).getAccount()==null) {
 //			rs.setAttribute("url", rs.getContextPath()+"/"+rs.getServletPath()+"?"+rs.getQueryString());
 			String url = rs.getServletPath()+ ((rs.getQueryString()==null)?"":("?"+rs.getQueryString()));
 			rs.getSession().setAttribute("url", url);

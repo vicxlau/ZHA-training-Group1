@@ -308,6 +308,7 @@ body {
 	line-height: 50px;
 	font-size: 18px;
 	font-weight: 600;
+	z-index:60;
 }
 .notifications-top-center-close {
 	background-color: rgba(233,30,99,0.6);

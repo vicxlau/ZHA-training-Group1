@@ -18,6 +18,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<%@ include file="top-menu.jsp"%>
     <div id="fb-root"></div>
     <script>
+	    $.post("${shop}/retrievalServlet",{type:"webservice",id:${requestScope.product.id},action:"getVisitorCount"},function(count){
+			if(count>0)
+			toastr8.info({
+		        message: '<a><i class=\'fa fa-link\'></i>'+count+' people have viewed this product today. </a>',
+	//	            title: 'Personal Page',
+		            imgURI: ['https://avatars0.githubusercontent.com/u/4276775?v=3&s=90'],
+		            iconClass: 'glyphicon glyphicon-user text-warning',
+		            positionClass: 'toast8-bottom-right',
+		            timeOut: 5000
+		        }).css('background-color', getRandomColor());
+		},'text').done(function(){
+		    	
+		});
+    </script>
+    <script>
         window.fbAsyncInit = function() {
             FB.init({
                 appId : '1629513223989520',

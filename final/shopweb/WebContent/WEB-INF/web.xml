@@ -26,6 +26,25 @@
 		<filter-name>BasePageFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
+
+	<filter>
+		<filter-name>ServletFilter</filter-name>
+		<filter-class>com.oocl.shopwebdemo.web.filter.ServletFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>ServletFilter</filter-name>
+		<url-pattern>/home</url-pattern>
+		<url-pattern>/searchProductServlet</url-pattern>
+		<url-pattern>/ProductServlet</url-pattern>
+		<url-pattern>/retrievalServlet</url-pattern>
+		<url-pattern>/AccountServlet</url-pattern>
+		<url-pattern>/CategoryServlet</url-pattern>
+		<url-pattern>/ItemServlet</url-pattern>
+		<url-pattern>/CartServlet</url-pattern>
+		<url-pattern>/PaymentServlet</url-pattern>
+		<url-pattern>*.jsp</url-pattern>
+<!-- 		<url-pattern>/customer/*.jsp</url-pattern> -->
+	</filter-mapping>
 	<filter>
 		<filter-name>login</filter-name>
 		<filter-class>com.oocl.shopwebdemo.web.filter.LoginFilter</filter-class>
