@@ -16,6 +16,14 @@
     <servlet-name>ProductServlet</servlet-name>
     <url-pattern>/ProductServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>StatisticServlet</servlet-name>
+    <servlet-class>cn.oocl.servlet.StatisticServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StatisticServlet</servlet-name>
+    <url-pattern>/StatisticServlet</url-pattern>
+  </servlet-mapping>
   <welcome-file-list>
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
