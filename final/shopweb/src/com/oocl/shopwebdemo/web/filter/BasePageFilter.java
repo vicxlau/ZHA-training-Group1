@@ -30,6 +30,7 @@ public class BasePageFilter implements Filter {
 		response.setCharacterEncoding("UTF-8");
 		DataStorage ds = (DataStorage)request.getServletContext().getAttribute("home_data");
 		request.setAttribute("categoryList", ds.getCategoryList());
+		handleRequest(request, response);
 		chain.doFilter(request, response);
 	}
 
@@ -42,17 +43,25 @@ public class BasePageFilter implements Filter {
 	public void handleRequest(ServletRequest req, ServletResponse res) throws IOException {
 
 		Enumeration<String> parameterNames = req.getParameterNames();
-
+		
+				String loggerMsg = "";
+				
 		while (parameterNames.hasMoreElements()) {
 			String paramName = parameterNames.nextElement();
 			String msg = paramName + ": ";
 
 			String[] paramValues = req.getParameterValues(paramName);
 			for (int i = 0; i < paramValues.length; i++) {
-				String paramValue = paramValues[i];
+			String paramValue = paramValues[i];
 				msg += paramValue + ",";
+
 			}
-			Logger.log(Logger.INFO, msg);
+		loggerMsg += msg;
+		}
+		if (loggerMsg != "") {
+			Logger.log(Logger.INFO, loggerMsg);
+			System.out.println(loggerMsg);
+			
 		}
 	}
 
