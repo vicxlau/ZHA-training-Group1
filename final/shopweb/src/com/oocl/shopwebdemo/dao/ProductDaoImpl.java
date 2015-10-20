@@ -301,9 +301,9 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
 	@Override
 	public int getProductResultCountByCatIdAndPrice(int cid,
 			int lowerbound, int upperbound) {
-		String sql = "select k.* from"+
+		String sql = "select count(*) from (select k.* from"+
 				  "(select p.* from category_product c_p left join product p on c_p.pro_id = p.pro_id where c_p.cat_id = ?"+
-				  ") k where k.PRO_DIS <= ? and k.PRO_DIS > ?";
+				  ") k where k.PRO_DIS <= ? and k.PRO_DIS > ?) r";
 		return super.executeCountQuery(sql, cid,upperbound,lowerbound);
 	}
 	
