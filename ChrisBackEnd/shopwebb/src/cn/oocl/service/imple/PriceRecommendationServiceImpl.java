@@ -1,19 +1,14 @@
 package cn.oocl.service.imple;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.stat.StatUtils;
 import org.apache.commons.math3.stat.descriptive.SummaryStatistics;
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
@@ -30,8 +25,8 @@ public class PriceRecommendationServiceImpl implements PriceRecommendationServic
 
 	private ObjectMapper mapper = new ObjectMapper();
 	
-	@Override
-	public PriceRecommendation getSellerPriceRecommendation(String queryString) {
+	
+	private PriceRecommendation getPriceRecommendationFilteredByPrice(String queryString, double priceLowerBound) {
 		
 		PriceRecommendation recom = new PriceRecommendation();
 		SummaryStatistics stats = new SummaryStatistics();
@@ -64,13 +59,17 @@ public class PriceRecommendationServiceImpl implements PriceRecommendationServic
 			for (Object item : itemList) {
 				
 				Map<String,Object> itemMap = (Map<String,Object>)item;
-				
-				Map<String,String> prod = new HashMap<String,String>();
 
 				String price = (String)itemMap.get("currentPrice");
 				Double price_double = Double.parseDouble(price);
+				
+				if (price_double <= priceLowerBound)
+					continue;
+				
 				stats.addValue(price_double);
 				priceList.add(price_double);
+				
+				Map<String,String> prod = new HashMap<String,String>();
 				
 				prod.put("name", (String)itemMap.get("tip"));
 				prod.put("price", price);
@@ -82,7 +81,7 @@ public class PriceRecommendationServiceImpl implements PriceRecommendationServic
 				productRefList.add(prod);
 			}
 
-			if (itemList.isEmpty()) {
+			if (productRefList.isEmpty()) {
 				recom.setMaxPrice(0.0);
 				recom.setMinPrice(0.0);
 				recom.setAveragePrice(0.0);
@@ -103,14 +102,19 @@ public class PriceRecommendationServiceImpl implements PriceRecommendationServic
 			throw new RuntimeException(e);
 		}
 		
-		return recom;
+		return recom;	
+	}
+
+	
+	@Override
+	public PriceRecommendation getSellerPriceRecommendation(String queryString) {
+		return this.getPriceRecommendationFilteredByPrice(queryString, 0);
 	}
 
 
 
 	@Override
 	public PriceRecommendation getBuyerPriceRecommendation(String queryString, double price) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getPriceRecommendationFilteredByPrice(queryString, price);
 	}
 }
