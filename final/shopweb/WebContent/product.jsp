@@ -23,10 +23,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			toastr8.info({
 		        message: '<a><i class=\'fa fa-link\'></i>'+count+' people have viewed this product today. </a>',
 	//	            title: 'Personal Page',
-		            imgURI: ['https://avatars0.githubusercontent.com/u/4276775?v=3&s=90'],
+		            imgURI: ['http://images.clipartpanda.com/look-clipart-9c4LjdpcE.jpeg'],
 		            iconClass: 'glyphicon glyphicon-user text-warning',
 		            positionClass: 'toast8-bottom-right',
-		            timeOut: 5000
+		            timeOut: 100000
 		        }).css('background-color', getRandomColor());
 		},'text').done(function(){
 		    	

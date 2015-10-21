@@ -47,8 +47,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 	    var tmp = "<a href='/shopweb/retrievalServlet?action=product&id="+obj.id+"''></a>";
                 	    //$('tmp2').append($('tmp'));
                 	    
-                	   $('div.product-model-sec').append("<div class='product-grid love-grid'><a href='/shopweb/retrievalServlet?action=product&id="+obj.id+"'>"+obj.name+
-                			   "<div class='more-product'><span> </span></div>"+					
+                	   $('div.product-model-sec').append("<div class='product-grid love-grid'><a href='/shopweb/retrievalServlet?action=product&id="+obj.id+"'>"+					
    							"<div class='product-img b-link-stripe b-animate-go  thickbox'>"+
 								"<img src='${shop}/product_pic/"+obj.pic+"' class='img-responsive' alt='${obj.name}'/>"+
 								
@@ -61,7 +60,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 			   "</a>"+
                 			   "<div class='product-info simpleCart_shelfItem'>"+
       							"<div class='product-info-cust prt_name'>"+
-   						"<h4>${product.name}</h4>"+
+   								"<h4>"+obj.name+"</h4>"+
 		   						"<div><span class='item_price'>$ "+obj.price+"</span></div>"+
 		   						"<span class='item_discount' style='color:red'> "+obj.discount+" % off</span>"+
 		   						"<form action='${shop}/ItemServlet' method='post'>"+								
