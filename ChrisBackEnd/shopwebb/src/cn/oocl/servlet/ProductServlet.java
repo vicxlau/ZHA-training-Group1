@@ -83,7 +83,9 @@ public class ProductServlet extends HttpServlet {
 			int result = productService.update(product);
 			
 			// 3: get the result from Service then send back to UI
-			request.getRequestDispatcher("/WEB-INF/productUpdate.jsp").forward(request, response); 
+			//request.getRequestDispatcher("/WEB-INF/productUpdate.jsp").forward(request, response); 
+			request.setAttribute("url", "/WEB-INF/productUpdate.jsp");
+			response.sendRedirect("http://lauvi-w7-2:8888/shopweb/backend?action=onSaleNotification&prod_id="+product.getId()); 
 		}
 		else if (status.equals("query")){
 			// 1: get data from UI
