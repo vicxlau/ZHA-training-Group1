@@ -22,7 +22,7 @@
 //          timeOut: 5000
 //      }).css('background-color', getRandomColor());
 		toastr8.info({
-        message: '<a href=\'http://samuel.maispc.com\'><i class=\'fa fa-link\'></i>'+event.data+'</a>',
+        message: event.data,
 //            title: 'Personal Page',
             imgURI: ['https://avatars0.githubusercontent.com/u/4276775?v=3&s=90'],
             iconClass: 'glyphicon glyphicon-user text-warning',

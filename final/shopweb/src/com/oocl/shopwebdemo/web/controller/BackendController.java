@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import com.oocl.shopwebdemo.service.*;
+import com.oocl.shopwebdemo.dao.ProductDaoImpl;
 import com.oocl.shopwebdemo.model.*;
 import com.oocl.shopwebdemo.util.ConfigReader;
 import com.oocl.shopwebdemo.web.socket.NotificationSocket;
@@ -25,6 +26,9 @@ public class BackendController extends HttpServlet {
 				switch (action) {
 				case "homePageRefresh":
 					request.getRequestDispatcher(URL_HOME_REFRESH).forward(request, response);
+					break;
+				case "onSaleNotification":
+					onSaleNotification(request, response);
 					break;
 				}
 			} else {
@@ -52,9 +56,23 @@ public class BackendController extends HttpServlet {
 		}
 	}
 
-	private void notificationBroadcast(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	private void onSaleNotification(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		int prod_id = Integer.parseInt(request.getParameter("prod_id"));
+		Product product = new ProductServiceImpl().getProductByIndex(prod_id);
+		String msg = String.format("<a href=\'http://lauvi-w7-2:8888/shopweb/retrievalServlet?action=product&id=%d \'><i class=\'fa fa-link\'></i> %s is now on sale ( % %d off)! Click to view ~~ </a>",
+				product.getId(), product.getName(), product.getDiscount()); 
+		executeBroadcast(msg);
+		response.sendRedirect("http://lauvi-w7-2:8888/shopwebb/AccountServlet?url=productUpdate.jsp");
+//		request.getRequestDispatcher("http://lauvi-w7-2:8888/shopwebb/AccountServlet?url=productUpdate.jsp").forward(request, response);	
+	}
+	
+	private void executeBroadcast(String msg) throws IOException{
 		NotificationSocket socket = new NotificationSocket();
-		socket.onMessage(request.getParameter("message"));
+		socket.onMessage(msg);
+	}
+	private void notificationBroadcast(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		executeBroadcast(request.getParameter("message"));
 	}
 	
 	private boolean isValidParam(HttpServletRequest request, String param) {
