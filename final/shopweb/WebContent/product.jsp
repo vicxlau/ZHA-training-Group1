@@ -175,7 +175,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<script>
 					$(function() {
 						
-						var url = "/shopweb/priceRecommend?keyword=" + encodeURIComponent("${requestScope.product.name}") + "&price=${requestScope.product.price}";
+						var url = "/shopweb/mvc/priceRecommend/buyer?keyword=" + encodeURIComponent("${requestScope.product.name}") + "&price=${requestScope.product.price}";
 						
 						$.get(url, function(data) {
 							if (data != "") {

@@ -98,10 +98,6 @@
 		<servlet-name>PaymentController</servlet-name>
 		<servlet-class>com.oocl.shopwebdemo.web.controller.PaymentController</servlet-class>
 	</servlet>
-	<servlet>
-		<servlet-name>PriceRecommendController</servlet-name>
-		<servlet-class>com.oocl.shopwebdemo.web.controller.PriceRecommendController</servlet-class>
-	</servlet>
 
 
 	<servlet-mapping>
@@ -148,9 +144,22 @@
 		<servlet-name>PaymentController</servlet-name>
 		<url-pattern>/PaymentServlet</url-pattern>
 	</servlet-mapping>
+
+
+	<!-- SpringMVC -->
+	<servlet>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
 	<servlet-mapping>
-		<servlet-name>PriceRecommendController</servlet-name>
-		<url-pattern>/priceRecommend</url-pattern>
+		<servlet-name>dispatcherServlet</servlet-name>
+		<url-pattern>/mvc/*</url-pattern>
 	</servlet-mapping>
 
 
