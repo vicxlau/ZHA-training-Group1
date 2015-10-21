@@ -129,7 +129,7 @@ function isValidCartSubmission()
 // 											$('#cart-header').remove();
 // 											$('#cart-header${num.count}').remove();
 // 											$('#cart-header${num.count}').html('');
-
+											$('#cart-header${num.count} .cart-checkbox').prop('checked',false);
 											// update cart summary item number
 					 						$('#cart-summary-num').html(parseInt($('#cart-summary-num').html()) - parseInt($(this).find('[name="quantity"]').val()));
 // 					 						var div_count = $('.cart-item-info:visible').length;
