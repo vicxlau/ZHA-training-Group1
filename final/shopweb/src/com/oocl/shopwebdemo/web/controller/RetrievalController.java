@@ -38,6 +38,12 @@ public class RetrievalController extends HttpServlet {
 			case "categoryByPrice":
 				categoryByPrice(request,response);
 				break;
+			case "categoryByVolumn":
+				categoryByVolumn(request,response);
+				break;
+			case "categoryByVisit":
+				categoryByVisit(request,response);
+				break;
 		}
 	}
 	
@@ -357,6 +363,42 @@ public class RetrievalController extends HttpServlet {
 					throw new RuntimeException();
 				} 
 			
+	}
+	public void categoryByVolumn (HttpServletRequest request, HttpServletResponse response){
+		int cat_id = Integer.parseInt(request.getParameter("catId"));
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		//SearchProductsResult resultReturn = new SearchProductsResult();
+		//resultReturn.setPageResults(null);
+		SearchProductsResult searchResult = searchService.getProductByCatIdAndVolumn(cat_id, pageNum);
+		//resultReturn.setPageResults(searchResult.getPageResults());
+		//resultReturn.setPageCount(searchResult.getPageCount());
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			//response.getWriter().write(mapper.writeValueAsString(productList));
+			response.getWriter().write(mapper.writeValueAsString(searchResult));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException();
+		}
+	}
+	public void categoryByVisit (HttpServletRequest request, HttpServletResponse response){
+		int cat_id = Integer.parseInt(request.getParameter("catId"));
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		//SearchProductsResult resultReturn = new SearchProductsResult();
+		//resultReturn.setPageResults(null);
+		SearchProductsResult searchResult = searchService.getProductByCatIdAndVisit(cat_id, pageNum);
+		//resultReturn.setPageResults(searchResult.getPageResults());
+		//resultReturn.setPageCount(searchResult.getPageCount());
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			//response.getWriter().write(mapper.writeValueAsString(productList));
+			response.getWriter().write(mapper.writeValueAsString(searchResult));
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			throw new RuntimeException();
+		}
 	}
 
 }

@@ -86,9 +86,34 @@ public class SearchServiceImpl implements ISearchService {
 		s.setPageResults(productDao.getProductByCatIdAndPrice(cid, lowerbound, upperbound, pageSize, pageNum));
 		s.setPageNum(pageNum);
 		s.setPageSize(pageSize);
-		s.setPageCount(totalResultCount/pageSize + 1);
+		s.setPageCount((int)Math.ceil(1.0*totalResultCount/pageSize));
 		s.setTotalResultCount(totalResultCount);
 		return s;
 	}
 	
+	@Override
+	public SearchProductsResult getProductByCatIdAndVolumn(int cid, int pageNum){
+		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
+		int totalResultCount = productDao.getProductResultCountByCatIdAndVolumn(cid);
+		SearchProductsResult s = new SearchProductsResult();
+		s.setPageResults(productDao.getProductByCatIdAndVolumn(cid, pageSize, pageNum));
+		s.setPageNum(pageNum);
+		s.setPageSize(pageSize);
+		s.setPageCount((int)Math.ceil(1.0*totalResultCount/pageSize));
+		s.setTotalResultCount(totalResultCount);
+		return s;
+	}
+	
+	@Override
+	public SearchProductsResult getProductByCatIdAndVisit(int cid, int pageNum){
+		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
+		int totalResultCount = productDao.getProductResultCountByCatIdAndVisit(cid);
+		SearchProductsResult s = new SearchProductsResult();
+		s.setPageResults(productDao.getProductByCatIdAndVisit(cid, pageSize, pageNum));
+		s.setPageNum(pageNum);
+		s.setPageSize(pageSize);
+		s.setPageCount((int)Math.ceil(1.0*totalResultCount/pageSize));
+		s.setTotalResultCount(totalResultCount);
+		return s;
+	}
 }

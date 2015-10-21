@@ -350,4 +350,82 @@ public class ProductDaoImpl extends BaseDaoImpl<Product> implements IProductDao 
             
         });
     }
+    
+    @Override
+    public int getProductResultCountByCatIdAndVolumn(int cid) {
+    	String sql = "select count(*) from (select * from (select * from (select item_name, sum(item_number) as sum_number from item group by item_name) t order by t.sum_number desc) k right join product p on p.PRO_NAME = k.item_name join category_product c_p on c_p.PRO_ID = p.PRO_ID where c_p.CAT_ID = ?)";
+		return super.executeCountQuery(sql, cid);
+    }
+    
+    @Override
+    public List<Product> getProductByCatIdAndVolumn(int cid, int pageSize, int pageNum) {
+    	String sql = 
+    		"select * from ("+
+	    		"select p.*, rownum r from ("+
+	    			"select * from ("+
+	    				"select item_name, sum(item_number) as sum_number from item group by item_name) t "+
+	    			"order by t.sum_number desc) k "+
+	    		"right join product p on p.PRO_NAME = k.item_name join category_product c_p on c_p.PRO_ID = p.PRO_ID where c_p.CAT_ID = ? AND rownum <= ?"+
+	    	") l where l.r >?";
+    	return super.executeQuery_preparedStatement(sql, new RowMapper<Product>() {
+
+			@Override
+			public List<Product> getRowMapper(ResultSet rs) throws Exception {
+				List<Product> results = new ArrayList<Product>();
+
+				while (rs.next()) {
+					Product product = new Product();
+					product.setId(rs.getInt("pro_id"));
+					product.setName(rs.getString("pro_name"));
+					product.setPrice(rs.getDouble("pro_price"));
+					product.setPic(rs.getString("pro_pic"));
+					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
+
+					results.add(product);
+
+				}
+				return results;
+			}
+
+		}, cid,pageSize * pageNum, (pageNum - 1) * pageSize);
+	}
+    @Override
+    public int getProductResultCountByCatIdAndVisit(int cid) {
+    	String sql = "select count(*) from (select * from product order by pro_visittime desc) p join category_product c_p on c_p.PRO_ID = p.PRO_ID where c_p.CAT_ID = ?";
+		return super.executeCountQuery(sql, cid);
+    }
+	
+	@Override
+    public List<Product> getProductByCatIdAndVisit(int cid, int pageSize, int pageNum) {
+    	String sql = 
+    		"select * from ("+
+    			"select p.*, rownum r from "+
+    			"(select * from product order by pro_visittime desc) p "+
+    			"join category_product c_p on c_p.PRO_ID = p.PRO_ID where c_p.CAT_ID = ? and rownum <= ?) t "+
+    		"where t.r >?";
+		return super.executeQuery_preparedStatement(sql, new RowMapper<Product>() {
+
+			@Override
+			public List<Product> getRowMapper(ResultSet rs) throws Exception {
+				List<Product> results = new ArrayList<Product>();
+
+				while (rs.next()) {
+					Product product = new Product();
+					product.setId(rs.getInt("pro_id"));
+					product.setName(rs.getString("pro_name"));
+					product.setPrice(rs.getDouble("pro_price"));
+					product.setPic(rs.getString("pro_pic"));
+					product.setRemark(rs.getString("pro_remark"));
+					product.setDiscount(Integer.parseInt(rs.getString("pro_dis")));
+
+					results.add(product);
+
+				}
+				return results;
+			}
+
+			
+		}, cid,pageSize * pageNum, (pageNum - 1) * pageSize);
+	}
 }
