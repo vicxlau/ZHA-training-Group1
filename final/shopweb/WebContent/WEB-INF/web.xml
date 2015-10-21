@@ -98,6 +98,11 @@
 		<servlet-name>PaymentController</servlet-name>
 		<servlet-class>com.oocl.shopwebdemo.web.controller.PaymentController</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PriceRecommendController</servlet-name>
+		<servlet-class>com.oocl.shopwebdemo.web.controller.PriceRecommendController</servlet-class>
+	</servlet>
+
 
 	<servlet-mapping>
 		<servlet-name>HomeController</servlet-name>
@@ -142,6 +147,10 @@
 	<servlet-mapping>
 		<servlet-name>PaymentController</servlet-name>
 		<url-pattern>/PaymentServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PriceRecommendController</servlet-name>
+		<url-pattern>/priceRecommend</url-pattern>
 	</servlet-mapping>
 
 

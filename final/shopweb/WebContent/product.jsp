@@ -160,7 +160,83 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					</div>
 				</div>
 				<div class="clearfix"></div>
-	
+
+				<script type="text/javascript" src="js/jquery.flexisel.js"></script>
+				<div id="recommen_id" class="recommendation" style="display: none;">
+					<div class="container">
+						<div class="recmnd-head">
+							<h3>Similar Items from Tao Bao</h3>
+						</div>
+						<div class="bikes-grids">
+							<ul id="flexiselDemo1"></ul>
+						</div>
+					</div>
+				</div>
+				<script>
+					$(function() {
+						
+						var url = "/shopweb/priceRecommend?keyword=" + encodeURIComponent("${requestScope.product.name}") + "&price=${requestScope.product.price}";
+						
+						$.get(url, function(data) {
+							if (data != "") {
+								var priceRecom = JSON.parse(data);
+
+								$('#flexiselDemo1').empty();
+								
+								var itemList = priceRecom.productRefList;
+								
+								if (itemList.length == 0)
+									return;
+								
+								for (var i=0; i< itemList.length; i++) {
+									
+									if (i==6)
+										break;
+									
+									var item = itemList[i];
+									
+									var html= '<li>'
+											+ '<img src="' + item.image + '" width="100px" height="100px" />'
+											+ '<h4>' + item.name + '</h4>'
+											+ '<p>¥' + item.price + '</p>'
+											+ '</li>';
+											
+									$('#flexiselDemo1').append(html);
+								}
+								
+								
+								$('#recommen_id').show();
+
+								$("#flexiselDemo1").flexisel({
+									visibleItems : 6,
+									animationSpeed : 1000,
+									autoPlay : true,
+									autoPlaySpeed : 3000,
+									pauseOnHover : true,
+									enableResponsiveBreakpoints : true,
+									responsiveBreakpoints : {
+										portrait : {
+											changePoint : 480,
+											visibleItems : 1
+										},
+										landscape : {
+											changePoint : 640,
+											visibleItems : 2
+										},
+										tablet : {
+											changePoint : 768,
+											visibleItems : 3
+										}
+									}
+								});
+							}
+						});
+
+					});
+				</script>
+
+
+
 				<c:if test="${not empty requestScope.prodRecommendList }">
 					<div class="new">
 						<div class="container">
