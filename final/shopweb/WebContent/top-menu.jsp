@@ -3,17 +3,20 @@
 <div class="top_bg">
 	<div class="container">
 		<div class="header_top-sec">
-			<div class="top_right">
+		<!--  	<div class="top_right">
 				<ul>
 					<li><a href="#">help</a></li>|
 					<li><a href="contact.html">Contact</a></li>|
 					<li><a href="${shop}/login.jsp">Track Order</a></li>
 				</ul>
 			</div>
+			-->
 			<div class="top_left">
 				<ul>
 					<li class="top_link">Email:<a href="mailto@example.com">info(at)Mobilya.com</a></li>|
-					<li class="top_link"><a href="${shop}/login.jsp">My Account</a></li>|					
+					<li class="top_link"><a href="${shop}/login.jsp">My Account</a></li>|	
+					<li class="top_link" id="lang-en"><a href="">EN</a></li>|
+					<li class="top_link" id="lang-cn"><a href="">中</a></li>								
 				</ul>
 				<div class="social">
 					<ul>
@@ -233,6 +236,12 @@
 				 				}
 				 				
 				 			});
+				 		});
+				 		$(document).on("click", "#lang-cn", function(){
+				 			sessionScope.customer.locale=zhcn;
+				 		});
+				 		$(document).on("click", "#lang-en", function(){
+				 			sessionScope.customer.locale=en;
 				 		});
 					});
 			 	</script>
