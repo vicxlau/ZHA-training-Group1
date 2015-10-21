@@ -232,6 +232,8 @@
 							$("#priceRecom_avg").text(priceRecom.averagePrice);
 							$("#priceRecom_median").text(priceRecom.medianPrice);
 
+							$('#priceRecom_items').empty();
+							
 							var itemList = priceRecom.productRefList;
 							for (item of itemList) {
 								var html= '<div>'
