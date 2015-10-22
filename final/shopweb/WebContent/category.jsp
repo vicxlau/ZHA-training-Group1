@@ -184,10 +184,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <!-- 			      </div>		  -->
 <!-- 			 </section> -->
 				<section  class="sky-form">
-					<div class="row row1 scroll-pane">
-						<input type="radio" name="sort_type" value="volumn"/>Sort by volumn
-						<input type="radio" name="sort_type" value="viewTime"/>Sort by view
-					</div>
 					 <h4><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>DISCOUNTS</h4>
 					 <div class="row row1 scroll-pane">
 						 <div class="col col-4">
