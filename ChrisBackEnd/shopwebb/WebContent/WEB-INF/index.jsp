@@ -37,6 +37,32 @@
 	    xhr.open('POST', 'ProductServlet', true);
 	    xhr.send(null);
 	</script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+	google.load("visualization", "1", {
+		packages : [ "corechart" ]
+	});
+	google.setOnLoadCallback(drawChart);
+	function drawChart() {
+
+		var data = google.visualization.arrayToDataTable([
+				[ 'X', 'Y' ]
+				<c:forEach items="${requestScope.graphData}" var="data">
+				, [ '${data.name}', ${data.count}]
+				</c:forEach>
+				]);
+
+		var options = {
+			title : '${requestScope.graphTitle}'
+		};
+
+		var chart = new google.visualization.PieChart(document
+				.getElementById('piechart'));
+
+		chart.draw(data, options);
+	}
+</script>
 
 </head>
 
@@ -53,7 +79,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${shop}/AccountServlet?url=index.jsp">Shop</a>
+                <a class="navbar-brand" href="${shop}/StatisticServlet?url=index.jsp">Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -92,6 +118,7 @@
 
 
             <div class="col-md-9">
+            <div id="piechart" style="width: 900px; height: 500px;"></div>
 <!--             	<p class="lead">Hot Items</p> -->
 <!-- 				 <div class="row"> -->
 <%-- 					<c:forEach items="${applicationScope.bigList}" var="productList"> --%>
