@@ -4,9 +4,16 @@ import com.oocl.shopwebdemo.dao.*;
 import com.oocl.shopwebdemo.model.*;
 
 public class AccountServiceImpl implements IAccountService {
-	private AccountDaoImpl aDao = new AccountDaoImpl();
-	private AddressDaoImpl addrDao = new AddressDaoImpl();
+	private AccountDaoImpl aDao = null;
+	private AddressDaoImpl addrDao = null;
 
+	public void setaDao(AccountDaoImpl aDao) {
+		this.aDao = aDao;
+	}
+	
+	public void setAddrDao(AddressDaoImpl addrDao) {
+		this.addrDao = addrDao;
+	}
 	@Override
 	public Customer login(Account acc) {
 //		public Account login(Account acc) {

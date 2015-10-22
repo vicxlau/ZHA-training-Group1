@@ -18,6 +18,14 @@
 		<listener-class>com.oocl.shopwebdemo.listener.Initdatalistener</listener-class>
 	</listener>
 
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:spring.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
 	<filter>
 		<filter-name>BasePageFilter</filter-name>
 		<filter-class>com.oocl.shopwebdemo.web.filter.BasePageFilter</filter-class>
@@ -43,12 +51,12 @@
 		<url-pattern>/CartServlet</url-pattern>
 		<url-pattern>/PaymentServlet</url-pattern>
 		<url-pattern>*.jsp</url-pattern>
-<!-- 		<url-pattern>/customer/*.jsp</url-pattern> -->
+		<!-- <url-pattern>/customer/*.jsp</url-pattern> -->
 	</filter-mapping>
 	<filter>
 		<filter-name>login</filter-name>
 		<filter-class>com.oocl.shopwebdemo.web.filter.LoginFilter</filter-class>
-	</filter>	
+	</filter>
 	<filter-mapping>
 		<filter-name>login</filter-name>
 		<url-pattern>/customer/*</url-pattern>
