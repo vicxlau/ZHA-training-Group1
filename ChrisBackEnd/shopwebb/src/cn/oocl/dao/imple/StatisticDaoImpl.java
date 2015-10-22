@@ -16,11 +16,14 @@ public class StatisticDaoImpl extends BaseDaoImpl<Statistic> {
 		return null;
 	}
 	
-	public List<Statistic> query() {
-		String sql = "SELECT c.cat_id, count(*) "
-				+ "FROM product_stat p LEFT JOIN CATEGORY_PRODUCT c ON c.pro_id = p.PRO_ID "
-				+ "group by c.cat_id";
-		Object[] param = new Object[] {};
+	public List<Statistic> query(String from, String to) {
+//		String sql = "SELECT c.cat_id, count(*) "
+//				+ "FROM product_stat p LEFT JOIN CATEGORY_PRODUCT c ON c.pro_id = p.PRO_ID "
+//				+ "group by c.cat_id";
+		String sql ="SELECT c.CAT_ID, COUNT(*) FROM "
+				+ "(SELECT PRO_ID FROM PRODUCT_STAT WHERE VISIT_AT > ? AND VISIT_AT   < ?) p "
+				+ "LEFT JOIN CATEGORY_PRODUCT c ON c.PRO_ID = p.PRO_ID GROUP BY c.CAT_ID";
+		Object[] param = new Object[] {from, to};
 		return super.query(sql, param, new RowMapper<Statistic>(){
 			@Override
 			public Statistic mapRow(ResultSet rs) throws SQLException {

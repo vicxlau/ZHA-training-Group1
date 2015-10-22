@@ -19,13 +19,12 @@ public class StatisticServiceImpl implements StatisticService {
 	 * @see cn.oocl.service.imple.StatisticService#query()
 	 */
 	@Override
-	public List<ApplicationStat> query(){
-		List<Statistic> stats = statisticDao.query();
+	public List<ApplicationStat> query(String from, String to){
+		List<Statistic> stats = statisticDao.query(from, to);
 		List<ApplicationStat> stat = new ArrayList<ApplicationStat>();
 		
 		for(int i = 0; i < stats.size(); i++){
 			int cid = Integer.parseInt(stats.get(i).getCategory());
-			System.out.println(cid +" "+ stats.get(i).getCount());
 			Category category = categoryService.getById(cid);
 			stat.add(new ApplicationStat(category.getType(), stats.get(i).getCount()));
 			//stat.add(new ApplicationStat("123", stats.get(i).getCount()));

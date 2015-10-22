@@ -79,7 +79,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${shop}/StatisticServlet?url=index.jsp">Shop</a>
+                <a class="navbar-brand" href="${shop}/StatisticServlet?url=index.jsp&name=admin">Shop</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -118,7 +118,25 @@
 
 
             <div class="col-md-9">
-            <div id="piechart" style="width: 900px; height: 500px;"></div>
+            <div id="piechart" style="width: 900px; height: 500px;">
+            </div>
+  
+            <FORM ACTION="${shop}/StatisticServlet" METHOD="post">
+	            <INPUT TYPE="radio" NAME="name" VALUE="spring" >
+				春
+	            <BR>
+	            <INPUT TYPE="radio" NAME="name" VALUE="summer">
+				夏
+	            <BR>
+	            <INPUT TYPE="radio" NAME="name" VALUE="autumn">
+				秋
+	            <BR>
+	            <INPUT TYPE="radio" NAME="name" VALUE="winter">
+				冬
+	            <BR>
+	            <INPUT TYPE="submit" VALUE="refresh">
+        	</FORM>
+           
 <!--             	<p class="lead">Hot Items</p> -->
 <!-- 				 <div class="row"> -->
 <%-- 					<c:forEach items="${applicationScope.bigList}" var="productList"> --%>

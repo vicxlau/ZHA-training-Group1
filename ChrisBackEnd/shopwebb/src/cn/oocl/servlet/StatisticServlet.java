@@ -45,11 +45,54 @@ public class StatisticServlet extends HttpServlet {
 //		stat.add(new ApplicationStat("clothes",12));
 //		stat.add(new ApplicationStat("electronic",30));
 //		stat.add(new ApplicationStat("food",50));
-		List<ApplicationStat> stat = statisticService.query();
-		
-		request.setAttribute("graphData",stat);
-		request.setAttribute("graphTitle","Statistic About Shopweb");
-		request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		String season = request.getParameter("name");
+//		if(season!=null){
+//			System.out.println("season " + season );
+//		}
+		if (season.equals("spring")){
+			String from = "01-MAR-2014";
+			String to = "31-MAY-2014";
+			List<ApplicationStat> stat = statisticService.query(from, to);
+			request.setAttribute("graphData",stat);
+			System.out.println(stat.size());
+			request.setAttribute("graphTitle","Statistic About Shopweb [SPRING] 2014");
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);			
+		}
+		else if (season.equals("summer")){
+			String from = "01-JUN-2014";
+			String to = "31-AUG-2014";
+			List<ApplicationStat> stat = statisticService.query(from, to);
+			System.out.println(stat.size());
+			request.setAttribute("graphData",stat);
+			request.setAttribute("graphTitle","Statistic About Shopweb [SUMMER] 2014");
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);			
+		}
+		else if (season.equals("autumn")){
+			String from = "01-SEP-2014";
+			String to = "30-NOV-2014";
+			List<ApplicationStat> stat = statisticService.query(from, to);
+			System.out.println(stat.size());
+			request.setAttribute("graphData",stat);
+			request.setAttribute("graphTitle","Statistic About Shopweb [AUTUMN] 2014");
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);			
+		}
+		else if (season.equals("winter")){
+			String from = "01-DEC-2014";
+			String to = "28-FEB-2015";
+			List<ApplicationStat> stat = statisticService.query(from, to);
+			System.out.println(stat.size());
+			request.setAttribute("graphData",stat);
+			request.setAttribute("graphTitle","Statistic About Shopweb [WINTER] 2014-2015");
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);			
+		}
+		else{
+			String from = "01-MAR-2014";
+			String to = "28-FEB-2015";
+			List<ApplicationStat> stat = statisticService.query(from, to);
+			request.setAttribute("graphData",stat);
+			request.setAttribute("graphTitle","Statistic About Shopweb 2014-2015");
+			request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+		}
 	}
 
 }
