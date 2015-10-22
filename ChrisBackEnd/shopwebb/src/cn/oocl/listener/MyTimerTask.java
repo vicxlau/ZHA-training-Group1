@@ -28,14 +28,14 @@ public class MyTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		List<Category> categoryList = categoryServiceImpl.queryByHot(1);
-		List<List<Product>> bigList = new ArrayList<List<Product>>();
-		for (Category category : categoryList) {
-			List<Product> productList = productServiceImpl.queryByCid(category.getId());
-			bigList.add(productList);
-		}
-		application.setAttribute("bigList", bigList); // let the front page											
-		// display
-		System.out.println(bigList);																			
+		//List<Category> categoryList = categoryServiceImpl.queryByHot(1);
+		//List<List<Product>> bigList = new ArrayList<List<Product>>();
+//		for (Category category : categoryList) {
+//			List<Product> productList = productServiceImpl.queryByCid(category.getId());
+//			bigList.add(productList);
+//		}
+//		application.setAttribute("bigList", bigList); // let the front page											
+//		// display
+//		System.out.println(bigList);																			
 	}
 }

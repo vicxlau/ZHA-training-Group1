@@ -11,7 +11,7 @@
         应该有一个account表, 里面有用户与密码,符合条件才能登录成功
         此处简单实现：如果是admin,admin则登录成功
      -->
-    <form action="${shop}/AccountServlet" method="post">
+    <form action="${shop}/StatisticServlet" method="post">
     	name:<input type="text" name="name" /><br />
     	 pw	:<input type="password" name="pass" /><br />
     	${requestScope.error}
