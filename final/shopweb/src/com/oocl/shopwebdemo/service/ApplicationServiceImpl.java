@@ -59,7 +59,7 @@ public class ApplicationServiceImpl implements IApplicationService {
 		}else{
 			stat = new ApplicationStat();
 		}
-		stat.update((u==null)?0:u.getAccount().getUser().getId(), p.getId(), p.getCategoryID());
+		stat.update((u==null || u.getAccount()==null || u.getAccount().getUser()==null)?0:u.getAccount().getUser().getId(), p.getId(), p.getCategoryID());
 		return stat;
 	}
 	
