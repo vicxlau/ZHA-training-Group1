@@ -3,13 +3,18 @@ package com.oocl.shopwebdemo.web.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oocl.shopwebdemo.model.*;
-import com.oocl.shopwebdemo.service.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
+
+import com.oocl.shopwebdemo.model.Account;
+import com.oocl.shopwebdemo.model.Customer;
+import com.oocl.shopwebdemo.service.IAccountService;
 import com.oocl.shopwebdemo.util.ConfigReader;
 
 // @WebServlet("/AccountServlet") xml配置
@@ -18,19 +23,39 @@ public class AccountController extends HttpServlet {
 	private static final String URL_HOME = ConfigReader.getSystemValue("URL_HOME");
 	private static final String URL_LOGIN = ConfigReader.getSystemValue("URL_LOGIN");
 	private static final String URL_BACKEND = ConfigReader.getSystemValue("URL_BACKEND_HOME");
-	private IAccountService accountService = new AccountServiceImpl();
-
+	private IAccountService accountService = null;
+	private ApplicationContext context = null;
+	
+	
+	public void setAccountService(IAccountService accountService) {
+		this.accountService = accountService;
+	}
+	
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+	
+	
+	
+	public void init(ServletConfig config) throws ServletException {
+		
+		super.init(config);
+		System.out.println("-----init----");
+		System.out.println("this:" + this);
+		System.out.println("servletcontext:" + this.getServletContext());
+		// Spring提供了一个工具类,通过此工具类去Application内置对象中获取spring配置文件(保证配置文件只是在启动的时候加载一次)
+		context = WebApplicationContextUtils.getWebApplicationContext(this
+				.getServletContext());
+		accountService = (IAccountService) context.getBean("accountService");
+		
+	}
+	
+	
+	
 	public AccountController() {
 		super();
-		// TODO Auto-generated constructor stub
+	
 	}
-
-	/**
-	 * get方法临时用来处理内网中页面与页面之前的跳转,后面学了Spring MVC替换
-	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 //		String url = request.getParameter("url");

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- 1: Spring中,只要被Spring管理的Bean,在创建的时候一定不能new 2: 在没有spring mvc的情况下: filter 
+		servlet listener 都要采用WebApplicationContextUtils来获取Spring 中配置的Bean 3: 在项目启动的时候配置web.xml,需要加载Spring的配置文件,只有这样 
+		WebApplicationContextUtils才能使用 -->
+
+	<bean id="accountService" class="com.oocl.shopwebdemo.service.AccountServiceImpl">
+		<property name="aDao" ref="accountDao" />
+		<property name="addrDao" ref="addressDao" />
+	</bean>
+
+	
+	
+	<bean id="accountDao" class="com.oocl.shopwebdemo.dao.AccountDaoImpl">
+	</bean>
+
+	<bean id="addressDao" class="com.oocl.shopwebdemo.dao.AddressDaoImpl">
+	</bean>
+
+
+
+
+
+</beans>
+
+
+    
+
+ 
