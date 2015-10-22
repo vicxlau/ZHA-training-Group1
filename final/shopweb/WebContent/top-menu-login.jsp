@@ -3,17 +3,20 @@
 <div class="top_bg">
 	<div class="container">
 		<div class="header_top-sec">
-			<div class="top_right">
+		<!--  	<div class="top_right">
 				<ul>
 					<li><a href="#">help</a></li>|
 					<li><a href="contact.html">Contact</a></li>|
 					<li><a href="${shop}/login.jsp">Track Order</a></li>
 				</ul>
 			</div>
+			-->
 			<div class="top_left">
 				<ul>
-					<li class="top_link"><a href="http://localhost:8888/shopwebb">ADMIN</a></li>|
-					<li class="top_link"><a href="${shop}/login.jsp">My Account</a></li>|					
+					<li class="top_link"><fmt:message key="top-menu-email" /><a href="mailto@example.com">info(at)Mobilya.com</a></li>|
+					<li class="top_link"><a href="${shop}/login.jsp"><fmt:message key="top-menu-my-account" /></a></li>|	
+					<li class="top_link" id="lang-en"><a href="${shop}/AccountServlet?locale=en">EN</a></li>|
+					<li class="top_link" id="lang-cn"><a href="${shop}/AccountServlet?locale=zhcn">中</a></li>								
 				</ul>
 				<div class="social">
 					<ul>
@@ -42,7 +45,7 @@
 		 </div>
 		 <div class="header_right">	
 			 <div class="login">
-				 <a href="${shop}/login.jsp">LOGIN</a>
+				 <a href="${shop}/login.jsp"><fmt:message key="top-menu-login-btn" /></a>
 			 </div>
 			 <div class="cart box_1">
 				<a href="${shop}/cart.jsp">
@@ -56,7 +59,7 @@
 							    </c:otherwise>
 							</c:choose>
 
-					</span> (<span id="cart-summary-num" class="">${total}</span> items)<img src="${shop}/images/bag.png" alt=""></h3>
+					</span> (<span id="cart-summary-num" class="">${total}</span> <fmt:message key="top-menu-item" />)<img src="${shop}/images/bag.png" alt=""></h3>
 <%-- 					<h3> <span class="simpleCart_total">${sessionScope.cart.total}</span> (<span id="simpleCart_quantity" class="simpleCart_quantity"></span> items)<img src="${shop}/images/bag.png" alt=""></h3> --%>
 				</a>	
 <!-- 				<p><a href="javascript:;" class="simpleCart_empty">Empty cart</a></p> -->
@@ -209,7 +212,7 @@
 			   </ul> 
 			   <div class="search">
 				 <form action="${shop}/searchProductServlet" method="get">
-					<input type="text" name="keyword" id="keyword" list="search-suggest-list" placeholder="Search...">
+					<input type="text" name="keyword" id="keyword" list="search-suggest-list" placeholder=<fmt:message key="top-menu-search" />>
 					<datalist id="search-suggest-list"></datalist>
 					
 					<input type="hidden" name="pageNum" value="1"> 
@@ -234,6 +237,7 @@
 				 				
 				 			});
 				 		});
+				 		
 					});
 			 	</script>
 			 	

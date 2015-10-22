@@ -85,7 +85,7 @@ function isValidCartSubmission()
 <!-- undo button -->
 <div id="undo-btn" class="notifications-top-center" style="display:none;">
 	<span class="iconb" data-icon="&#xe20e;"></span> 
-		undo item deletion (<span id="undo-item-num">0</span>left ) 
+		undo item deletion (<span id="undo-item-num">0</span> left ) 
 	<div id="undo-btn_close" class="notifications-top-center-close" ><span class="iconb" data-icon="&#xe20e;"></span></div>
 </div>
 
@@ -124,7 +124,7 @@ function isValidCartSubmission()
 									$('#total').html(total);
 									$('#cart-summary-total').html(total);
 									},'text').done(function(){
-										$('#cart-header${num.count}').fadeOut('slow', function(c){
+										$('#cart-header${num.count}').fadeOut('fast', function(c){
 											$('#cart-header${num.count}').attr('undoPrio',$('.cart-item-info:hidden').length);
 // 											$('#cart-header').remove();
 // 											$('#cart-header${num.count}').remove();

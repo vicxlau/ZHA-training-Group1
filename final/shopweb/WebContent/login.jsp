@@ -23,7 +23,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<fmt:setBundle basename="com.oocl.shopwebdemo.i18n.locale" />
 <%-- 	<fmt:setBundle basename="myapp" var="lang"/>  --%>
   
-	<%@ include file="top-menu.jsp"%>
+	<%@ include file="top-menu-login.jsp"%>
 	<div class="login_sec">
 		<div class="container">
 			<ol class="breadcrumb">
@@ -32,7 +32,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<fmt:message key="top-menu-login-btn" />
 				</li>
 			</ol>
-			<h2><fmt:message key="login-bold-title" /></h2>
+<!--<%-- 			<h2><fmt:message key="login-bold-title" /></h2> --%>-->
 			<div class="col-md-6 log">
 				<p>
 					<fmt:message key="welcome-message" />
