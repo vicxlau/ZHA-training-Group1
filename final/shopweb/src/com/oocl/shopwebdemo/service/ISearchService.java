@@ -10,8 +10,8 @@ public interface ISearchService {
 	SearchProductsResult searchProducts(String keyword, int pageSize, int pageNum);
 	SearchProductsResult getProductByCatIdAndPrice(int cid, int lowerbound, int upperbound, int pageNum);
 	
-	SearchProductsResult getProductByCatIdAndVolumn(int cid, int pageNum);
-	SearchProductsResult getProductByCatIdAndVisit(int cid, int pageNum);
+	SearchProductsResult getProductByCatIdAndVolumn(String keyword, int pageNum);
+	SearchProductsResult getProductByCatIdAndVisit(String keyword, int pageNum);
 
 	List<Product> getHotProduct();
 

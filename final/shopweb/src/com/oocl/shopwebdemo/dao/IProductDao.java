@@ -13,8 +13,8 @@ public interface IProductDao {
 	int getProductsSearchResultCountByKeyword(String keyword);
 	int getProductResultCountInCategory(int cid);
 	int getProductResultCountByCatIdAndPrice(int cid, int lowerbound, int upperbound);
-	int getProductResultCountByCatIdAndVolumn(int cid);
-	int getProductResultCountByCatIdAndVisit(int cid);
+	int getProductResultCountByCatIdAndVolumn(String keyword);
+	int getProductResultCountByCatIdAndVisit(String keyword);
 	
 	List<Product> searchProductsByKeywordWithPaging(String keyword, int pageSize, int pageNum);
 	List<Product> getProductInCategory(int cid,int pageSize, int pageNum);
@@ -23,8 +23,8 @@ public interface IProductDao {
 	List<Product> getAdvProduct();
 	List<Product> getDistinctOrderedProductNames();
 	List<Product> getProductByCatIdAndPrice(int cid, int lowerbound, int upperbound, int pageSize, int pageNum);
-	List<Product> getProductByCatIdAndVolumn(int cid, int pageSize, int pageNum);
-	List<Product> getProductByCatIdAndVisit(int cid, int pageSize, int pageNum);
+	List<Product> getProductByCatIdAndVolumn(String keyword, int pageSize, int pageNum);
+	List<Product> getProductByCatIdAndVisit(String keyword, int pageSize, int pageNum);
 	List<Product> getProductsByIds(List<Integer> productIdList);
 	
 }

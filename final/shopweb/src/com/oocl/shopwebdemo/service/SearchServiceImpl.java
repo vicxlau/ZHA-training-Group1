@@ -92,11 +92,11 @@ public class SearchServiceImpl implements ISearchService {
 	}
 	
 	@Override
-	public SearchProductsResult getProductByCatIdAndVolumn(int cid, int pageNum){
+	public SearchProductsResult getProductByCatIdAndVolumn(String keyword, int pageNum){
 		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
-		int totalResultCount = productDao.getProductResultCountByCatIdAndVolumn(cid);
+		int totalResultCount = productDao.getProductResultCountByCatIdAndVolumn(keyword);
 		SearchProductsResult s = new SearchProductsResult();
-		s.setPageResults(productDao.getProductByCatIdAndVolumn(cid, pageSize, pageNum));
+		s.setPageResults(productDao.getProductByCatIdAndVolumn(keyword, pageSize, pageNum));
 		s.setPageNum(pageNum);
 		s.setPageSize(pageSize);
 		s.setPageCount((int)Math.ceil(1.0*totalResultCount/pageSize));
@@ -105,11 +105,11 @@ public class SearchServiceImpl implements ISearchService {
 	}
 	
 	@Override
-	public SearchProductsResult getProductByCatIdAndVisit(int cid, int pageNum){
+	public SearchProductsResult getProductByCatIdAndVisit(String keyword, int pageNum){
 		int pageSize = Integer.parseInt(ConfigReader.getSystemValue("pageSize"));
-		int totalResultCount = productDao.getProductResultCountByCatIdAndVisit(cid);
+		int totalResultCount = productDao.getProductResultCountByCatIdAndVisit(keyword);
 		SearchProductsResult s = new SearchProductsResult();
-		s.setPageResults(productDao.getProductByCatIdAndVisit(cid, pageSize, pageNum));
+		s.setPageResults(productDao.getProductByCatIdAndVisit(keyword, pageSize, pageNum));
 		s.setPageNum(pageNum);
 		s.setPageSize(pageSize);
 		s.setPageCount((int)Math.ceil(1.0*totalResultCount/pageSize));

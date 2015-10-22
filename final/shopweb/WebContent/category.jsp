@@ -12,83 +12,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 <script>
         
         $(document).ready(function() {
-        	var targetPageNum;
-        	var clickAction;
-        	var clickSortEvent = function(e){
-        		var catId=${requestScope.category.id};
-        		console.log("catId: "+catId+", pageNum: "+targetPageNum);
-        		$.ajax({
-					url : '/shopweb/retrievalServlet',
-
-                	data : {action:clickAction,catId:catId,pageNum:targetPageNum},
-                	type:"post",
-					dataType:"json",
-                	success : function(response) {
-                		var json = response.pageResults;
-                    	console.info(json);
-                    	$('div.product-model-sec').html("");
-                    	$('ul.pagination').html("");
-                    	$('<li><a href="${shop}/retrievalServlet?action=category&id='+catId+'&pageNum=1">&laquo;</a></li>').appendTo($("ul.pagination"));
-                    	for(var i = 1; i <= response.pageCount; i++) {
-                    		if (response.pageNum == i) {
-                    			$('<li class="active"><a href="${shop}/retrievalServlet?action=category&id='+catId+'&pageNum='+i+'">'+i+'</a></li>').appendTo($("ul.pagination"));
-    	                	} else {    	                		
-	                    		$('<li><a href="#" id="'+clickAction+'-'+i+'">'+i+'</a></li>').appendTo($("ul.pagination"));
-    	                	}
-                    	}
-                    	$('<li><a href="#" id="'+clickAction+'-'+response.pageCount+'">&raquo;</a></li>').appendTo($("ul.pagination"));
-                    	
-                    	for(var i = 0; i < json.length; i++) {
-                    	    var obj =json[i];
-                    	    var target = $("<div class='product-grid love-grid'></div>").appendTo($('div.product-model-sec'));
-                    		$(target).append("<a href='/shopweb/retrievalServlet?action=product&id="+obj.id+"'>"+					
-       							"<div class='product-img b-link-stripe b-animate-go  thickbox'>"+
-    								"<img src='${shop}/product_pic/"+obj.pic+"' class='img-responsive' alt='"+obj.name+"'/>"+
-    									"<div class='b-wrapper'>"+
-    										"<h4 class='b-animate b-from-left  b-delay03'>"+							
-    											"<button class='btns'><span class='glyphicon glyphicon-eye-open' aria-hidden='true'></span>Quick View</button>"+
-    										"</h4>"+
-    									"</div>"+
-    							"</div>"+
-                    		"</a>");
-                    		$(target).append("<div class='product-info simpleCart_shelfItem'>"+
-          						"<div class='product-info-cust prt_name'>"+
-       								"<h4>"+obj.name+"</h4>"+
-    		   						"<div><span class='item_price'>$ "+obj.price.toFixed(1)+"</span></div>"+
-    		   						"<span class='item_discount' style='color:red'> "+obj.discount+" % off</span>"+
-    		   						"<form action='${shop}/ItemServlet' method='post'>"+								
-    		   							"<input type='text' class='item_quantity' name='number' value='1' />"+
-    		   							"<input type='submit' class='item_add items' value='ADD'>"+
-    		   							"<input type='hidden' name='id' value='"+obj.id+"' />"+
-    		   						"</form>"+
-    		   					"</div>"+													
-    		   					"<div class='clearfix'> </div>"+
-    		   				"</div>");
-                    	}
-                	},
-                	error: function(e) {
-                		console.info(e);
-                	}
-    			});
-        	}
-        	$(document).on("click", "input[name=sort_type]", function(e){
-        		var status = $(e.target).val();
-        		console.log(status);
-        		if (status == "volumn") {
-        			clickAction = "categoryByVolumn";
-				} else if (status == "viewTime") {
-					clickAction = "categoryByVisit"
-        		}
-        		targetPageNum = "1";
-        		clickSortEvent(e);
-        	});
-        	$(document).on("click", "ul.pagination li a", function(e){
-        		clickAction = e.target.id.split("-")[0];
-        		targetPageNum = e.target.id.split("-")[1];
-        		clickAction = (clickAction == "categoryByVolumn" || clickAction == "categoryByVisit") ? clickAction : "categoryByVolumn";
-        		console.info("targetPageNum: "+targetPageNum);
-        	    clickSortEvent(e);
-        	});
+        	
         	$("input[name=dscheckbox]").on("click",document,function(e){
         		console.log(e.target.id);
         		var checkedId = [] ;
@@ -116,6 +40,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 	var target = $('div.product-model-sec#priceRangeResult');
                 	$('div.product-model-sec').html("");
                 	$('ul.pagination').html("");
+                	
                 	//var resultList =  json[0];
                 	for(var i = 0; i < json.length; i++) {
                 	    var obj =json[i];

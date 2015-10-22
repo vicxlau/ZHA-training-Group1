@@ -365,11 +365,12 @@ public class RetrievalController extends HttpServlet {
 			
 	}
 	public void categoryByVolumn (HttpServletRequest request, HttpServletResponse response){
-		int cat_id = Integer.parseInt(request.getParameter("catId"));
+		//int cat_id = Integer.parseInt(request.getParameter("catId"));
+		String keyword = request.getParameter("keyword");
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		//SearchProductsResult resultReturn = new SearchProductsResult();
 		//resultReturn.setPageResults(null);
-		SearchProductsResult searchResult = searchService.getProductByCatIdAndVolumn(cat_id, pageNum);
+		SearchProductsResult searchResult = searchService.getProductByCatIdAndVolumn(keyword, pageNum);
 		//resultReturn.setPageResults(searchResult.getPageResults());
 		//resultReturn.setPageCount(searchResult.getPageCount());
 		try {
@@ -383,11 +384,12 @@ public class RetrievalController extends HttpServlet {
 		}
 	}
 	public void categoryByVisit (HttpServletRequest request, HttpServletResponse response){
-		int cat_id = Integer.parseInt(request.getParameter("catId"));
+		//int cat_id = Integer.parseInt(request.getParameter("catId"));
+		String keyword = request.getParameter("keyword");
 		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		//SearchProductsResult resultReturn = new SearchProductsResult();
 		//resultReturn.setPageResults(null);
-		SearchProductsResult searchResult = searchService.getProductByCatIdAndVisit(cat_id, pageNum);
+		SearchProductsResult searchResult = searchService.getProductByCatIdAndVisit(keyword, pageNum);
 		//resultReturn.setPageResults(searchResult.getPageResults());
 		//resultReturn.setPageCount(searchResult.getPageCount());
 		try {
